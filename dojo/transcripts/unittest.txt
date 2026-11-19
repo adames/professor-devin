@@ -17,6 +17,7 @@ test_configure_output_replaces_undecodable_characters (test_dojo.PresentationTes
 test_footer_wraps_between_hints_only (test_dojo.PresentationTests.test_footer_wraps_between_hints_only) ... ok
 test_no_color_full_session_has_plain_danger_labels (test_dojo.PresentationTests.test_no_color_full_session_has_plain_danger_labels) ... ok
 test_say_keeps_styles_across_wrapped_lines (test_dojo.PresentationTests.test_say_keeps_styles_across_wrapped_lines) ... ok
+test_say_never_splits_long_words (test_dojo.PresentationTests.test_say_never_splits_long_words) ... ok
 test_say_wraps_to_width_with_hanging_indent (test_dojo.PresentationTests.test_say_wraps_to_width_with_hanging_indent) ... ok
 test_source_has_no_non_accent_foreground_sgr_literals (test_dojo.PresentationTests.test_source_has_no_non_accent_foreground_sgr_literals) ... ok
 test_visible_length_counts_cells (test_dojo.PresentationTests.test_visible_length_counts_cells) ... ok
@@ -69,6 +70,7 @@ test_new_cards_follow_tier_order_and_category_round_robin (test_professor.Profes
 test_no_subcommand_defaults_to_ten_round_train (test_professor.ProfessorEngineTests.test_no_subcommand_defaults_to_ten_round_train) ... ok
 test_recognition_distractors_are_unique_write_cards_with_same_category_priority (test_professor.ProfessorEngineTests.test_recognition_distractors_are_unique_write_cards_with_same_category_priority) ... ok
 test_recognize_choices_wrap_inside_rules (test_professor.ProfessorEngineTests.test_recognize_choices_wrap_inside_rules) ... ok
+test_round_header_falls_back_to_two_lines_when_narrow (test_professor.ProfessorEngineTests.test_round_header_falls_back_to_two_lines_when_narrow) ... ok
 test_round_header_right_aligns_to_layout_width (test_professor.ProfessorEngineTests.test_round_header_right_aligns_to_layout_width) ... ok
 test_screens_fit_narrow_terminal (test_professor.ProfessorEngineTests.test_screens_fit_narrow_terminal) ... ok
 test_state_home_precedence_and_symlink_from_other_directory (test_professor.ProfessorEngineTests.test_state_home_precedence_and_symlink_from_other_directory) ... ok
@@ -78,9 +80,10 @@ test_terminal_width_applies_legacy_console_margin (test_professor.ProfessorEngin
 test_terminal_width_tracks_terminal_within_bounds (test_professor.ProfessorEngineTests.test_terminal_width_tracks_terminal_within_bounds) ... ok
 test_titles_follow_the_otter_ladder (test_professor.ProfessorEngineTests.test_titles_follow_the_otter_ladder) ... ok
 test_train_category_filter_and_categories_table (test_professor.ProfessorEngineTests.test_train_category_filter_and_categories_table) ... ok
+test_training_session_output_fits_width (test_professor.ProfessorEngineTests.test_training_session_output_fits_width) ... ok
 test_unknown_category_lists_valid_categories (test_professor.ProfessorEngineTests.test_unknown_category_lists_valid_categories) ... ok
 
 ----------------------------------------------------------------------
-Ran 81 tests in 1.306s
+Ran 84 tests in 1.191s
 
 OK

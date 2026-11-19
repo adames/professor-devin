@@ -20,19 +20,25 @@ COVERAGE_EXEMPT = ()
 
 _columns_patch = None
 _margin_patch = None
+_cli_version_patch = None
 
 
 def setUpModule():
-    global _columns_patch, _margin_patch
+    global _columns_patch, _margin_patch, _cli_version_patch
     _columns_patch = patch.dict(os.environ, {"COLUMNS": "100"})
     _columns_patch.start()
     _margin_patch = patch.object(dojo, "LEGACY_CONSOLE_MARGIN", 0)
     _margin_patch.start()
+    _cli_version_patch = patch.object(
+        dojo, "installed_cli_version", return_value="3000.11.92"
+    )
+    _cli_version_patch.start()
 
 
 def tearDownModule():
     _columns_patch.stop()
     _margin_patch.stop()
+    _cli_version_patch.stop()
 
 
 class DevinCommandParserTests(unittest.TestCase):
@@ -603,6 +609,25 @@ class ProfessorEngineTests(unittest.TestCase):
                 dojo.SGR_PATTERN.sub("", lines[-1]).endswith(right), lines[-1]
             )
 
+    def test_round_header_falls_back_to_two_lines_when_narrow(self):
+        card = next(card for card in self.content["commands"] if card["kind"] == "write")
+        output = io.StringIO()
+        with patch(
+            "dojo.shutil.get_terminal_size",
+            return_value=os.terminal_size((36, 24)),
+        ):
+            with redirect_stdout(output):
+                self.game.training_header(card, "recall", 1, 10)
+                right = "l1 otter pup %s 0 xp %s x1.00" % (
+                    dojo.glyph("separator"),
+                    dojo.glyph("separator"),
+                )
+        lines = [line for line in output.getvalue().splitlines() if line]
+        self.assertEqual(len(lines), 2)
+        self.assertLess(dojo.visible_length(lines[0]), 36)
+        self.assertEqual(dojo.visible_length(lines[1]), 36)
+        self.assertEqual(dojo.SGR_PATTERN.sub("", lines[1]).strip(), right)
+
     def test_screens_fit_narrow_terminal(self):
         longest_scenario = max(self.content["combo"], key=lambda item: len(item["ticket"]))
         longest_flash = max(self.content["flash"], key=lambda item: len(item["q"]))
@@ -665,10 +690,11 @@ class ProfessorEngineTests(unittest.TestCase):
         ))
 
     def test_recognize_choices_wrap_inside_rules(self):
-        card = next(
-            card for card in self.content["commands"]
-            if card["id"] == "shell-type-a-devin"
+        card = max(
+            (c for c in self.content["commands"] if c["kind"] == "write"),
+            key=lambda c: len(c["task"]),
         )
+        self.assertGreater(len(card["task"]), 60)
         output = io.StringIO()
         with patch(
             "dojo.shutil.get_terminal_size",
@@ -683,6 +709,46 @@ class ProfessorEngineTests(unittest.TestCase):
             line.startswith("    ") and not line[4:5].isspace()
             for line in lines
         ), lines)
+
+    def test_training_session_output_fits_width(self):
+        for profile in ("beginner", "veteran"):
+            with tempfile.TemporaryDirectory() as directory:
+                content = dict(
+                    self.content,
+                    commands=[
+                        c for c in self.content["commands"] if c["kind"] == "write"
+                    ],
+                    combo=[],
+                )
+                game = dojo.Dojo(Path(directory), content)
+                game.state["profile"] = profile
+                output = io.StringIO()
+                with patch(
+                    "dojo.shutil.get_terminal_size",
+                    return_value=os.terminal_size((60, 24)),
+                ):
+                    with patch("builtins.input", return_value="skip"):
+                        with redirect_stdout(output):
+                            game.train([], rounds=8, tier=3, seed=1)
+                lines = [
+                    dojo.SGR_PATTERN.sub("", line)
+                    for line in output.getvalue().splitlines()
+                ]
+                rounds = [line for line in lines if line.startswith("round ")]
+                self.assertGreaterEqual(len(rounds), 8, profile)
+                for line in output.getvalue().splitlines():
+                    self.assertLessEqual(
+                        dojo.visible_length(line), 60, "%s: %r" % (profile, line)
+                    )
+                tips = [line for line in lines if line.startswith("tip  ")]
+                if profile == "beginner":
+                    self.assertTrue(tips, profile)
+                else:
+                    self.assertFalse(tips, profile)
+                    self.assertTrue(any(
+                        line.startswith("round ") and " recall" in line
+                        for line in lines
+                    ))
 
     def test_terminal_width_applies_legacy_console_margin(self):
         with patch.object(dojo, "LEGACY_CONSOLE_MARGIN", 1):

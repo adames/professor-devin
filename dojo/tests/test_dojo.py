@@ -20,19 +20,25 @@ ROOT = Path(__file__).resolve().parents[1]
 
 _columns_patch = None
 _margin_patch = None
+_cli_version_patch = None
 
 
 def setUpModule():
-    global _columns_patch, _margin_patch
+    global _columns_patch, _margin_patch, _cli_version_patch
     _columns_patch = patch.dict(os.environ, {"COLUMNS": "100"})
     _columns_patch.start()
     _margin_patch = patch.object(dojo, "LEGACY_CONSOLE_MARGIN", 0)
     _margin_patch.start()
+    _cli_version_patch = patch.object(
+        dojo, "installed_cli_version", return_value="3000.11.92"
+    )
+    _cli_version_patch.start()
 
 
 def tearDownModule():
     _columns_patch.stop()
     _margin_patch.stop()
+    _cli_version_patch.stop()
 
 
 class TerminalCapture(io.StringIO):
@@ -738,6 +744,21 @@ class PresentationTests(unittest.TestCase):
         self.assertEqual(dojo.visible_length("e\u0301"), 1)
         with patch.object(dojo, "use_color", return_value=True):
             self.assertEqual(dojo.visible_length(dojo.muted("x")), 1)
+
+    def test_say_never_splits_long_words(self):
+        output = TerminalCapture()
+        with patch.object(dojo, "use_color", return_value=False):
+            with patch("dojo.terminal_width", return_value=30):
+                with redirect_stdout(output):
+                    dojo.say("x %s y" % ("a" * 50), hang=0)
+        lines = output.getvalue().splitlines()
+        self.assertEqual(lines, ["x", "a" * 50, "y"])
+
+        output = TerminalCapture()
+        with patch.object(dojo, "use_color", return_value=False):
+            with redirect_stdout(output):
+                dojo.say("")
+        self.assertEqual(output.getvalue(), "\n")
 
     def test_source_has_no_non_accent_foreground_sgr_literals(self):
         source = Path(dojo.__file__).read_text(encoding="utf-8")
