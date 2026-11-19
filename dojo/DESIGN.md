@@ -28,7 +28,16 @@ ASCII fallback when `sys.stdout.encoding` is not UTF-8: `❭`->`>`, `✱`->`*`, 
 `━`->`=`, `─`->`-`.
 
 ## Layout
-Width `W = min(shutil.get_terminal_size((72, 24)).columns, 72)`.
+Width `W = clamp(shutil.get_terminal_size((72, 24)).columns, 20, 120)`: the layout follows the live terminal
+width up to 120 columns (readability cap) and down to 20; 72 is only the fallback when the size is unknown
+(piped output).
+
+Wrapping: all prose (questions, choices, answers, explains, hints, tips, footers, ticket text, menu rows,
+banner lines, summary items) is word-wrapped to W by `say()` with a hanging indent under the content column
+(marker lines indent 2, numbered choices 4, labelled lines the label width, help-screen key rows wrap
+under their description column via `say_help`); styles are closed and reopened
+across the break; words are never split. Rules, KVList/DataTable rows, simulated/recorded shell output,
+fix-card error blocks and CLI help are never re-wrapped.
 
 Session header (once, at start of `train` and `play`):
 ```

@@ -18,6 +18,18 @@ import dojo
 ROOT = Path(__file__).resolve().parents[1]
 COVERAGE_EXEMPT = ()
 
+_columns_patch = None
+
+
+def setUpModule():
+    global _columns_patch
+    _columns_patch = patch.dict(os.environ, {"COLUMNS": "100"})
+    _columns_patch.start()
+
+
+def tearDownModule():
+    _columns_patch.stop()
+
 
 class DevinCommandParserTests(unittest.TestCase):
     @classmethod
@@ -551,9 +563,122 @@ class ProfessorEngineTests(unittest.TestCase):
         self.assertEqual(summary.count(card["task"]), 1)
         self.assertNotIn(card["explain"], summary)
 
-    def test_narrow_terminal_width_falls_back_to_seventy_two(self):
-        with patch("dojo.shutil.get_terminal_size", return_value=os.terminal_size((39, 24))):
-            self.assertEqual(dojo.terminal_width(), 72)
+    def test_terminal_width_tracks_terminal_within_bounds(self):
+        for columns, expected in (
+            (39, 39),
+            (90, 90),
+            (200, dojo.LAYOUT_MAX_WIDTH),
+            (10, dojo.LAYOUT_MIN_WIDTH),
+        ):
+            with patch(
+                "dojo.shutil.get_terminal_size",
+                return_value=os.terminal_size((columns, 24)),
+            ):
+                self.assertEqual(dojo.terminal_width(), expected)
+
+    def test_round_header_right_aligns_to_layout_width(self):
+        card = next(card for card in self.content["commands"] if card["kind"] == "write")
+        for columns in (100, 60):
+            output = io.StringIO()
+            with patch(
+                "dojo.shutil.get_terminal_size",
+                return_value=os.terminal_size((columns, 24)),
+            ):
+                with redirect_stdout(output):
+                    self.game.training_header(card, "recall", 1, 10)
+                    right = "l1 otter pup %s 0 xp %s x1.00" % (
+                        dojo.glyph("separator"),
+                        dojo.glyph("separator"),
+                    )
+            lines = [line for line in output.getvalue().splitlines() if line]
+            self.assertTrue(lines)
+            for line in lines:
+                self.assertLessEqual(dojo.visible_length(line), columns)
+            self.assertEqual(dojo.visible_length(lines[-1]), columns)
+            self.assertTrue(
+                dojo.SGR_PATTERN.sub("", lines[-1]).endswith(right), lines[-1]
+            )
+
+    def test_screens_fit_narrow_terminal(self):
+        longest_scenario = max(self.content["combo"], key=lambda item: len(item["ticket"]))
+        longest_flash = max(self.content["flash"], key=lambda item: len(item["q"]))
+        self.game.rng.seed(1)
+        for label, render in (
+            ("home menu", lambda: dojo.print_home_menu(dojo.default_state())),
+            ("how to play", dojo.print_how_to_play),
+            ("combo intro", lambda: self.game.show_combo_intro(longest_scenario)),
+            ("flash prompt", lambda: self.game.show_flash_prompt(longest_flash)),
+        ):
+            output = io.StringIO()
+            with patch(
+                "dojo.shutil.get_terminal_size",
+                return_value=os.terminal_size((50, 24)),
+            ):
+                with patch.object(dojo, "installed_cli_version", return_value="3000.11.92"):
+                    with redirect_stdout(output):
+                        render()
+            for line in output.getvalue().splitlines():
+                self.assertLessEqual(dojo.visible_length(line), 50, "%s: %r" % (label, line))
+
+    def test_help_screen_rows_wrap_under_description_column(self):
+        output = io.StringIO()
+        with patch(
+            "dojo.shutil.get_terminal_size",
+            return_value=os.terminal_size((40, 24)),
+        ):
+            with redirect_stdout(output):
+                dojo.print_how_to_play()
+        lines = output.getvalue().splitlines()
+        for line in lines:
+            self.assertLessEqual(dojo.visible_length(line), 40, line)
+        recognize = next(
+            index for index, line in enumerate(lines) if line.startswith("  recognize")
+        )
+        continuation = lines[recognize + 1]
+        self.assertTrue(continuation.startswith(" " * 14), continuation)
+        self.assertFalse(continuation[14:15].isspace())
+        for command in (
+            "professor-devin train [topic]",
+            "professor-devin play --mode flash",
+            "professor-devin play --mode combo",
+            "professor-devin stats",
+        ):
+            self.assertTrue(
+                any(line == "  " + command for line in lines),
+                command,
+            )
+
+        output = io.StringIO()
+        with patch(
+            "dojo.shutil.get_terminal_size",
+            return_value=os.terminal_size((100, 24)),
+        ):
+            with redirect_stdout(output):
+                dojo.print_how_to_play()
+        self.assertTrue(any(
+            "nothing you type there runs for real" in line
+            for line in output.getvalue().splitlines()
+        ))
+
+    def test_recognize_choices_wrap_inside_rules(self):
+        card = next(
+            card for card in self.content["commands"]
+            if card["id"] == "shell-type-a-devin"
+        )
+        output = io.StringIO()
+        with patch(
+            "dojo.shutil.get_terminal_size",
+            return_value=os.terminal_size((60, 24)),
+        ):
+            with redirect_stdout(output):
+                self.game.show_command_prompt(card, self.content["commands"], "recognize")
+        lines = output.getvalue().splitlines()
+        for line in lines:
+            self.assertLessEqual(dojo.visible_length(line), 60, line)
+        self.assertTrue(any(
+            line.startswith("    ") and not line[4:5].isspace()
+            for line in lines
+        ), lines)
 
     def test_new_cards_follow_tier_order_and_category_round_robin(self):
         cards = [

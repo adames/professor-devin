@@ -18,6 +18,18 @@ import dojo
 
 ROOT = Path(__file__).resolve().parents[1]
 
+_columns_patch = None
+
+
+def setUpModule():
+    global _columns_patch
+    _columns_patch = patch.dict(os.environ, {"COLUMNS": "100"})
+    _columns_patch.start()
+
+
+def tearDownModule():
+    _columns_patch.stop()
+
 
 class TerminalCapture(io.StringIO):
     def __init__(self, encoding="utf-8", tty=False):
@@ -617,6 +629,45 @@ class PresentationTests(unittest.TestCase):
         text = output.getvalue()
         for character in "❭✱●○·✕━─":
             self.assertNotIn(character, text)
+
+    def test_say_wraps_to_width_with_hanging_indent(self):
+        output = TerminalCapture()
+        text = "%s %s" % (
+            dojo.glyph("question"),
+            " ".join("word%d" % i for i in range(12)),
+        )
+        with patch.object(dojo, "use_color", return_value=False):
+            with patch("dojo.terminal_width", return_value=30):
+                with redirect_stdout(output):
+                    dojo.say(text, hang=2)
+        lines = output.getvalue().splitlines()
+        self.assertGreater(len(lines), 1)
+        for line in lines:
+            self.assertLessEqual(dojo.visible_length(line), 30)
+        for line in lines[1:]:
+            self.assertTrue(line.startswith("  word"), line)
+            self.assertNotEqual(line[2], " ")
+        self.assertEqual(" ".join(line.strip() for line in lines), text)
+
+        output = TerminalCapture()
+        with patch.object(dojo, "use_color", return_value=False):
+            with patch("dojo.terminal_width", return_value=30):
+                with redirect_stdout(output):
+                    dojo.say("alpha  beta")
+        self.assertEqual(output.getvalue(), "alpha  beta\n")
+
+    def test_say_keeps_styles_across_wrapped_lines(self):
+        output = TerminalCapture()
+        with patch.object(dojo, "use_color", return_value=True):
+            with patch("dojo.terminal_width", return_value=12):
+                with redirect_stdout(output):
+                    dojo.say(dojo.muted("alpha beta gamma delta"))
+        lines = output.getvalue().splitlines()
+        self.assertGreaterEqual(len(lines), 2)
+        for line in lines:
+            self.assertTrue(line.startswith("\033[2m"), line)
+            self.assertTrue(line.endswith("\033[0m"), line)
+            self.assertLessEqual(dojo.visible_length(line), 12)
 
     def test_source_has_no_non_accent_foreground_sgr_literals(self):
         source = Path(dojo.__file__).read_text(encoding="utf-8")

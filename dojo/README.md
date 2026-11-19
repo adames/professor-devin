@@ -146,6 +146,8 @@ State lives in `$PROFESSOR_HOME/state.json` — `PROFESSOR_HOME` first, then
   pipe with `FORCE_COLOR=1`.
 - Glyphs look wrong — the game needs a UTF-8 terminal; it falls back to
   ASCII automatically when the encoding isn't UTF-8.
+- Layout wider or narrower than expected — the game follows the terminal
+  width up to 120 columns; set `COLUMNS=<n>` to override it.
 - `devin not installed` in the banner — the game still works; only live
   drills need the CLI.
 

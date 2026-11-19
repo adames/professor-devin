@@ -152,9 +152,13 @@ def accent_code():
     return "38;5;208"
 
 
+LAYOUT_MIN_WIDTH = 20
+LAYOUT_MAX_WIDTH = 120
+
+
 def terminal_width():
     columns = shutil.get_terminal_size((72, 24)).columns
-    return 72 if columns < 40 else min(columns, 72)
+    return max(LAYOUT_MIN_WIDTH, min(columns, LAYOUT_MAX_WIDTH))
 
 
 def rule(is_strong=False):
@@ -162,6 +166,60 @@ def rule(is_strong=False):
     if is_strong:
         return strong(glyph("strong_rule") * width)
     return muted(glyph("hairline") * width)
+
+
+SGR_PATTERN = re.compile(r"\033\[[0-9;]*m")
+
+
+def visible_length(text):
+    return len(SGR_PATTERN.sub("", text))
+
+
+def wrap_line(line, width, hang):
+    """Word-wrap one physical line to `width` columns.
+
+    SGR codes travel with the word they are attached to and count as zero width.
+    Words are never broken. Continuation lines are indented by `hang` spaces; styles
+    still open at a break are closed with a reset and reopened on the next line so
+    every printed line is self-contained."""
+    lines = []
+    current = ""
+    current_length = 0
+    pending_space = ""
+    active = []
+    for token in re.split(r"( +)", line):
+        if not token:
+            continue
+        if token.isspace():
+            pending_space = token
+            continue
+        token_length = visible_length(token)
+        if current and current_length + len(pending_space) + token_length > width:
+            lines.append(current + ("\033[0m" if active else ""))
+            current = " " * hang + "".join(active) + token
+            current_length = hang + token_length
+        else:
+            current += pending_space + token
+            current_length += len(pending_space) + token_length
+        pending_space = ""
+        for code in SGR_PATTERN.findall(token):
+            if code in ("\033[0m", "\033[m"):
+                active = []
+            else:
+                active.append(code)
+    lines.append(current)
+    return lines
+
+
+def say(text, hang=None):
+    """Print text wrapped to the layout width. Each newline-separated line is wrapped
+    on its own; when `hang` is None a line's continuation indent is its own leading
+    indentation."""
+    width = terminal_width()
+    for line in str(text).split("\n"):
+        indent = len(line) - len(line.lstrip(" ")) if hang is None else hang
+        for wrapped in wrap_line(line, width, indent):
+            print(wrapped)
 
 
 def dots(found, total):
@@ -189,11 +247,11 @@ def input_prompt(label=None, is_content=False):
 
 
 def question(text):
-    print("%s %s" % (glyph("question"), text))
+    say("%s %s" % (glyph("question"), text), hang=2)
 
 
 def footer(*hints):
-    print(muted(chrome((" %s " % glyph("separator")).join(str(hint) for hint in hints))))
+    say(muted(chrome((" %s " % glyph("separator")).join(str(hint) for hint in hints))))
 
 
 def box_open():
@@ -217,15 +275,15 @@ def read_input(prompt):
 
 
 def print_answer_reveal(answer, explain=None, confidence=None):
-    print("%s  %s" % (chrome("Answer"), answer))
+    say("%s  %s" % (chrome("Answer"), answer), hang=8)
     if explain and explain != answer:
-        print(explain)
+        say(explain)
     print_confidence(confidence)
 
 
 def print_confidence(confidence):
     if confidence:
-        print(muted("%s  %s" % (chrome("Confidence"), confidence)))
+        say(muted("%s  %s" % (chrome("Confidence"), confidence)), hang=12)
 
 
 def load_json_items(path):
@@ -1409,7 +1467,7 @@ class Dojo:
     def print_level_up(self):
         level = level_for_xp(self.state.get("xp", 0))
         if level > self.round_level:
-            print(strong("%s %s" % (
+            say(strong("%s %s" % (
                 glyph("found"),
                 chrome("Level up %s L%d %s" % (glyph("separator"), level, title_for_level(level))),
             )))
@@ -1510,10 +1568,10 @@ class Dojo:
         print()
 
     def print_session_header(self, description):
-        print(strong(chrome("Professor Devin %s %s" % (glyph("separator"), description))))
+        say(strong(chrome("Professor Devin %s %s" % (glyph("separator"), description))))
         print(rule(is_strong=True))
         if self.session_hint:
-            print(muted(chrome("Next time: %s" % self.session_hint)))
+            say(muted(chrome("Next time: %s" % self.session_hint)))
 
     def training_header(self, item, form, round_number, total_rounds):
         level = level_for_xp(self.state.get("xp", 0))
@@ -1675,37 +1733,37 @@ class Dojo:
                     )
             feedback = command_answer_feedback(feedback_input, card)
             if feedback:
-                print(muted(feedback))
+                say(muted(feedback))
         print(danger(chrome("Missed")))
         if form == "recognize":
-            print("%s  %s" % (chrome("Answer"), card["task"]))
-            print("%s  %s" % (chrome("Command"), card["answers"][0]))
+            say("%s  %s" % (chrome("Answer"), card["task"]), hang=8)
+            say("%s  %s" % (chrome("Command"), card["answers"][0]), hang=9)
         else:
             for canonical in card["answers"]:
-                print("%s  %s" % (chrome("Answer"), canonical))
+                say("%s  %s" % (chrome("Answer"), canonical), hang=8)
         for line in command_help_lines(card):
-            print(muted(line))
+            say(muted(line))
         revealed = card["answers"] + ([card["task"]] if form == "recognize" else [])
         if card.get("explain") and card["explain"] not in revealed:
-            print(card["explain"])
+            say(card["explain"])
         print_confidence(card.get("confidence"))
 
     def show_command_prompt(self, card, cards, form):
         if form == "fix":
             question("Fix this command")
-            print("  %s  %s" % (muted(chrome("Broken")), card["broken"]))
+            say("  %s  %s" % (muted(chrome("Broken")), card["broken"]), hang=10)
             print("  %s  %s" % (muted(chrome("Error")), card["error"]))
         elif form == "recognize":
             question("What does this command do?")
-            print("  %s" % card["answers"][0])
+            say("  %s" % card["answers"][0], hang=2)
             print()
             choices = self.recognition_choices(card, cards)
             for index, choice in enumerate(choices):
-                print("  %s %s" % (muted(str(index + 1)), choice))
+                say("  %s %s" % (muted(str(index + 1)), choice), hang=4)
             return choices
         elif form == "fill in":
             question(card["task"])
-            print("  %s" % card["answers"][0].replace(command_blank(card), "___", 1))
+            say("  %s" % card["answers"][0].replace(command_blank(card), "___", 1), hang=2)
         else:
             question(card["task"])
         return None
@@ -1725,7 +1783,7 @@ class Dojo:
         tips = self.state.setdefault("tips_seen", {})
         if tips.get(key, 0) >= 2:
             return
-        print("%s  %s" % (muted(chrome("Tip")), self.COACH_TIPS[key]))
+        say("%s  %s" % (muted(chrome("Tip")), self.COACH_TIPS[key]), hang=5)
         tips[key] = tips.get(key, 0) + 1
 
     COMMAND_FOOTERS = {
@@ -1742,10 +1800,10 @@ class Dojo:
             return "quit", None, hint_used
         if value == "?":
             if not hint_used:
-                print("%s  %s" % (muted(chrome("Hint")), self.command_hint(card)))
+                say("%s  %s" % (muted(chrome("Hint")), self.command_hint(card)), hang=6)
                 hint_used = True
             else:
-                print(muted(chrome("Hint already used")))
+                say(muted(chrome("Hint already used")))
             return "hint", False, hint_used
         if value.lower() == "skip":
             return "skip", False, hint_used
@@ -1986,7 +2044,7 @@ class Dojo:
             if result.returncode:
                 print(danger(chrome("Setup command failed")))
         started = time.monotonic()
-        print(drill["prompt"])
+        say(drill["prompt"])
         return started
 
     def check_drill_answer(self, drill, answer, arena):
@@ -2011,8 +2069,8 @@ class Dojo:
             return
         print(danger(chrome("Drill failed")))
         expected_value = expected if drill["kind"] == "answer" else drill["explain"]
-        print("%s  %s" % (chrome("Expected"), expected_value))
-        print(drill["explain"])
+        say("%s  %s" % (chrome("Expected"), expected_value), hang=10)
+        say(drill["explain"])
         self.record_round(drill, False)
 
     def handle_drill_answer(self, drill, arena, answer, started):
@@ -2027,7 +2085,7 @@ class Dojo:
             return "quit", False
         if value.lower() == "give up":
             print("%s %s" % (glyph("quit"), danger(chrome("Drill failed"))))
-            print(drill["explain"])
+            say(drill["explain"])
             self.record_round(drill, False)
             return "done", False
         if drill["kind"] == "check" and value:
@@ -2082,7 +2140,7 @@ class Dojo:
         if displayed_choices:
             print()
             for index, choice in enumerate(displayed_choices):
-                print("  %s %s" % (muted(str(index + 1)), choice))
+                say("  %s %s" % (muted(str(index + 1)), choice), hang=4)
         return displayed_choices
 
     def reveal_flash_answer(self, item):
@@ -2104,10 +2162,10 @@ class Dojo:
             stripped = response.strip()
             if stripped == "?":
                 if not hint_used:
-                    print("%s  %s" % (muted(chrome("Hint")), item["hint"]))
+                    say("%s  %s" % (muted(chrome("Hint")), item["hint"]), hang=6)
                     hint_used = True
                 else:
-                    print(muted(chrome("Hint already used")))
+                    say(muted(chrome("Hint already used")))
                 continue
             break
         box_close()
@@ -2205,7 +2263,7 @@ class Dojo:
     def ask_scenario_question(self, scenario_question):
         choices = scenario_question["choices"]
         for index, choice in enumerate(choices):
-            print("  %s %s" % (muted(str(index + 1)), choice))
+            say("  %s %s" % (muted(str(index + 1)), choice), hang=4)
         print()
         footer("1-4 to choose or type the answer")
         box_open()
@@ -2225,7 +2283,7 @@ class Dojo:
             scenario["title"],
         ))
         print(rule(is_strong=True))
-        print(scenario["ticket"])
+        say(scenario["ticket"])
         print()
         footer(
             "investigate with shell commands",
@@ -2264,20 +2322,20 @@ class Dojo:
             state["turns_used"],
             scenario["turns"],
         )
-        print(muted(chrome(status)))
+        say(muted(chrome(status)))
 
     def run_combo_turns(self, scenario, state):
         while state["turns_used"] < scenario["turns"]:
             command = read_input(input_prompt(scenario["prompt"], is_content=True))
             lowered = command.strip().lower()
             if lowered == "ticket":
-                print(scenario["ticket"])
+                say(scenario["ticket"])
                 continue
             if lowered == "hint":
-                print("%s  %s" % (
+                say("%s  %s" % (
                     muted(chrome("Next optimal command")),
                     self.next_hint(scenario, state),
-                ))
+                ), hang=22)
                 self.award(-10)
                 continue
             if lowered == "solve":
@@ -2319,19 +2377,19 @@ class Dojo:
         return root_correct, fix_correct
 
     def show_combo_reveal(self, scenario, state):
-        print("%s  %s" % (
+        say("%s  %s" % (
             muted(chrome("Correct root cause")),
             scenario["root_cause"]["choices"][scenario["root_cause"]["answer"]],
-        ))
-        print("%s  %s" % (
+        ), hang=20)
+        say("%s  %s" % (
             muted(chrome("Correct fix")),
             scenario["fix"]["choices"][scenario["fix"]["answer"]],
-        ))
-        print("%s  %s" % (
+        ), hang=13)
+        say("%s  %s" % (
             muted(chrome("Optimal chain")),
             " -> ".join(scenario["optimal"]),
-        ))
-        print(scenario["explain"])
+        ), hang=15)
+        say(scenario["explain"])
         print_confidence(scenario.get("confidence"))
         evidence_total = sum(bool(entry.get("evidence")) for entry in scenario["commands"])
         print(muted(chrome("Evidence %s" % dots(len(state["evidence_ids"]), evidence_total))))
@@ -2475,9 +2533,9 @@ class Dojo:
                 weak_topics = ", ".join(topic for topic, _ in weakest)
             else:
                 weak_topics = chrome("None")
-            print("%s  %s" % (muted(chrome("Weakest topics")), weak_topics))
+            say("%s  %s" % (muted(chrome("Weakest topics")), weak_topics), hang=16)
         else:
-            print("%s  %s" % (muted(chrome("Weakest topics")), chrome("None")))
+            say("%s  %s" % (muted(chrome("Weakest topics")), chrome("None")), hang=16)
 
     def print_missed_items(self):
         if not self.session_missed:
@@ -2497,9 +2555,9 @@ class Dojo:
                     item.get("q", item.get("prompt", item.get("ticket", item["id"]))),
                 )
                 answer = item.get("answers", [item.get("explain", "")])[0]
-            print("%s %s" % (glyph("empty"), question))
+            say("%s %s" % (glyph("empty"), question), hang=2)
             if item.get("kind") in ("write", "fix"):
-                print("  %s  %s" % (chrome("answer"), answer))
+                say("  %s  %s" % (chrome("answer"), answer), hang=10)
                 print_confidence(item.get("confidence"))
             else:
                 print_answer_reveal(answer, item.get("explain"), item.get("confidence"))
@@ -2516,7 +2574,7 @@ class Dojo:
         print(kv("Best combo", "x%d" % self.best_combo))
         if training and next_up:
             count, tier, category = next_up
-            print(muted(chrome(
+            say(muted(chrome(
                 "Next up: %d new tier-%d cards in %s" % (count, tier, category)
             )))
 
@@ -2695,12 +2753,12 @@ def list_items(content, state, item_type=None):
                 )
             else:
                 description = item["topic"]
-            print("%s  %s  %s %d" % (
+            say("%s  %s  %s %d" % (
                 item["id"],
                 description,
                 muted(chrome("Box")),
                 progress.get("box", 1),
-            ))
+            ), hang=len(item["id"]) + 2)
 
 
 def ask_reset():
@@ -2758,37 +2816,49 @@ MENU_OPTIONS = (
     ("How to play", "the rules on one screen"),
 )
 
-HOW_TO_PLAY = """Each round shows a job to do with the Devin CLI. Type the command you would
-run and press ↵. Command rounds and tickets are simulated: nothing you type
-there runs for real. Live drills do run real devin commands on this machine.
+HOW_TO_PLAY = (
+    "Each round shows a job to do with the Devin CLI. Type the command you would "
+    "run and press ↵. Command rounds and tickets are simulated: nothing you type "
+    "there runs for real. Live drills do run real devin commands on this machine.",
+    "",
+    "  recognize   see a command, pick what it does (1-4)",
+    "  fill in     type the missing piece of a command, or the whole command",
+    "  recall      write the whole command from the task",
+    "  fix         a broken command and its error; type the corrected command",
+    "",
+    "A card moves up a step each time you get it right and comes back later: "
+    "1 day, 3 days, 7 days, 21 days. A miss sends it back to the start.",
+    "",
+    "  ?      hint (halves the xp for that round)",
+    "  skip   show the answer and move on",
+    "  quit   stop and save (ctrl-c works too)",
+    "",
+    "XP builds a streak multiplier (up to x3) and levels: otter pup, rock picker, "
+    "shell cracker, brisk otter, sidekick, raft captain, dangerous otter, keystone "
+    "otter, laptop otter, then devin deity.",
+    "",
+    "The same things from the command line:",
+    "  professor-devin train [topic]",
+    "  professor-devin play --mode flash",
+    "  professor-devin play --mode combo",
+    "  professor-devin stats",
+    "Progress is saved in ~/.professor-devin",
+    "Switch profile any time: professor-devin setup",
+)
 
-  recognize   see a command, pick what it does (1-4)
-  fill in     type the missing piece of a command, or the whole command
-  recall      write the whole command from the task
-  fix         a broken command and its error; type the corrected command
 
-A card moves up a step each time you get it right and comes back later:
-1 day, 3 days, 7 days, 21 days. A miss sends it back to the start.
-
-  ?      hint (halves the xp for that round)
-  skip   show the answer and move on
-  quit   stop and save (ctrl-c works too)
-
-XP builds a streak multiplier (up to x3) and levels: otter pup, rock picker,
-shell cracker, brisk otter, sidekick, raft captain, dangerous otter, keystone
-otter, laptop otter, then devin deity.
-
-The same things from the command line:
-  professor-devin train [topic]        professor-devin play --mode flash
-  professor-devin play --mode combo    professor-devin stats
-Progress is saved in ~/.professor-devin
-Switch profile any time: professor-devin setup"""
+def say_help(lines):
+    """Help copy: paragraphs wrap flush left; indented `key   description` rows wrap
+    under the description column."""
+    for line in lines:
+        match = re.match(r"( +\S.*?  +)\S", line)
+        say(line, hang=len(match.group(1)) if match else None)
 
 
 def print_how_to_play():
     print(strong(chrome("How to play")))
     print(rule(is_strong=True))
-    print(HOW_TO_PLAY)
+    say_help(HOW_TO_PLAY)
 
 
 def menu_progress_line(state):
@@ -2816,7 +2886,7 @@ def menu_progress_line(state):
 def print_home_menu(state):
     print_banner(None)
     print()
-    print(muted(chrome(menu_progress_line(state))))
+    say(muted(chrome(menu_progress_line(state))))
     print()
     question("What do you want to practice?")
     print()
@@ -2829,12 +2899,12 @@ def print_home_menu(state):
         else:
             marker = " "
             title_text = padded
-        print("%s %s %s  %s" % (
+        say("%s %s %s  %s" % (
             marker,
             muted(str(index)),
             title_text,
             muted(chrome(description)),
-        ))
+        ), hang=4 + title_width + 2)
     print()
     footer("1-7 to choose", "↵ quick start", "q quit")
 
@@ -2858,11 +2928,11 @@ def choose_topic_menu(content, state):
     counts = category_mastered_counts(content, state)
     for index, category in enumerate(CATEGORIES, 1):
         total, mastered = counts[category]
-        print("  %s %-14s %s" % (
+        say("  %s %-14s %s" % (
             muted(str(index)),
             category,
             muted(chrome("%d cards %s %d mastered" % (total, glyph("separator"), mastered))),
-        ))
+        ), hang=19)
     print()
     footer("1-%d to choose" % len(CATEGORIES), "name also works", "↵ back")
     response = read_answer().strip().lower()
@@ -2881,14 +2951,17 @@ SETUP_OPTIONS = (
     ("Already using it", "every card asks for the full command from the start; no tips"),
 )
 
-HOW_IT_WORKS = """Each round shows a job to do with the Devin CLI. Type the command you would
-run and press ↵. Nothing you type in command rounds or tickets runs for real.
-Cards you miss come back sooner; cards you know wait longer.
-
-  ?      hint          skip   show the answer and move on
-  quit   stop and save (ctrl-c works too)
-
-Pick 1 on the next screen for a 10-round quick start."""
+HOW_IT_WORKS = (
+    "Each round shows a job to do with the Devin CLI. Type the command you would "
+    "run and press ↵. Nothing you type in command rounds or tickets runs for real. "
+    "Cards you miss come back sooner; cards you know wait longer.",
+    "",
+    "  ?      hint",
+    "  skip   show the answer and move on",
+    "  quit   stop and save (ctrl-c works too)",
+    "",
+    "Pick 1 on the next screen for a 10-round quick start.",
+)
 
 
 def print_banner(lead):
@@ -2897,17 +2970,18 @@ def print_banner(lead):
         "you have %s" % installed if installed else "devin not installed"
     )
     lead_line = "%s %s " % (lead, glyph("separator")) if lead else ""
+    hang = len(MENU_LOGO[0]) + 2
     print(MENU_LOGO[0])
-    print("%s  %s" % (MENU_LOGO[1], strong(chrome("Professor Devin"))))
-    print("%s  %s" % (MENU_LOGO[2], muted(chrome("Learn the Devin CLI by typing it"))))
-    print("%s  %s" % (MENU_LOGO[3], muted(chrome(
+    say("%s  %s" % (MENU_LOGO[1], strong(chrome("Professor Devin"))), hang=hang)
+    say("%s  %s" % (MENU_LOGO[2], muted(chrome("Learn the Devin CLI by typing it"))), hang=hang)
+    say("%s  %s" % (MENU_LOGO[3], muted(chrome(
         "%scards written for Devin CLI %s %s %s" % (
             lead_line,
             content_cli_version(),
             glyph("separator"),
             version_note,
         )
-    ))))
+    ))), hang=hang)
 
 
 def setup_wizard(home, state, first_run):
@@ -2924,12 +2998,12 @@ def setup_wizard(home, state, first_run):
         else:
             marker = " "
             title_text = padded
-        print("%s %s %s  %s" % (
+        say("%s %s %s  %s" % (
             marker,
             muted(str(index)),
             title_text,
             muted(chrome(description)),
-        ))
+        ), hang=4 + title_width + 2)
     print()
     footer(
         "1-2 to choose",
@@ -2960,7 +3034,7 @@ def setup_wizard(home, state, first_run):
     print()
     print(strong(chrome("How it works")))
     print(rule(is_strong=True))
-    print(HOW_IT_WORKS)
+    say_help(HOW_IT_WORKS)
     print()
     footer("↵ continue")
     try:

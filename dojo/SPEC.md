@@ -92,7 +92,8 @@ Colors use ANSI only when stdout is a terminal and `NO_COLOR` is unset, or
 always when `FORCE_COLOR` is set to a value other than `0`. Each round opens
 with a counter header (`round 03/10 · launch · recall`), asks its question
 with a `✱` marker, and takes the answer on a `❭ ` line between hairlines.
-Styling: see `DESIGN.md`.
+The layout follows the terminal width (20–120 columns, 72 when piped) and
+prose wraps inside it. Styling: see `DESIGN.md`.
 
 ## Session plan and item selection
 
