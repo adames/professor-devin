@@ -87,7 +87,7 @@ Outcomes:
 - level up: strong `● level up · l4 brisk otter`, printed after the round's outcome line (after the reveal for tickets)
 
 Mystery ticket intro: `✱ ` + strong chrome label `mystery ticket` + ` · <title>` (title is content), strong
-rule, then ticket text, then one muted footer (`shell commands as the customer · hint (-10 xp) · ticket ·
+rule, then ticket text, then one muted footer (`investigate with shell commands · hint (-10 xp) · ticket ·
 solve · quit`). Root-cause and fix questions print as `✱ root cause  <q>` / `✱ fix  <q>` with muted labels,
 numbered muted-digit choices, a `1-4 to choose or type the answer` footer, and the `❭ ` answer box.
 

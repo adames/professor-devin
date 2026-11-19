@@ -11,7 +11,7 @@
       "acp"
     ],
     "hint": "three letters, agent client protocol",
-    "explain": "Devin Local = the Devin CLI running over ACP. Many Desktop tickets are really CLI tickets (invocation, auth, shell, language server).",
+    "explain": "Devin Local = the Devin CLI running over ACP. Many Desktop problems are really CLI problems (invocation, auth, shell, language server).",
     "source": "S-MASTER, R-WIN-BASH",
     "confidence": "confirmed"
   },
@@ -33,7 +33,7 @@
   {
     "id": "sup-log-diagnostics",
     "topic": "logs",
-    "q": "Where in Desktop does the customer export a diagnostics bundle?",
+    "q": "Where in Desktop do you export a diagnostics bundle?",
     "answers": [
       "agent panel download diagnostics"
     ],
@@ -127,7 +127,7 @@
   {
     "id": "sup-mcp-per-client",
     "topic": "mcp",
-    "q": "Customer authed an MCP server in Claude Code. Is the Devin CLI authed too?",
+    "q": "You authed an MCP server in Claude Code. Is the Devin CLI authed too?",
     "choices": [
       "no, each client authenticates independently",
       "yes, OAuth tokens are shared per machine",
@@ -254,8 +254,8 @@
       "usersettings"
     ],
     "hint": "an uncached settings getter",
-    "explain": "Uncached `get userSettings` -> resolveUnspecifiedSettings (~1.5 MB proto, several reads per keystroke). Ask for an exthost CPU profile; plaintext file = control. Desktop issue, often filed next to Devin Local tickets.",
+    "explain": "Uncached `get userSettings` -> resolveUnspecifiedSettings (~1.5 MB proto, several reads per keystroke). Ask for an exthost CPU profile; plaintext file = control. Desktop issue, often mistaken for a Devin Local one.",
     "source": "R-TYPING-LAG",
-    "confidence": "mechanism reproduced; see tickets"
+    "confidence": "mechanism reproduced in real cases"
   }
 ]

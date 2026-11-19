@@ -4,7 +4,7 @@
     "topic": "hooks",
     "title": "The silent hook",
     "ticket": "I added a PreToolUse hook in .devin/hooks.v1.json to block rm -rf but it never fires.",
-    "prompt": "customer@laptop ~/app$ ",
+    "prompt": "dev@laptop ~/app$ ",
     "turns": 8,
     "commands": [
       {
@@ -39,7 +39,7 @@
         "match": [
           "^ls -la \\.devin$"
         ],
-        "output": "total 12\ndrwxr-xr-x 2 customer customer 4096 Sep 30 03:00 .\ndrwxr-xr-x 4 customer customer 4096 Sep 30 03:00 ..\n-rw-r--r-- 1 customer customer  184 Sep 30 03:00 hooks.v1.json",
+        "output": "total 12\ndrwxr-xr-x 2 dev dev 4096 Sep 30 03:00 .\ndrwxr-xr-x 4 dev dev 4096 Sep 30 03:00 ..\n-rw-r--r-- 1 dev dev  184 Sep 30 03:00 hooks.v1.json",
         "evidence": false,
         "source": "simulated"
       },
@@ -58,7 +58,7 @@
         "match": [
           "^devin rules list$"
         ],
-        "output": "No rules found.\n\nTo create rules, add files to one of these directories:\nDevin rules:\n  .windsurf/rules/*.md (always-on)\n\nCursor rules:\n  .cursor/rules/*.md (conditional)\n\n  Current directory: /home/customer/project",
+        "output": "No rules found.\n\nTo create rules, add files to one of these directories:\nDevin rules:\n  .windsurf/rules/*.md (always-on)\n\nCursor rules:\n  .cursor/rules/*.md (conditional)\n\n  Current directory: /home/dev/project",
         "evidence": false,
         "source": "recorded"
       }
@@ -95,7 +95,7 @@
     "topic": "debug",
     "title": "The missing Node binary",
     "ticket": "Devin keeps saying `node: command not found`, but node works in my terminal.",
-    "prompt": "customer@laptop ~/app$ ",
+    "prompt": "dev@laptop ~/app$ ",
     "turns": 8,
     "commands": [
       {
@@ -184,7 +184,7 @@
       "answer": 0
     },
     "fix": {
-      "q": "What should the customer change?",
+      "q": "What should you change?",
       "choices": [
         "Export the nvm bin directory in the shell profile and restart Devin, which snapshots the environment once at startup.",
         "Run /clear.",
@@ -205,7 +205,7 @@
     "topic": "debug",
     "title": "The dead proxy",
     "ticket": "Every devin command that hits the network fails on my work laptop since Monday.",
-    "prompt": "customer@laptop ~/app$ ",
+    "prompt": "dev@laptop ~/app$ ",
     "turns": 8,
     "commands": [
       {
@@ -250,7 +250,7 @@
         "match": [
           "^devin auth status$"
         ],
-        "output": "Not logged in.\n  Credentials path: /home/customer/.local/share/devin/credentials.toml\nRun `devin auth login` to authenticate.",
+        "output": "Not logged in.\n  Credentials path: /home/dev/.local/share/devin/credentials.toml\nRun `devin auth login` to authenticate.",
         "evidence": false,
         "source": "recorded"
       },
@@ -297,7 +297,7 @@
     "topic": "launch",
     "title": "Print mode in CI",
     "ticket": "`devin -p` works on my laptop but fails in our CI job in a freshly cloned repo.",
-    "prompt": "customer@laptop ~/app$ ",
+    "prompt": "dev@laptop ~/app$ ",
     "turns": 8,
     "commands": [
       {
@@ -305,7 +305,7 @@
         "match": [
           "^devin -p \"summarize the repo\"$"
         ],
-        "output": "Error: Refusing to run in an untrusted workspace: /home/customer/app\nStart `devin` interactively in this directory to trust it, or set `respect_workspace_trust: false` in your config to restore the previous behavior.",
+        "output": "Error: Refusing to run in an untrusted workspace: /home/dev/app\nStart `devin` interactively in this directory to trust it, or set `respect_workspace_trust: false` in your config to restore the previous behavior.",
         "evidence": true,
         "source": "recorded"
       },
@@ -341,7 +341,7 @@
         "match": [
           "^ls -la$"
         ],
-        "output": "total 8\ndrwxr-xr-x 2 customer customer 4096 Sep 30 03:00 .\ndrwxr-xr-x 4 customer customer 4096 Sep 30 03:00 ..",
+        "output": "total 8\ndrwxr-xr-x 2 dev dev 4096 Sep 30 03:00 .\ndrwxr-xr-x 4 dev dev 4096 Sep 30 03:00 ..",
         "evidence": false,
         "source": "simulated"
       }
@@ -378,7 +378,7 @@
     "topic": "permissions",
     "title": "The stubborn git push prompt",
     "ticket": "I run with --permission-mode dangerous but Devin still asks before every git push. Bug?",
-    "prompt": "customer@laptop ~/app$ ",
+    "prompt": "dev@laptop ~/app$ ",
     "turns": 8,
     "commands": [
       {
@@ -478,7 +478,7 @@
     "topic": "launch",
     "title": "The old binary on PATH",
     "ticket": "I ran `devin update` twice and it says I'm on the latest, but `devin --version` still shows an old version.",
-    "prompt": "customer@laptop ~/app$ ",
+    "prompt": "dev@laptop ~/app$ ",
     "turns": 8,
     "commands": [
       {
@@ -496,7 +496,7 @@
           "^type -a devin$",
           "^which -a devin$"
         ],
-        "output": "devin is /usr/local/bin/devin\ndevin is /home/customer/.local/bin/devin",
+        "output": "devin is /usr/local/bin/devin\ndevin is /home/dev/.local/bin/devin",
         "evidence": true,
         "source": "simulated"
       },
@@ -505,7 +505,7 @@
         "match": [
           "^echo \\$PATH$"
         ],
-        "output": "/usr/local/bin:/home/customer/.local/bin:/usr/bin:/bin",
+        "output": "/usr/local/bin:/home/dev/.local/bin:/usr/bin:/bin",
         "evidence": true,
         "source": "simulated"
       },
@@ -570,7 +570,7 @@
     "topic": "hooks",
     "title": "The hook from another tool",
     "ticket": "Some hook keeps blocking my commands with 'blocked by policy' but I have no Devin hooks configured.",
-    "prompt": "customer@laptop ~/app$ ",
+    "prompt": "dev@laptop ~/app$ ",
     "turns": 8,
     "commands": [
       {
@@ -596,7 +596,7 @@
         "match": [
           "^ls -la \\.claude$"
         ],
-        "output": "total 12\ndrwxr-xr-x 2 customer customer 4096 Sep 30 03:00 .\ndrwxr-xr-x 4 customer customer 4096 Sep 30 03:00 ..\n-rw-r--r-- 1 customer customer  256 Sep 30 03:00 settings.json",
+        "output": "total 12\ndrwxr-xr-x 2 dev dev 4096 Sep 30 03:00 .\ndrwxr-xr-x 4 dev dev 4096 Sep 30 03:00 ..\n-rw-r--r-- 1 dev dev  256 Sep 30 03:00 settings.json",
         "evidence": true,
         "source": "simulated"
       },
@@ -631,7 +631,7 @@
       "answer": 0
     },
     "fix": {
-      "q": "How can the customer stop importing that hook?",
+      "q": "How can you stop importing that hook?",
       "choices": [
         "Remove the hook or set read_config_from.claude=false in user config; confirm its source with /hooks.",
         "Delete sessions.db.",
@@ -651,7 +651,7 @@
     "topic": "mcp",
     "title": "The filesystem server that never starts",
     "ticket": "My filesystem MCP server's tools never show up in Devin.",
-    "prompt": "customer@laptop ~/app$ ",
+    "prompt": "dev@laptop ~/app$ ",
     "turns": 8,
     "commands": [
       {
@@ -659,7 +659,7 @@
         "match": [
           "^devin mcp list$"
         ],
-        "output": "Configured MCP servers:\n\n  • fs\n    Command: npx -y @modelcontextprotocol/server-filesystm /home/customer/docs",
+        "output": "Configured MCP servers:\n\n  • fs\n    Command: npx -y @modelcontextprotocol/server-filesystm /home/dev/docs",
         "evidence": false,
         "source": "recorded"
       },
@@ -668,7 +668,7 @@
         "match": [
           "^devin mcp get fs$"
         ],
-        "output": "Server: fs\n    Command: npx -y @modelcontextprotocol/server-filesystm /home/customer/docs",
+        "output": "Server: fs\n    Command: npx -y @modelcontextprotocol/server-filesystm /home/dev/docs",
         "evidence": true,
         "source": "recorded"
       },
@@ -677,7 +677,7 @@
         "match": [
           "^cat \\.devin/mcp_config\\.local\\.json$"
         ],
-        "output": "{\n  \"mcpServers\": {\n    \"fs\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@modelcontextprotocol/server-filesystm\", \"/home/customer/docs\"],\n      \"transport\": \"stdio\"\n    }\n  }\n}",
+        "output": "{\n  \"mcpServers\": {\n    \"fs\": {\n      \"command\": \"npx\",\n      \"args\": [\"-y\", \"@modelcontextprotocol/server-filesystm\", \"/home/dev/docs\"],\n      \"transport\": \"stdio\"\n    }\n  }\n}",
         "evidence": true,
         "source": "recorded"
       },

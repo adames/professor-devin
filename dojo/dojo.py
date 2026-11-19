@@ -2228,7 +2228,7 @@ class Dojo:
         print(scenario["ticket"])
         print()
         footer(
-            "shell commands as the customer",
+            "investigate with shell commands",
             "hint (-10 xp)",
             "ticket",
             "solve",
@@ -2774,8 +2774,9 @@ A card moves up a step each time you get it right and comes back later:
   skip   show the answer and move on
   quit   stop and save (ctrl-c works too)
 
-XP builds a streak multiplier (up to x3) and levels: intern, log reader,
-triage tech, tracer, config whisperer, root-causer, staff rca.
+XP builds a streak multiplier (up to x3) and levels: otter pup, rock picker,
+shell cracker, brisk otter, sidekick, raft captain, dangerous otter, keystone
+otter, laptop otter, then devin deity.
 
 The same things from the command line:
   professor-devin train [topic]        professor-devin play --mode flash

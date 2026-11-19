@@ -1,7 +1,7 @@
 # Recorded outputs for the support pack (devin 3000.11.3 (9c803229faa4))
 
 Recorded 2026-09-30 on this box: throwaway HOME/XDG dirs, throwaway cwd, logged out, stdin </dev/null.
-Paths scrubbed: temp HOME -> /home/customer, temp cwd -> /home/customer/app.
+Paths scrubbed: temp HOME -> /home/dev, temp cwd -> /home/dev/app.
 
 ## R-CWD: devin --cwd ~/app --mode bypass-permissions --prompt "hi"   (exit 2)
 ```
@@ -22,7 +22,7 @@ before auth, so the 'Unknown model' error could not be recorded. Same for `devin
 ## R-STATUS: devin auth status   (exit 0, logged out)
 ```
 Not logged in.
-  Credentials path: /home/customer/.local/share/devin/credentials.toml
+  Credentials path: /home/dev/.local/share/devin/credentials.toml
 Run `devin auth login` to authenticate.
 ```
 

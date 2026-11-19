@@ -1,8 +1,9 @@
 # Contributing: how it works and how to add cards
 
-I'm a Cognition support engineer. I built Professor Devin to help me learn the
-commands I use when I investigate a support issue. This file explains where
-the facts come from and how I add more practice.
+Professor Devin is built for anyone learning the Devin CLI. Its content comes
+from real CLI use, documentation, and hands-on investigation—including useful
+patterns first gathered during support work. This file explains where the
+facts come from and how to add more practice.
 
 ## Where the facts come from
 
@@ -88,12 +89,12 @@ Here is a command-card example. Change its ID and task before adding a copy:
   "id": "example-version-card",
   "category": "maintenance",
   "tier": 1,
-  "task": "A customer needs to confirm which Devin release is installed.",
+  "task": "You need to confirm which Devin release is installed.",
   "answers": ["devin --version"],
   "blank": "--version",
   "kind": "write",
   "hint": "Look at root help and find the option that starts with v.",
-  "explain": "-V, --version\nUse it when checking whether the customer's CLI is on the expected release.",
+  "explain": "-V, --version\nUse it when checking whether your CLI is on the expected release.",
   "source_file": "devin.txt",
   "confidence": "confirmed"
 }
@@ -123,13 +124,13 @@ directory, a misspelled flag, and `mcp add` without its required name.
 Every fix card's corrected answer must parse, and its broken command must not
 match the answer.
 
-The `shell` category is for general support work from `../GUIDE.md`. Current
+The `shell` category is for general diagnostic work from `../GUIDE.md`. Current
 cards cover log lookup, live log search, JSON and config checks, process and
 socket inspection, file tracing, environment inspection, PATH checks, HTTP
-connectivity, print-mode scripting, and the support one-liners. That includes
+connectivity, print-mode scripting, and the diagnostic one-liners. That includes
 `type -a`, `command -v`, `rg -z`, `sudo fs_usage -w -f pathname`, `lsof -p`,
 `sqlite3 -readonly`, `jq`, `tail -F`, and `ps eww` checks. The
-support one-liners include `where bash`, `nohup`, quota-log search, and
+diagnostic one-liners include `where bash`, `nohup`, quota-log search, and
 `pgrep -fl language_server`. I keep each answer tied to its cited GUIDE line;
 I don't add a command that the guide doesn't show.
 
@@ -223,8 +224,8 @@ Here is a ticket example. Replace the sample ID before saving it:
   "id": "example-ticket",
   "topic": "debug",
   "title": "A version check",
-  "ticket": "A customer needs to check which CLI release is installed.",
-  "prompt": "customer@laptop ~/app$ ",
+  "ticket": "You need to check which CLI release is installed.",
+  "prompt": "dev@laptop ~/app$ ",
   "turns": 2,
   "commands": [
     {
@@ -237,7 +238,7 @@ Here is a ticket example. Replace the sample ID before saving it:
   ],
   "unknown_output": "(no useful output)",
   "root_cause": {
-    "q": "What should the customer check?",
+    "q": "What should you check?",
     "choices": ["The CLI version", "The wallpaper", "The mouse", "The monitor"],
     "answer": 0
   },
@@ -253,7 +254,7 @@ Here is a ticket example. Replace the sample ID before saving it:
 }
 ```
 
-Tickets need a topic, customer message, prompt, turn limit, command matches,
+Tickets need a topic, problem report, prompt, turn limit, command matches,
 unknown-command output, four choices for both questions, an optimal command
 chain, and an explanation. Each command has its own ID, match patterns, output,
 evidence flag, and `recorded` or `simulated` label. The item's `source` names

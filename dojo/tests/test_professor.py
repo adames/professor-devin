@@ -156,6 +156,18 @@ class ProfessorContentTests(unittest.TestCase):
             detach_card,
         ))
 
+    def test_command_prompts_address_the_user_not_a_support_role(self):
+        framed = re.compile(r"\b(customer|support (engineer|case|investigation|script|tool|team))\b", re.IGNORECASE)
+        third_person = re.compile(
+            r"\byou(?: explicitly)? (wants|needs|has|asks|prefers|expects|requests|knows|authorizes|approves)\b",
+            re.IGNORECASE,
+        )
+        for card in self.cards:
+            with self.subTest(card=card["id"]):
+                self.assertIsNone(framed.search(card["task"]))
+                self.assertIsNone(framed.search(card["explain"].splitlines()[1]))
+                self.assertIsNone(third_person.search(card["task"]))
+
     def test_coverage_categories_tiers_and_slash_manifest(self):
         self.assertTrue(dojo.validate_content(self.content))
         self.assertEqual(
@@ -399,7 +411,6 @@ class ProfessorContentTests(unittest.TestCase):
             "\n"
             "For more information, try '--help'.",
         )
-
 
     def test_every_tsv_row_has_a_cards_json_card(self):
         tsv_rows = [

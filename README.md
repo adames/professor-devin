@@ -33,7 +33,7 @@ from the repo.
 | Mode | What happens | Start it |
 | - | - | - |
 | Command rounds | A task appears; you type the `devin` command that does it. Multiple choice first, then fill-in-the-blank, then full recall. | menu 1 or 2 · `professor-devin train [topic]` |
-| Mystery tickets | A broken setup described like a support ticket. You run shell commands in a simulated customer machine, find the evidence, name the root cause and the fix. | menu 4 · `professor-devin play --mode combo` |
+| Mystery tickets | A broken setup is presented as a realistic report. You run shell commands in a simulated machine, find the evidence, name the root cause and the fix. | menu 4 · `professor-devin play --mode combo` |
 | Flashcards | Short questions on config, hooks, skills, rules, and the shell. | menu 3 · `professor-devin play --mode flash` |
 | Live drills | Real `devin` commands on your machine (version, doctor, rules, MCP). Credit-using drills stay off unless you opt in. | menu 5 · `professor-devin play --mode drill` |
 
@@ -54,7 +54,7 @@ Command rounds and tickets are simulated; nothing you type in them runs for real
 
 ## Topics
 
-209 command cards in 13 topics: launch, sessions, auth, config-rules, skills, mcp, plugins, models, cloud, maintenance, integration, slash (slash commands inside the REPL), shell (support one-liners). Plus 101 flashcards, 12 mystery tickets, and 14 live drills.
+209 command cards in 13 topics: launch, sessions, auth, config-rules, skills, mcp, plugins, models, cloud, maintenance, integration, slash (slash commands inside the REPL), shell (diagnostic one-liners). Plus 101 flashcards, 12 mystery tickets, and 14 live drills.
 
 ## From the command line
 
@@ -69,7 +69,7 @@ Progress lives in `~/.professor-devin/` (`PROFESSOR_HOME` overrides it). `profes
 
 ## Study material
 
-- [GUIDE.md](GUIDE.md): the written course the game is built from — a four-week plan, the CLI's file layout, labs, break-it drills, and a support triage checklist. The shell commands in section 4 are the answers to the `shell` cards and the mystery tickets.
+- [GUIDE.md](GUIDE.md): the written course the game is built from — a four-week plan, the CLI's file layout, labs, break-it drills, and a troubleshooting checklist. The shell commands in section 4 are the answers to the `shell` cards and the mystery tickets.
 - [cards.tsv](cards.tsv) + `./drill.sh [N] [regex]`: the same flashcards as a plain bash drill.
 - [docs/README.md](docs/README.md): offline snapshots of the docs.devin.ai CLI pages the content cites.
 

@@ -3,7 +3,7 @@
     "id": "cmd-launch-continue",
     "category": "launch",
     "tier": 1,
-    "task": "A support engineer needs to reopen the latest conversation from this directory.",
+    "task": "You need to reopen the latest conversation from this directory.",
     "answers": [
       "devin -c"
     ],
@@ -18,13 +18,13 @@
     "id": "cmd-launch-model",
     "category": "launch",
     "tier": 1,
-    "task": "A customer requests the opus model for their next Devin session.",
+    "task": "You want the opus model for your next Devin session.",
     "answers": [
       "devin --model opus"
     ],
     "blank": "--model",
     "hint": "Review root help line 66 and identify the option starting with 'm'.",
-    "explain": "--model <MODEL>\nUse it when the customer requests a particular model for the next session.",
+    "explain": "--model <MODEL>\nUse it when you want a particular model for the next session.",
     "source_file": "devin.txt",
     "kind": "write",
     "topic": "launch"
@@ -33,13 +33,13 @@
     "id": "cmd-launch-permission-mode",
     "category": "launch",
     "tier": 1,
-    "task": "A support session must use the customer's requested auto permission mode.",
+    "task": "Your session must use auto permission mode.",
     "answers": [
       "devin --permission-mode auto"
     ],
     "blank": "--permission-mode",
     "hint": "Review root help line 46 and identify the option starting with 'p'.",
-    "explain": "--permission-mode <PERMISSION_MODE>\nUse it when the session must follow the customer's requested permission behavior.",
+    "explain": "--permission-mode <PERMISSION_MODE>\nUse it when the session must follow a specific permission behavior.",
     "source_file": "devin.txt",
     "kind": "write",
     "topic": "launch"
@@ -48,13 +48,13 @@
     "id": "cmd-launch-print",
     "category": "launch",
     "tier": 1,
-    "task": "A customer needs one prompt answered without starting an interactive session.",
+    "task": "You need one prompt answered without starting an interactive session.",
     "answers": [
       "devin -p <prompt>"
     ],
     "blank": "-p",
     "hint": "Review root help line 73 and identify the option starting with 'p'.",
-    "explain": "-p, --print [<PROMPT>]\nUse it when the customer needs a single response rather than an interactive session.",
+    "explain": "-p, --print [<PROMPT>]\nUse it when you need a single response rather than an interactive session.",
     "source_file": "devin.txt",
     "kind": "write",
     "topic": "launch"
@@ -63,13 +63,13 @@
     "id": "cmd-launch-prompt",
     "category": "launch",
     "tier": 1,
-    "task": "A customer wants their initial instructions treated as the session prompt.",
+    "task": "You want your initial instructions treated as the session prompt.",
     "answers": [
       "devin -- <prompt>"
     ],
     "blank": "--",
     "hint": "Review root help line 3 and identify the operation starting with 'd'.",
-    "explain": "Usage: devin [OPTIONS] [PATH]... [-- <PROMPT>...] [COMMAND]\nUse it when the support case needs to start an interactive Devin session.",
+    "explain": "Usage: devin [OPTIONS] [PATH]... [-- <PROMPT>...] [COMMAND]\nUse it when you need to start an interactive Devin session.",
     "source_file": "devin.txt",
     "kind": "write",
     "topic": "launch"
@@ -78,13 +78,13 @@
     "id": "cmd-launch-resume",
     "category": "launch",
     "tier": 1,
-    "task": "A customer knows the session ID of the conversation they need to reopen.",
+    "task": "You know the session ID of the conversation you need to reopen.",
     "answers": [
       "devin -r <session>"
     ],
     "blank": "-r",
     "hint": "Review root help line 86 and identify the option starting with 'r'.",
-    "explain": "-r, --resume [<SESSION_ID>]\nUse it when the customer knows which saved session needs to be reopened.",
+    "explain": "-r, --resume [<SESSION_ID>]\nUse it when you know which saved session needs to be reopened.",
     "source_file": "devin.txt",
     "kind": "write",
     "topic": "launch"
@@ -93,13 +93,13 @@
     "id": "cmd-launch-start",
     "category": "launch",
     "tier": 1,
-    "task": "A customer needs to begin a new interactive Devin session.",
+    "task": "You need to begin a new interactive Devin session.",
     "answers": [
       "devin"
     ],
     "blank": "devin",
     "hint": "Review root help line 3 and identify the operation starting with 'd'.",
-    "explain": "Usage: devin [OPTIONS] [PATH]... [-- <PROMPT>...] [COMMAND]\nUse it when the support case needs to start an interactive Devin session.",
+    "explain": "Usage: devin [OPTIONS] [PATH]... [-- <PROMPT>...] [COMMAND]\nUse it when you need to start an interactive Devin session.",
     "source_file": "devin.txt",
     "kind": "write",
     "topic": "launch"
@@ -108,14 +108,14 @@
     "id": "cmd-flag-root-export",
     "category": "launch",
     "tier": 2,
-    "task": "A customer needs the current conversation saved to a chosen file.",
+    "task": "You need the current conversation saved to a chosen file.",
     "answers": [
       "devin --export '<path>'"
     ],
     "blank": "--export",
     "kind": "write",
     "hint": "Review root help line 78 and identify the option starting with 'e'.",
-    "explain": "--export [<PATH>]\nUse it when the customer needs a local copy of the conversation.",
+    "explain": "--export [<PATH>]\nUse it when you need a local copy of the conversation.",
     "source_file": "devin.txt",
     "topic": "launch"
   },
@@ -123,7 +123,7 @@
     "id": "cmd-flag-root-prompt-file",
     "category": "launch",
     "tier": 2,
-    "task": "A support engineer has initial instructions saved in a file for the next session.",
+    "task": "You have initial instructions saved in a file for the next session.",
     "answers": [
       "devin --prompt-file <file> <prompt>"
     ],
@@ -138,7 +138,7 @@
     "id": "cmd-flag-root-sandbox",
     "category": "launch",
     "tier": 2,
-    "task": "A customer needs tool processes isolated by the platform sandbox.",
+    "task": "You need tool processes isolated by the platform sandbox.",
     "answers": [
       "devin --sandbox"
     ],
@@ -153,7 +153,7 @@
     "id": "fix-misspelled-flag",
     "category": "launch",
     "tier": 2,
-    "task": "A customer needs auto permission behavior after correcting the rejected option spelling.",
+    "task": "You need auto permission behavior after correcting the rejected option spelling.",
     "answers": [
       "devin --permission-mode auto"
     ],
@@ -161,7 +161,7 @@
     "error": "error: unexpected argument '--permisson-mode' found\n\n  tip: a similar argument exists: '--permission-mode'\n  tip: to pass '--permisson-mode' as a value, use '-- --permisson-mode'\n\nUsage: devin --permission-mode <PERMISSION_MODE> [PATH]... [-- <PROMPT>...]\n\nFor more information, try '--help'.",
     "blank": "--permission-mode",
     "hint": "Review root help line 46 and identify the option starting with 'p'.",
-    "explain": "--permission-mode <PERMISSION_MODE>\nUse it when the session must follow the customer's requested permission behavior.",
+    "explain": "--permission-mode <PERMISSION_MODE>\nUse it when the session must follow a specific permission behavior.",
     "source_file": "devin.txt",
     "source": "recorded installed-binary parse error in throwaway HOME",
     "kind": "fix",
@@ -171,7 +171,7 @@
     "id": "fix-print-option-order",
     "category": "launch",
     "tier": 2,
-    "task": "A customer expects x to be the prompt while workspace trust is explicitly set to false.",
+    "task": "You expect x to be the prompt while workspace trust is explicitly set to false.",
     "answers": [
       "devin --respect-workspace-trust=false -p <prompt>"
     ],
@@ -179,7 +179,7 @@
     "error": "error: the argument '--print [<PROMPT>]' cannot be used with '[PATH]...'\n\nUsage: devin --print [<PROMPT>] --respect-workspace-trust [<RESPECT_WORKSPACE_TRUST>] [PATH]... [-- <PROMPT>...]\n\nFor more information, try '--help'.",
     "blank": "--respect-workspace-trust=false",
     "hint": "Review root help line 91 and identify the option starting with 'r'.",
-    "explain": "--respect-workspace-trust [<RESPECT_WORKSPACE_TRUST>]\nUse it when the customer needs this behavior for the current operation.",
+    "explain": "--respect-workspace-trust [<RESPECT_WORKSPACE_TRUST>]\nUse it when you need this behavior for the current operation.",
     "source_file": "devin.txt",
     "source": "User-recorded against the installed binary while logged out in a throwaway directory; clap parse error, exit 2.",
     "kind": "fix",
@@ -189,12 +189,12 @@
     "id": "fix-print-untrusted-workspace",
     "category": "launch",
     "tier": 2,
-    "task": "A customer's current directory is untrusted; request a print response while workspace trust stays false.",
+    "task": "Your current directory is untrusted; request a print response while workspace trust stays false.",
     "answers": [
       "devin --respect-workspace-trust=false -p <prompt>"
     ],
     "broken": "devin -p \"x\"",
-    "error": "Error: Refusing to run in an untrusted workspace: /home/customer/app\nStart `devin` interactively in this directory to trust it, or set `respect_workspace_trust: false` in your config to restore the previous behavior.",
+    "error": "Error: Refusing to run in an untrusted workspace: /home/dev/app\nStart `devin` interactively in this directory to trust it, or set `respect_workspace_trust: false` in your config to restore the previous behavior.",
     "blank": "--respect-workspace-trust=false",
     "hint": "Review root help line 91 and identify the option starting with 'r'.",
     "explain": "--respect-workspace-trust [<RESPECT_WORKSPACE_TRUST>]\nUse it when a fresh CI checkout is untrusted; keep the false trust setting before the prompt flag.",
@@ -211,13 +211,13 @@
     "id": "cmd-sessions-forward",
     "category": "sessions",
     "tier": 1,
-    "task": "A support engineer needs to forward cloud-session ports to localhost.",
+    "task": "You need to forward cloud-session ports to localhost.",
     "answers": [
       "devin forward <session> <ports>"
     ],
     "blank": "forward",
     "hint": "Review root help line 18 and identify the operation starting with 'f'.",
-    "explain": "forward    Forward ports from a cloud Devin session's box to localhost\nUse it when the support case needs to forward cloud-session ports to localhost.",
+    "explain": "forward    Forward ports from a cloud Devin session's box to localhost\nUse it when you need to forward cloud-session ports to localhost.",
     "source_file": "forward.txt",
     "kind": "write",
     "topic": "sessions"
@@ -226,14 +226,14 @@
     "id": "cmd-sessions-list",
     "category": "sessions",
     "tier": 1,
-    "task": "A support engineer needs to review sessions created in the current directory.",
+    "task": "You need to review sessions created in the current directory.",
     "answers": [
       "devin list",
       "devin ls"
     ],
     "blank": "list",
     "hint": "Review root help line 15 and identify the operation starting with 'l'.",
-    "explain": "list       List sessions in the current directory [aliases: ls]\nUse it when the support case needs to review sessions created in the current directory.",
+    "explain": "list       List sessions in the current directory [aliases: ls]\nUse it when you need to review sessions created in the current directory.",
     "source_file": "list.txt",
     "kind": "write",
     "topic": "sessions"
@@ -242,13 +242,13 @@
     "id": "cmd-sessions-ssh",
     "category": "sessions",
     "tier": 1,
-    "task": "A support engineer needs to connect to a cloud session's machine.",
+    "task": "You need to connect to a cloud session's machine.",
     "answers": [
       "devin ssh"
     ],
     "blank": "ssh",
     "hint": "Review root help line 17 and identify the operation starting with 's'.",
-    "explain": "ssh        SSH into a cloud Devin session's box\nUse it when the support case needs to connect to a cloud session's machine.",
+    "explain": "ssh        SSH into a cloud Devin session's box\nUse it when you need to connect to a cloud session's machine.",
     "source_file": "ssh.txt",
     "kind": "write",
     "topic": "sessions"
@@ -257,13 +257,13 @@
     "id": "cmd-flag-list-format",
     "category": "sessions",
     "tier": 2,
-    "task": "A support workflow needs the customer's session list in a selected output format.",
+    "task": "A script needs your session list in a selected output format.",
     "answers": [
       "devin list --format <format>"
     ],
     "blank": "--format",
     "hint": "Review list.txt line 6 and identify the option starting with 'f'.",
-    "explain": "--format <FORMAT>\nUse it when another support tool expects a particular output format.",
+    "explain": "--format <FORMAT>\nUse it when another tool expects a particular output format.",
     "source_file": "list.txt",
     "kind": "write",
     "topic": "sessions"
@@ -272,13 +272,13 @@
     "id": "cmd-flag-rm-force",
     "category": "sessions",
     "tier": 2,
-    "task": "A customer has approved deleting a stale session without an interactive confirmation.",
+    "task": "You have approved deleting a stale session without an interactive confirmation.",
     "answers": [
       "devin rm --force <target>"
     ],
     "blank": "--force",
     "hint": "Review rm.txt line 9 and identify the option starting with 'f'.",
-    "explain": "--force  Skip the confirmation prompt\nUse it when the customer explicitly approves continuing past the normal safeguard.",
+    "explain": "--force  Skip the confirmation prompt\nUse it when you explicitly approve continuing past the normal safeguard.",
     "source_file": "rm.txt",
     "kind": "write",
     "topic": "sessions"
@@ -287,13 +287,13 @@
     "id": "cmd-path-rm",
     "category": "sessions",
     "tier": 2,
-    "task": "A support engineer needs to delete a session by its identifier or name.",
+    "task": "You need to delete a session by its identifier or name.",
     "answers": [
       "devin rm <target>"
     ],
     "blank": "rm",
     "hint": "Review root help line 16 and identify the operation starting with 'r'.",
-    "explain": "rm         Delete a session by id or name\nUse it when the support case needs to delete a session by its identifier or name.",
+    "explain": "rm         Delete a session by id or name\nUse it when you need to delete a session by its identifier or name.",
     "source_file": "rm.txt",
     "kind": "write",
     "topic": "sessions"
@@ -302,7 +302,7 @@
     "id": "cmd-flag-forward-gateway",
     "category": "sessions",
     "tier": 3,
-    "task": "A customer needs cloud-session ports forwarded through a specified SSH gateway.",
+    "task": "You need cloud-session ports forwarded through a specified SSH gateway.",
     "answers": [
       "devin forward --gateway <gateway> <session> <ports>"
     ],
@@ -317,7 +317,7 @@
     "id": "cmd-flag-ssh-gateway",
     "category": "sessions",
     "tier": 3,
-    "task": "A support engineer needs an SSH connection to a cloud session through a specified gateway.",
+    "task": "You need an SSH connection to a cloud session through a specified gateway.",
     "answers": [
       "devin ssh --gateway <gateway>"
     ],
@@ -332,13 +332,13 @@
     "id": "cmd-auth-login",
     "category": "auth",
     "tier": 1,
-    "task": "A support engineer needs to sign in to Devin on the customer's machine.",
+    "task": "You need to sign in to Devin on this machine.",
     "answers": [
       "devin auth login"
     ],
     "blank": "login",
     "hint": "Review auth.txt line 6 and identify the operation starting with 'l'.",
-    "explain": "login   Log in to Devin\nUse it when the support case needs to sign in to Devin on the customer's machine.",
+    "explain": "login   Log in to Devin\nUse it when you need to sign in to Devin on this machine.",
     "source_file": "auth-login.txt",
     "kind": "write",
     "topic": "auth"
@@ -347,7 +347,7 @@
     "id": "cmd-auth-status",
     "category": "auth",
     "tier": 1,
-    "task": "A support engineer needs to confirm whether the customer is signed in.",
+    "task": "You need to confirm whether you are signed in.",
     "answers": [
       "devin auth status"
     ],
@@ -367,7 +367,7 @@
     "id": "cmd-flag-auth-login-force-manual-token-flow",
     "category": "auth",
     "tier": 2,
-    "task": "A customer needs to sign in by pasting a token instead of opening a browser.",
+    "task": "You need to sign in by pasting a token instead of opening a browser.",
     "answers": [
       "devin auth login --force-manual-token-flow"
     ],
@@ -387,7 +387,7 @@
     "id": "cmd-path-auth-logout",
     "category": "auth",
     "tier": 2,
-    "task": "A support engineer needs to clear the customer's stored Devin credentials.",
+    "task": "You need to clear your stored Devin credentials.",
     "answers": [
       "devin auth logout"
     ],
@@ -407,13 +407,13 @@
     "id": "cmd-rules-list",
     "category": "config-rules",
     "tier": 1,
-    "task": "A support engineer needs to review the agent rules available to the customer.",
+    "task": "You need to review your available agent rules.",
     "answers": [
       "devin rules list"
     ],
     "blank": "list",
     "hint": "Review rules.txt line 6 and identify the operation starting with 'l'.",
-    "explain": "list   List all available rules\nUse it when the support case needs to review the agent rules available to the customer.",
+    "explain": "list   List all available rules\nUse it when you need to review your available agent rules.",
     "source_file": "rules-list.txt",
     "kind": "write",
     "topic": "config-rules"
@@ -422,13 +422,13 @@
     "id": "cmd-flag-rules-list-provider",
     "category": "config-rules",
     "tier": 2,
-    "task": "A customer needs agent rules filtered to one provider.",
+    "task": "You need agent rules filtered to one provider.",
     "answers": [
       "devin rules list --provider <provider>"
     ],
     "blank": "--provider",
     "hint": "Review rules-list.txt line 6 and identify the option starting with 'p'.",
-    "explain": "--provider <PROVIDER>\nUse it when the support case concerns rules from one provider.",
+    "explain": "--provider <PROVIDER>\nUse it when only rules from one provider matter.",
     "source_file": "rules-list.txt",
     "kind": "write",
     "topic": "config-rules"
@@ -437,13 +437,13 @@
     "id": "cmd-path-rules-paths",
     "category": "config-rules",
     "tier": 2,
-    "task": "A support engineer needs to find where the customer's agent rules are stored.",
+    "task": "You need to find where your agent rules are stored.",
     "answers": [
       "devin rules paths"
     ],
     "blank": "paths",
     "hint": "Review rules.txt line 8 and identify the operation starting with 'p'.",
-    "explain": "paths  Show rule directory locations\nUse it when the support case needs to find where the customer's agent rules are stored.",
+    "explain": "paths  Show rule directory locations\nUse it when you need to find where your agent rules are stored.",
     "source_file": "rules-paths.txt",
     "kind": "write",
     "topic": "config-rules"
@@ -452,13 +452,13 @@
     "id": "cmd-path-rules-show",
     "category": "config-rules",
     "tier": 2,
-    "task": "A support engineer needs to inspect a named agent rule.",
+    "task": "You need to inspect a named agent rule.",
     "answers": [
       "devin rules show <name>"
     ],
     "blank": "show",
     "hint": "Review rules.txt line 7 and identify the operation starting with 's'.",
-    "explain": "show   Show details for a specific rule\nUse it when the support case needs to inspect a named agent rule.",
+    "explain": "show   Show details for a specific rule\nUse it when you need to inspect a named agent rule.",
     "source_file": "rules-show.txt",
     "kind": "write",
     "topic": "config-rules"
@@ -467,7 +467,7 @@
     "id": "cmd-flag-root-config",
     "category": "config-rules",
     "tier": 3,
-    "task": "A support engineer needs Devin to read a specific configuration file.",
+    "task": "You need Devin to read a specific configuration file.",
     "answers": [
       "devin --config '<path>'"
     ],
@@ -482,13 +482,13 @@
     "id": "cmd-skills-list",
     "category": "skills",
     "tier": 1,
-    "task": "A support engineer needs to review the skills available to the customer.",
+    "task": "You need to review your available skills.",
     "answers": [
       "devin skills list"
     ],
     "blank": "list",
     "hint": "Review skills.txt line 6 and identify the operation starting with 'l'.",
-    "explain": "list   List all available skills\nUse it when the support case needs to review the skills available to the customer.",
+    "explain": "list   List all available skills\nUse it when you need to review your available skills.",
     "source_file": "skills-list.txt",
     "kind": "write",
     "topic": "skills"
@@ -497,7 +497,7 @@
     "id": "cmd-flag-skills-list-json",
     "category": "skills",
     "tier": 2,
-    "task": "A support script needs the customer's skill inventory as machine-readable JSON.",
+    "task": "A script needs your skill inventory as machine-readable JSON.",
     "answers": [
       "devin skills list --json"
     ],
@@ -512,13 +512,13 @@
     "id": "cmd-flag-skills-list-trigger",
     "category": "skills",
     "tier": 2,
-    "task": "A customer needs skills filtered to the trigger that activates them.",
+    "task": "You need skills filtered to the trigger that activates them.",
     "answers": [
       "devin skills list --trigger <trigger>"
     ],
     "blank": "--trigger",
     "hint": "Review skills-list.txt line 6 and identify the option starting with 't'.",
-    "explain": "--trigger <TRIGGER>\nUse it when the support case concerns skills activated by one trigger type.",
+    "explain": "--trigger <TRIGGER>\nUse it when only skills activated by one trigger type matter.",
     "source_file": "skills-list.txt",
     "kind": "write",
     "topic": "skills"
@@ -527,13 +527,13 @@
     "id": "cmd-path-skills-paths",
     "category": "skills",
     "tier": 2,
-    "task": "A support engineer needs to find where the customer's skills are stored.",
+    "task": "You need to find where your skills are stored.",
     "answers": [
       "devin skills paths"
     ],
     "blank": "paths",
     "hint": "Review skills.txt line 8 and identify the operation starting with 'p'.",
-    "explain": "paths  Show skill directory locations\nUse it when the support case needs to find where the customer's skills are stored.",
+    "explain": "paths  Show skill directory locations\nUse it when you need to find where your skills are stored.",
     "source_file": "skills-paths.txt",
     "kind": "write",
     "topic": "skills"
@@ -542,13 +542,13 @@
     "id": "cmd-path-skills-show",
     "category": "skills",
     "tier": 2,
-    "task": "A support engineer needs to inspect a named skill.",
+    "task": "You need to inspect a named skill.",
     "answers": [
       "devin skills show <name>"
     ],
     "blank": "show",
     "hint": "Review skills.txt line 7 and identify the operation starting with 's'.",
-    "explain": "show   Show details for a specific skill\nUse it when the support case needs to inspect a named skill.",
+    "explain": "show   Show details for a specific skill\nUse it when you need to inspect a named skill.",
     "source_file": "skills-show.txt",
     "kind": "write",
     "topic": "skills"
@@ -557,13 +557,13 @@
     "id": "cmd-mcp-add",
     "category": "mcp",
     "tier": 1,
-    "task": "A customer's MCP server should be added with its provided name and endpoint.",
+    "task": "Your MCP server should be added with its provided name and endpoint.",
     "answers": [
       "devin mcp add <name> <url>"
     ],
     "blank": "add",
     "hint": "Review mcp.txt line 6 and identify the operation starting with 'a'.",
-    "explain": "add      Add a new MCP server\nUse it when the support case needs to add a new MCP server for the customer.",
+    "explain": "add      Add a new MCP server\nUse it when you need to add a new MCP server.",
     "source_file": "mcp-add.txt",
     "kind": "write",
     "topic": "mcp"
@@ -572,13 +572,13 @@
     "id": "cmd-mcp-list",
     "category": "mcp",
     "tier": 1,
-    "task": "A support engineer needs to review the customer's configured MCP servers.",
+    "task": "You need to review your configured MCP servers.",
     "answers": [
       "devin mcp list"
     ],
     "blank": "list",
     "hint": "Review mcp.txt line 7 and identify the operation starting with 'l'.",
-    "explain": "list     List all configured MCP servers\nUse it when the support case needs to review the customer's configured MCP servers.",
+    "explain": "list     List all configured MCP servers\nUse it when you need to review your configured MCP servers.",
     "source_file": "mcp-list.txt",
     "kind": "write",
     "topic": "mcp"
@@ -587,7 +587,7 @@
     "id": "cmd-flag-mcp-add-command",
     "category": "mcp",
     "tier": 2,
-    "task": "A customer's MCP server must launch a local stdio command named in the request.",
+    "task": "Your MCP server must launch a local stdio command named in the request.",
     "answers": [
       "devin mcp add <name> --transport stdio --command <command>"
     ],
@@ -602,7 +602,7 @@
     "id": "cmd-flag-mcp-add-scope",
     "category": "mcp",
     "tier": 2,
-    "task": "A customer's MCP server should apply only to this repo; add it at local scope over HTTP.",
+    "task": "Your MCP server should apply only to this repo; add it at local scope over HTTP.",
     "answers": [
       "devin mcp add --transport http --scope local <name> <url>"
     ],
@@ -617,7 +617,7 @@
     "id": "cmd-flag-mcp-add-transport",
     "category": "mcp",
     "tier": 2,
-    "task": "A customer's MCP endpoint uses HTTP request-and-response transport.",
+    "task": "Your MCP endpoint uses HTTP request-and-response transport.",
     "answers": [
       "devin mcp add --transport http <name> <url>"
     ],
@@ -632,7 +632,7 @@
     "id": "cmd-flag-mcp-add-url",
     "category": "mcp",
     "tier": 2,
-    "task": "A customer supplied the MCP endpoint as a URL separate from the server name.",
+    "task": "You supplied the MCP endpoint as a URL separate from the server name.",
     "answers": [
       "devin mcp add <name> --url <url>"
     ],
@@ -647,7 +647,7 @@
     "id": "cmd-flag-mcp-disable-scope",
     "category": "mcp",
     "tier": 2,
-    "task": "A customer needs an MCP server disabled, without removing it, in the selected configuration scope.",
+    "task": "You need an MCP server disabled, without removing it, in the selected configuration scope.",
     "answers": [
       "devin mcp disable --scope <scope> <name>"
     ],
@@ -662,7 +662,7 @@
     "id": "cmd-flag-mcp-enable-scope",
     "category": "mcp",
     "tier": 2,
-    "task": "A customer needs a disabled MCP server enabled in the selected configuration scope.",
+    "task": "You need a disabled MCP server enabled in the selected configuration scope.",
     "answers": [
       "devin mcp enable --scope <scope> <name>"
     ],
@@ -677,7 +677,7 @@
     "id": "cmd-flag-mcp-remove-scope",
     "category": "mcp",
     "tier": 2,
-    "task": "A customer needs an MCP server removed from the selected configuration scope.",
+    "task": "You need an MCP server removed from the selected configuration scope.",
     "answers": [
       "devin mcp remove --scope <scope> <name>"
     ],
@@ -692,13 +692,13 @@
     "id": "cmd-path-mcp-disable",
     "category": "mcp",
     "tier": 2,
-    "task": "A support engineer needs to turn off an MCP server without removing it.",
+    "task": "You need to turn off an MCP server without removing it.",
     "answers": [
       "devin mcp disable <name>"
     ],
     "blank": "disable",
     "hint": "Review mcp.txt line 13 and identify the operation starting with 'd'.",
-    "explain": "disable  Disable an MCP server without removing it\nUse it when the support case needs to turn off an MCP server without removing it.",
+    "explain": "disable  Disable an MCP server without removing it\nUse it when you need to turn off an MCP server without removing it.",
     "source_file": "mcp-disable.txt",
     "kind": "write",
     "topic": "mcp"
@@ -707,13 +707,13 @@
     "id": "cmd-path-mcp-enable",
     "category": "mcp",
     "tier": 2,
-    "task": "A support engineer needs to restore a disabled MCP server.",
+    "task": "You need to restore a disabled MCP server.",
     "answers": [
       "devin mcp enable <name>"
     ],
     "blank": "enable",
     "hint": "Review mcp.txt line 12 and identify the operation starting with 'e'.",
-    "explain": "enable   Enable a disabled MCP server\nUse it when the support case needs to restore a disabled MCP server.",
+    "explain": "enable   Enable a disabled MCP server\nUse it when you need to restore a disabled MCP server.",
     "source_file": "mcp-enable.txt",
     "kind": "write",
     "topic": "mcp"
@@ -722,13 +722,13 @@
     "id": "cmd-path-mcp-get",
     "category": "mcp",
     "tier": 2,
-    "task": "A support engineer needs to inspect one configured MCP server's details.",
+    "task": "You need to inspect one configured MCP server's details.",
     "answers": [
       "devin mcp get <name>"
     ],
     "blank": "get",
     "hint": "Review mcp.txt line 8 and identify the operation starting with 'g'.",
-    "explain": "get      Get details for a specific MCP server\nUse it when the support case needs to inspect one configured MCP server's details.",
+    "explain": "get      Get details for a specific MCP server\nUse it when you need to inspect one configured MCP server's details.",
     "source_file": "mcp-get.txt",
     "kind": "write",
     "topic": "mcp"
@@ -737,7 +737,7 @@
     "id": "cmd-path-mcp-login",
     "category": "mcp",
     "tier": 2,
-    "task": "A support engineer needs to authenticate with the customer's MCP server.",
+    "task": "You need to authenticate with your MCP server.",
     "answers": [
       "devin mcp login <name>"
     ],
@@ -757,13 +757,13 @@
     "id": "cmd-path-mcp-logout",
     "category": "mcp",
     "tier": 2,
-    "task": "A support engineer needs to remove stored OAuth credentials for an MCP server.",
+    "task": "You need to remove stored OAuth credentials for an MCP server.",
     "answers": [
       "devin mcp logout <name>"
     ],
     "blank": "logout",
     "hint": "Review mcp.txt line 11 and identify the operation starting with 'l'.",
-    "explain": "logout   Remove stored OAuth credentials for an MCP server\nUse it when the support case needs to remove stored OAuth credentials for an MCP server.",
+    "explain": "logout   Remove stored OAuth credentials for an MCP server\nUse it when you need to remove stored OAuth credentials for an MCP server.",
     "source_file": "mcp-logout.txt",
     "kind": "write",
     "topic": "mcp"
@@ -772,13 +772,13 @@
     "id": "cmd-path-mcp-remove",
     "category": "mcp",
     "tier": 2,
-    "task": "A support engineer needs to remove the customer's MCP server configuration.",
+    "task": "You need to remove your MCP server configuration.",
     "answers": [
       "devin mcp remove <name>"
     ],
     "blank": "remove",
     "hint": "Review mcp.txt line 9 and identify the operation starting with 'r'.",
-    "explain": "remove   Remove an MCP server\nUse it when the support case needs to remove the customer's MCP server configuration.",
+    "explain": "remove   Remove an MCP server\nUse it when you need to remove your MCP server configuration.",
     "source_file": "mcp-remove.txt",
     "kind": "write",
     "topic": "mcp"
@@ -787,7 +787,7 @@
     "id": "fix-mcp-add-required-name",
     "category": "mcp",
     "tier": 2,
-    "task": "A customer's HTTP MCP server must be added with its required name and endpoint.",
+    "task": "Your HTTP MCP server must be added with its required name and endpoint.",
     "answers": [
       "devin mcp add <name> <url>"
     ],
@@ -795,7 +795,7 @@
     "error": "error: the following required arguments were not provided:\n  <NAME>\n\nUsage: devin mcp add --transport http <NAME> <URL>\n       devin mcp add <NAME> -- <COMMAND> [ARGS...]\n       devin mcp add <NAME> --url <URL>\n       devin mcp add <NAME> --transport <stdio|sse|http> [OPTIONS]\n\nFor more information, try '--help'.",
     "blank": "<name>",
     "hint": "Review mcp.txt line 6 and identify the option starting with 't'.",
-    "explain": "add      Add a new MCP server\nUse it when the support case needs to add a new MCP server for the customer.",
+    "explain": "add      Add a new MCP server\nUse it when you need to add a new MCP server.",
     "source_file": "mcp-add.txt",
     "source": "recorded installed-binary parse error in throwaway HOME",
     "kind": "fix",
@@ -805,7 +805,7 @@
     "id": "cmd-flag-mcp-add-env",
     "category": "mcp",
     "tier": 3,
-    "task": "A customer's HTTP MCP server needs environment variables passed to its process.",
+    "task": "Your HTTP MCP server needs environment variables passed to its process.",
     "answers": [
       "devin mcp add --transport http <name> <url> --env <key=value>"
     ],
@@ -820,7 +820,7 @@
     "id": "cmd-flag-mcp-add-header",
     "category": "mcp",
     "tier": 3,
-    "task": "A customer's HTTP MCP endpoint requires an additional request header.",
+    "task": "Your HTTP MCP endpoint requires an additional request header.",
     "answers": [
       "devin mcp add --transport http <name> <url> --header \"<header: value>\""
     ],
@@ -835,7 +835,7 @@
     "id": "cmd-flag-mcp-add-oauth-client-id",
     "category": "mcp",
     "tier": 3,
-    "task": "A customer has a pre-registered OAuth client ID for an HTTP MCP provider.",
+    "task": "You have a pre-registered OAuth client ID for an HTTP MCP provider.",
     "answers": [
       "devin mcp add --transport http <name> <url> --oauth-client-id <id>"
     ],
@@ -850,7 +850,7 @@
     "id": "cmd-flag-mcp-add-oauth-client-secret",
     "category": "mcp",
     "tier": 3,
-    "task": "A customer's HTTP MCP provider requires its confidential OAuth client secret.",
+    "task": "Your HTTP MCP provider requires its confidential OAuth client secret.",
     "answers": [
       "devin mcp add --transport http <name> <url> --oauth-client-secret <secret>"
     ],
@@ -865,7 +865,7 @@
     "id": "cmd-flag-mcp-add-oauth-resource",
     "category": "mcp",
     "tier": 3,
-    "task": "A customer's HTTP MCP provider requires a customized OAuth resource value.",
+    "task": "Your HTTP MCP provider requires a customized OAuth resource value.",
     "answers": [
       "devin mcp add --transport http <name> <url> --oauth-resource <resource>"
     ],
@@ -880,7 +880,7 @@
     "id": "cmd-flag-mcp-add-scopes",
     "category": "mcp",
     "tier": 3,
-    "task": "A customer's HTTP MCP provider needs a selected set of OAuth scopes requested.",
+    "task": "Your HTTP MCP provider needs a selected set of OAuth scopes requested.",
     "answers": [
       "devin mcp add --transport http <name> <url> --scopes <scope,scope>"
     ],
@@ -895,7 +895,7 @@
     "id": "cmd-flag-mcp-login-oauth-client-id",
     "category": "mcp",
     "tier": 3,
-    "task": "A customer must authenticate with an MCP provider using its pre-registered client ID.",
+    "task": "You must authenticate with an MCP provider using its pre-registered client ID.",
     "answers": [
       "devin mcp login --oauth-client-id <id> <name>"
     ],
@@ -910,7 +910,7 @@
     "id": "cmd-flag-mcp-login-oauth-client-secret",
     "category": "mcp",
     "tier": 3,
-    "task": "A customer must authenticate with an MCP provider using its confidential client secret.",
+    "task": "You must authenticate with an MCP provider using its confidential client secret.",
     "answers": [
       "devin mcp login --oauth-client-secret <secret> <name>"
     ],
@@ -925,7 +925,7 @@
     "id": "cmd-flag-mcp-login-oauth-resource",
     "category": "mcp",
     "tier": 3,
-    "task": "A customer must authenticate with an MCP provider that expects a custom OAuth resource.",
+    "task": "You must authenticate with an MCP provider that expects a custom OAuth resource.",
     "answers": [
       "devin mcp login --oauth-resource <resource> <name>"
     ],
@@ -940,7 +940,7 @@
     "id": "cmd-flag-mcp-login-scopes",
     "category": "mcp",
     "tier": 3,
-    "task": "A customer must request specific OAuth scopes while authenticating with an MCP provider.",
+    "task": "You must request specific OAuth scopes while authenticating with an MCP provider.",
     "answers": [
       "devin mcp login --scopes <scope,scope> <name>"
     ],
@@ -955,7 +955,7 @@
     "id": "cmd-flag-plugins-install-local",
     "category": "plugins",
     "tier": 2,
-    "task": "A customer wants a plugin installed on this machine, not added to personal plugins.",
+    "task": "You want a plugin installed on this machine, not added to personal plugins.",
     "answers": [
       "devin plugins install --local <source>"
     ],
@@ -970,13 +970,13 @@
     "id": "cmd-flag-plugins-install-yes",
     "category": "plugins",
     "tier": 2,
-    "task": "A customer has reviewed a plugin source and wants its trust prompt skipped.",
+    "task": "You have reviewed a plugin source and want its trust prompt skipped.",
     "answers": [
       "devin plugins install --yes <source>"
     ],
     "blank": "--yes",
     "hint": "Review plugins-install.txt line 12 and identify the option starting with 'y'.",
-    "explain": "-y, --yes\nUse it when the customer has already approved the requested change.",
+    "explain": "-y, --yes\nUse it when you have already approved the requested change.",
     "source_file": "plugins-install.txt",
     "kind": "write",
     "topic": "plugins"
@@ -985,13 +985,13 @@
     "id": "cmd-flag-plugins-remove-force",
     "category": "plugins",
     "tier": 2,
-    "task": "A customer explicitly wants a plugin removed despite the usual protection.",
+    "task": "You explicitly want a plugin removed despite the usual protection.",
     "answers": [
       "devin plugins remove --force <name>"
     ],
     "blank": "--force",
     "hint": "Review plugins-remove.txt line 9 and identify the option starting with 'f'.",
-    "explain": "--force  Remove even if another installed plugin or a governance config still requires it. A governance-required plugin is reinstalled on the next session in the requiring scope\nUse it when the customer explicitly approves continuing past the normal safeguard.",
+    "explain": "--force  Remove even if another installed plugin or a governance config still requires it. A governance-required plugin is reinstalled on the next session in the requiring scope\nUse it when you explicitly approve continuing past the normal safeguard.",
     "source_file": "plugins-remove.txt",
     "kind": "write",
     "topic": "plugins"
@@ -1000,7 +1000,7 @@
     "id": "cmd-flag-plugins-remove-local",
     "category": "plugins",
     "tier": 2,
-    "task": "A customer wants a machine-only plugin removed without changing personal plugins.",
+    "task": "You want a machine-only plugin removed without changing personal plugins.",
     "answers": [
       "devin plugins remove --local <name>"
     ],
@@ -1015,13 +1015,13 @@
     "id": "cmd-flag-plugins-remove-yes",
     "category": "plugins",
     "tier": 2,
-    "task": "A customer has approved the cloud-plugin removal confirmation in advance.",
+    "task": "You have approved the cloud-plugin removal confirmation in advance.",
     "answers": [
       "devin plugins remove --yes <name>"
     ],
     "blank": "--yes",
     "hint": "Review plugins-remove.txt line 11 and identify the option starting with 'y'.",
-    "explain": "-y, --yes    Skip the interactive cloud-removal confirmation\nUse it when the customer has already approved the requested change.",
+    "explain": "-y, --yes    Skip the interactive cloud-removal confirmation\nUse it when you have already approved the requested change.",
     "source_file": "plugins-remove.txt",
     "kind": "write",
     "topic": "plugins"
@@ -1030,13 +1030,13 @@
     "id": "cmd-path-plugins-info",
     "category": "plugins",
     "tier": 2,
-    "task": "A support engineer needs to inspect a plugin's skills, hooks, and rules.",
+    "task": "You need to inspect a plugin's skills, hooks, and rules.",
     "answers": [
       "devin plugins info <name>"
     ],
     "blank": "info",
     "hint": "Review plugins.txt line 8 and identify the operation starting with 'i'.",
-    "explain": "info     Show a plugin's skills, hooks, rules, and its required/optional/forbidden lists\nUse it when the support case needs to inspect a plugin's skills, hooks, and rules.",
+    "explain": "info     Show a plugin's skills, hooks, rules, and its required/optional/forbidden lists\nUse it when you need to inspect a plugin's skills, hooks, and rules.",
     "source_file": "plugins-info.txt",
     "kind": "write",
     "topic": "plugins"
@@ -1045,13 +1045,13 @@
     "id": "cmd-path-plugins-install",
     "category": "plugins",
     "tier": 2,
-    "task": "A support engineer needs to install a plugin for the customer's workflow.",
+    "task": "You need to install a plugin for your workflow.",
     "answers": [
       "devin plugins install <source>"
     ],
     "blank": "install",
     "hint": "Review plugins.txt line 6 and identify the operation starting with 'i'.",
-    "explain": "install  Install a plugin from a source (auto-installs its required plugins)\nUse it when the support case needs to install a plugin for the customer's workflow.",
+    "explain": "install  Install a plugin from a source (auto-installs its required plugins)\nUse it when you need to install a plugin for your workflow.",
     "source_file": "plugins-install.txt",
     "kind": "write",
     "topic": "plugins"
@@ -1060,13 +1060,13 @@
     "id": "cmd-path-plugins-list",
     "category": "plugins",
     "tier": 2,
-    "task": "A support engineer needs to review installed plugins and their status.",
+    "task": "You need to review installed plugins and their status.",
     "answers": [
       "devin plugins list"
     ],
     "blank": "list",
     "hint": "Review plugins.txt line 7 and identify the operation starting with 'l'.",
-    "explain": "list     List installed plugins with their version and blocked status\nUse it when the support case needs to review installed plugins and their status.",
+    "explain": "list     List installed plugins with their version and blocked status\nUse it when you need to review installed plugins and their status.",
     "source_file": "plugins-list.txt",
     "kind": "write",
     "topic": "plugins"
@@ -1075,13 +1075,13 @@
     "id": "cmd-path-plugins-remove",
     "category": "plugins",
     "tier": 2,
-    "task": "A support engineer needs to remove an installed plugin.",
+    "task": "You need to remove an installed plugin.",
     "answers": [
       "devin plugins remove <name>"
     ],
     "blank": "remove",
     "hint": "Review plugins.txt line 10 and identify the operation starting with 'r'.",
-    "explain": "remove   Remove an installed plugin (auto-installed requireds are left in place)\nUse it when the support case needs to remove an installed plugin.",
+    "explain": "remove   Remove an installed plugin (auto-installed requireds are left in place)\nUse it when you need to remove an installed plugin.",
     "source_file": "plugins-remove.txt",
     "kind": "write",
     "topic": "plugins"
@@ -1090,13 +1090,13 @@
     "id": "cmd-path-plugins-update",
     "category": "plugins",
     "tier": 2,
-    "task": "A support engineer needs to refresh a plugin from its latest source.",
+    "task": "You need to refresh a plugin from its latest source.",
     "answers": [
       "devin plugins update"
     ],
     "blank": "update",
     "hint": "Review plugins.txt line 9 and identify the operation starting with 'u'.",
-    "explain": "update   Re-fetch and re-install a plugin (or all plugins) at the latest HEAD\nUse it when the support case needs to refresh a plugin from its latest source.",
+    "explain": "update   Re-fetch and re-install a plugin (or all plugins) at the latest HEAD\nUse it when you need to refresh a plugin from its latest source.",
     "source_file": "plugins-update.txt",
     "kind": "write",
     "topic": "plugins"
@@ -1105,13 +1105,13 @@
     "id": "cmd-path-plugins-prune",
     "category": "plugins",
     "tier": 3,
-    "task": "A support engineer needs to remove plugin requirements for repositories no longer on disk.",
+    "task": "You need to remove plugin requirements for repositories no longer on disk.",
     "answers": [
       "devin plugins prune"
     ],
     "blank": "prune",
     "hint": "Review plugins.txt line 11 and identify the operation starting with 'p'.",
-    "explain": "prune    Prune plugin requirements from repos that no longer exist on disk, then garbage-collect any plugin content no live scope still requires\nUse it when the support case needs to remove plugin requirements for repositories no longer on disk.",
+    "explain": "prune    Prune plugin requirements from repos that no longer exist on disk, then garbage-collect any plugin content no live scope still requires\nUse it when you need to remove plugin requirements for repositories no longer on disk.",
     "source_file": "plugins-prune.txt",
     "kind": "write",
     "topic": "plugins"
@@ -1120,13 +1120,13 @@
     "id": "cmd-models-list",
     "category": "models",
     "tier": 1,
-    "task": "A support engineer needs to review the models available to the customer's account.",
+    "task": "You need to review the models available to your account.",
     "answers": [
       "devin models list"
     ],
     "blank": "list",
     "hint": "Review models.txt line 6 and identify the operation starting with 'l'.",
-    "explain": "list  List available models, organized by model family\nUse it when a customer needs the CLI model ID rather than its display name.",
+    "explain": "list  List available models, organized by model family\nUse it when you need the CLI model ID rather than its display name.",
     "source_file": "models-list.txt",
     "kind": "write",
     "topic": "models",
@@ -1140,13 +1140,13 @@
     "id": "cmd-flag-models-list-format",
     "category": "models",
     "tier": 2,
-    "task": "A support tool needs the available-model list in a selected output format.",
+    "task": "Another tool needs the available-model list in a selected output format.",
     "answers": [
       "devin models list --format <format>"
     ],
     "blank": "--format",
     "hint": "Review models-list.txt line 6 and identify the option starting with 'f'.",
-    "explain": "--format <FORMAT>\nUse it when another support tool expects a particular output format.",
+    "explain": "--format <FORMAT>\nUse it when another tool expects a particular output format.",
     "source_file": "models-list.txt",
     "kind": "write",
     "topic": "models"
@@ -1155,7 +1155,7 @@
     "id": "cmd-flag-root-cloud",
     "category": "cloud",
     "tier": 2,
-    "task": "A customer needs a new session to run through Devin Cloud rather than the local agent.",
+    "task": "You need a new session to run through Devin Cloud rather than the local agent.",
     "answers": [
       "devin --cloud"
     ],
@@ -1170,13 +1170,13 @@
     "id": "cmd-path-cloud-drs-blueprint-create",
     "category": "cloud",
     "tier": 3,
-    "task": "A support engineer needs to create a DRS environment blueprint.",
+    "task": "You need to create a DRS environment blueprint.",
     "answers": [
       "devin cloud drs blueprint-create"
     ],
     "blank": "blueprint-create",
     "hint": "Review cloud-drs.txt line 10 and identify the operation starting with 'b'.",
-    "explain": "blueprint-create  Create a new environment blueprint\nUse it when the support case needs to create a DRS environment blueprint.",
+    "explain": "blueprint-create  Create a new environment blueprint\nUse it when you need to create a DRS environment blueprint.",
     "source_file": "cloud-drs.txt",
     "kind": "write",
     "topic": "cloud"
@@ -1185,13 +1185,13 @@
     "id": "cmd-path-cloud-drs-blueprint-list",
     "category": "cloud",
     "tier": 3,
-    "task": "A support engineer needs to review the organization's environment blueprints.",
+    "task": "You need to review the organization's environment blueprints.",
     "answers": [
       "devin cloud drs blueprint-list"
     ],
     "blank": "blueprint-list",
     "hint": "Review cloud-drs.txt line 9 and identify the operation starting with 'b'.",
-    "explain": "blueprint-list    List all environment blueprints for the organization\nUse it when the support case needs to review the organization's environment blueprints.",
+    "explain": "blueprint-list    List all environment blueprints for the organization\nUse it when you need to review the organization's environment blueprints.",
     "source_file": "cloud-drs.txt",
     "kind": "write",
     "topic": "cloud"
@@ -1200,13 +1200,13 @@
     "id": "cmd-path-cloud-drs-blueprint-write",
     "category": "cloud",
     "tier": 3,
-    "task": "A support engineer needs to update an existing DRS environment blueprint.",
+    "task": "You need to update an existing DRS environment blueprint.",
     "answers": [
       "devin cloud drs blueprint-write"
     ],
     "blank": "blueprint-write",
     "hint": "Review cloud-drs.txt line 11 and identify the operation starting with 'b'.",
-    "explain": "blueprint-write   Update an existing environment blueprint\nUse it when the support case needs to update an existing DRS environment blueprint.",
+    "explain": "blueprint-write   Update an existing environment blueprint\nUse it when you need to update an existing DRS environment blueprint.",
     "source_file": "cloud-drs.txt",
     "kind": "write",
     "topic": "cloud"
@@ -1215,13 +1215,13 @@
     "id": "cmd-path-cloud-drs-build",
     "category": "cloud",
     "tier": 3,
-    "task": "A support engineer needs to start an environment build and wait for its result.",
+    "task": "You need to start an environment build and wait for its result.",
     "answers": [
       "devin cloud drs build"
     ],
     "blank": "build",
     "hint": "Review cloud-drs.txt line 12 and identify the operation starting with 'b'.",
-    "explain": "build             Trigger an environment build and wait for it to finish\nUse it when the support case needs to start an environment build and wait for its result.",
+    "explain": "build             Trigger an environment build and wait for it to finish\nUse it when you need to start an environment build and wait for its result.",
     "source_file": "cloud-drs.txt",
     "kind": "write",
     "topic": "cloud"
@@ -1230,13 +1230,13 @@
     "id": "cmd-path-cloud-drs-build-logs",
     "category": "cloud",
     "tier": 3,
-    "task": "A support engineer needs to retrieve the log stream for a build job.",
+    "task": "You need to retrieve the log stream for a build job.",
     "answers": [
       "devin cloud drs build-logs"
     ],
     "blank": "build-logs",
     "hint": "Review cloud-drs.txt line 15 and identify the operation starting with 'b'.",
-    "explain": "build-logs        Fetch the log stream for a build job\nUse it when the support case needs to retrieve the log stream for a build job.",
+    "explain": "build-logs        Fetch the log stream for a build job\nUse it when you need to retrieve the log stream for a build job.",
     "source_file": "cloud-drs.txt",
     "kind": "write",
     "topic": "cloud"
@@ -1245,13 +1245,13 @@
     "id": "cmd-path-cloud-drs-build-start",
     "category": "cloud",
     "tier": 3,
-    "task": "A support engineer needs to start an environment build without waiting.",
+    "task": "You need to start an environment build without waiting.",
     "answers": [
       "devin cloud drs build-start"
     ],
     "blank": "build-start",
     "hint": "Review cloud-drs.txt line 13 and identify the operation starting with 'b'.",
-    "explain": "build-start       Trigger an environment build without waiting\nUse it when the support case needs to start an environment build without waiting.",
+    "explain": "build-start       Trigger an environment build without waiting\nUse it when you need to start an environment build without waiting.",
     "source_file": "cloud-drs.txt",
     "kind": "write",
     "topic": "cloud"
@@ -1260,13 +1260,13 @@
     "id": "cmd-path-cloud-drs-build-wait",
     "category": "cloud",
     "tier": 3,
-    "task": "A support engineer needs to wait for a previously started environment build.",
+    "task": "You need to wait for a previously started environment build.",
     "answers": [
       "devin cloud drs build-wait"
     ],
     "blank": "build-wait",
     "hint": "Review cloud-drs.txt line 14 and identify the operation starting with 'b'.",
-    "explain": "build-wait        Wait for a previously started build to finish\nUse it when the support case needs to wait for a previously started environment build.",
+    "explain": "build-wait        Wait for a previously started build to finish\nUse it when you need to wait for a previously started environment build.",
     "source_file": "cloud-drs.txt",
     "kind": "write",
     "topic": "cloud"
@@ -1275,13 +1275,13 @@
     "id": "cmd-path-cloud-drs-run",
     "category": "cloud",
     "tier": 3,
-    "task": "A support engineer needs to run a shell command inside a sandbox session.",
+    "task": "You need to run a shell command inside a sandbox session.",
     "answers": [
       "devin cloud drs run"
     ],
     "blank": "run",
     "hint": "Review cloud-drs.txt line 8 and identify the operation starting with 'r'.",
-    "explain": "run               Run a shell command inside a sandbox session\nUse it when the support case needs to run a shell command inside a sandbox session.",
+    "explain": "run               Run a shell command inside a sandbox session\nUse it when you need to run a shell command inside a sandbox session.",
     "source_file": "cloud-drs.txt",
     "kind": "write",
     "topic": "cloud"
@@ -1290,13 +1290,13 @@
     "id": "cmd-path-cloud-drs-sandbox-create",
     "category": "cloud",
     "tier": 3,
-    "task": "A support engineer needs to create a sandbox session to test repository setup.",
+    "task": "You need to create a sandbox session to test repository setup.",
     "answers": [
       "devin cloud drs sandbox-create"
     ],
     "blank": "sandbox-create",
     "hint": "Review cloud-drs.txt line 7 and identify the operation starting with 's'.",
-    "explain": "sandbox-create    Create a sandbox Devin session for testing repo setup\nUse it when the support case needs to create a sandbox session to test repository setup.",
+    "explain": "sandbox-create    Create a sandbox Devin session for testing repo setup\nUse it when you need to create a sandbox session to test repository setup.",
     "source_file": "cloud-drs.txt",
     "kind": "write",
     "topic": "cloud"
@@ -1305,13 +1305,13 @@
     "id": "cmd-path-cloud-drs-secret-create",
     "category": "cloud",
     "tier": 3,
-    "task": "A support engineer needs to create organization-level secrets.",
+    "task": "You need to create organization-level secrets.",
     "answers": [
       "devin cloud drs secret-create"
     ],
     "blank": "secret-create",
     "hint": "Review cloud-drs.txt line 16 and identify the operation starting with 's'.",
-    "explain": "secret-create     Create organization-level secrets\nUse it when the support case needs to create organization-level secrets.",
+    "explain": "secret-create     Create organization-level secrets\nUse it when you need to create organization-level secrets.",
     "source_file": "cloud-drs.txt",
     "kind": "write",
     "topic": "cloud"
@@ -1320,13 +1320,13 @@
     "id": "cmd-path-cloud-drs-whoami",
     "category": "cloud",
     "tier": 3,
-    "task": "A support engineer needs to inspect the current DRS organization, endpoint, and auth status.",
+    "task": "You need to inspect the current DRS organization, endpoint, and auth status.",
     "answers": [
       "devin cloud drs whoami"
     ],
     "blank": "whoami",
     "hint": "Review cloud-drs.txt line 6 and identify the operation starting with 'w'.",
-    "explain": "whoami            Print the current DRS configuration (org, API endpoint, auth status)\nUse it when the support case needs to inspect the current DRS organization, endpoint, and auth status.",
+    "explain": "whoami            Print the current DRS configuration (org, API endpoint, auth status)\nUse it when you need to inspect the current DRS organization, endpoint, and auth status.",
     "source_file": "cloud-drs.txt",
     "kind": "write",
     "topic": "cloud"
@@ -1335,13 +1335,13 @@
     "id": "cmd-maintenance-doctor",
     "category": "maintenance",
     "tier": 1,
-    "task": "A support engineer needs to diagnose the customer's local Devin configuration.",
+    "task": "You need to diagnose your local Devin configuration.",
     "answers": [
       "devin doctor"
     ],
     "blank": "doctor",
     "hint": "Review root help line 9 and identify the operation starting with 'd'.",
-    "explain": "doctor     Diagnose the local Devin configuration\nUse it when the support case needs to diagnose the customer's local Devin configuration.",
+    "explain": "doctor     Diagnose the local Devin configuration\nUse it when you need to diagnose your local Devin configuration.",
     "source_file": "doctor.txt",
     "kind": "write",
     "topic": "maintenance"
@@ -1350,13 +1350,13 @@
     "id": "cmd-maintenance-update",
     "category": "maintenance",
     "tier": 1,
-    "task": "A support engineer needs to check for and install a Devin CLI update.",
+    "task": "You need to check for and install a Devin CLI update.",
     "answers": [
       "devin update"
     ],
     "blank": "update",
     "hint": "Review root help line 19 and identify the operation starting with 'u'.",
-    "explain": "update     Check for updates and optionally install them\nUse it when the support case needs to check for and install a Devin CLI update.",
+    "explain": "update     Check for updates and optionally install them\nUse it when you need to check for and install a Devin CLI update.",
     "source_file": "update.txt",
     "kind": "write",
     "topic": "maintenance"
@@ -1365,7 +1365,7 @@
     "id": "cmd-maintenance-version",
     "category": "maintenance",
     "tier": 1,
-    "task": "Before investigating a customer issue, record the exact CLI version they run.",
+    "task": "Before digging into a problem, record the exact CLI version in use.",
     "answers": [
       "devin --version"
     ],
@@ -1385,7 +1385,7 @@
     "id": "cmd-flag-doctor-json",
     "category": "maintenance",
     "tier": 2,
-    "task": "A support script needs local configuration diagnostics as machine-readable JSON.",
+    "task": "A script needs local configuration diagnostics as machine-readable JSON.",
     "answers": [
       "devin doctor --json"
     ],
@@ -1400,7 +1400,7 @@
     "id": "cmd-flag-migrate-workflows-scope",
     "category": "maintenance",
     "tier": 2,
-    "task": "A customer needs workflows migrated from the selected configuration scope.",
+    "task": "You need workflows migrated from the selected configuration scope.",
     "answers": [
       "devin migrate workflows --scope <scope>"
     ],
@@ -1415,7 +1415,7 @@
     "id": "cmd-flag-setup-force-manual-token-flow",
     "category": "maintenance",
     "tier": 2,
-    "task": "During first-time CLI setup, the customer needs account sign-in completed by pasting a token.",
+    "task": "During first-time CLI setup, you need account sign-in completed by pasting a token.",
     "answers": [
       "devin setup --force-manual-token-flow"
     ],
@@ -1430,13 +1430,13 @@
     "id": "cmd-flag-uninstall-clean",
     "category": "maintenance",
     "tier": 2,
-    "task": "A customer explicitly wants all user data removed with the CLI.",
+    "task": "You explicitly want all user data removed with the CLI.",
     "answers": [
       "devin uninstall --clean"
     ],
     "blank": "--clean",
     "hint": "Review uninstall.txt line 6 and identify the option starting with 'c'.",
-    "explain": "--clean\nUse it when the customer has explicitly asked to remove stored user data.",
+    "explain": "--clean\nUse it when you want stored user data removed as well.",
     "source_file": "uninstall.txt",
     "kind": "write",
     "topic": "maintenance"
@@ -1445,14 +1445,14 @@
     "id": "cmd-flag-uninstall-force",
     "category": "maintenance",
     "tier": 2,
-    "task": "A customer has approved uninstalling Devin without a final confirmation.",
+    "task": "You have approved uninstalling Devin without a final confirmation.",
     "answers": [
       "devin uninstall --force"
     ],
     "blank": "--force",
     "kind": "write",
     "hint": "Review uninstall.txt line 11 and identify the option starting with 'f'.",
-    "explain": "--force\nUse it when the customer explicitly approves continuing past the normal safeguard.",
+    "explain": "--force\nUse it when you explicitly approve continuing past the normal safeguard.",
     "source_file": "uninstall.txt",
     "topic": "maintenance"
   },
@@ -1460,13 +1460,13 @@
     "id": "cmd-flag-update-force",
     "category": "maintenance",
     "tier": 2,
-    "task": "A customer needs the installed CLI release reinstalled even when it is already current.",
+    "task": "You need the installed CLI release reinstalled even when it is already current.",
     "answers": [
       "devin update --force"
     ],
     "blank": "--force",
     "hint": "Review update.txt line 6 and identify the option starting with 'f'.",
-    "explain": "--force  Force re-install even if already on the latest version\nUse it when the customer explicitly approves continuing past the normal safeguard.",
+    "explain": "--force  Force re-install even if already on the latest version\nUse it when you explicitly approve continuing past the normal safeguard.",
     "source_file": "update.txt",
     "kind": "write",
     "topic": "maintenance"
@@ -1475,13 +1475,13 @@
     "id": "cmd-path-version",
     "category": "maintenance",
     "tier": 2,
-    "task": "A support engineer needs to check which Devin CLI version is installed.",
+    "task": "You need to check which Devin CLI version is installed.",
     "answers": [
       "devin version"
     ],
     "blank": "version",
     "hint": "Review root help line 20 and identify the operation starting with 'v'.",
-    "explain": "version    Print the current version\nUse it when the support case needs to check which Devin CLI version is installed.",
+    "explain": "version    Print the current version\nUse it when you need to check which Devin CLI version is installed.",
     "source_file": "version.txt",
     "kind": "write",
     "topic": "maintenance"
@@ -1490,13 +1490,13 @@
     "id": "cmd-path-migrate-hooks",
     "category": "maintenance",
     "tier": 3,
-    "task": "A support engineer needs to move Windsurf hooks into Devin hooks.",
+    "task": "You need to move Windsurf hooks into Devin hooks.",
     "answers": [
       "devin migrate hooks"
     ],
     "blank": "hooks",
     "hint": "Review migrate.txt line 6 and identify the operation starting with 'h'.",
-    "explain": "hooks      Migrate Windsurf hooks (.windsurf/hooks.json) to Devin hooks (.devin/hooks.v1.json)\nUse it when the support case needs to move Windsurf hooks into Devin hooks.",
+    "explain": "hooks      Migrate Windsurf hooks (.windsurf/hooks.json) to Devin hooks (.devin/hooks.v1.json)\nUse it when you need to move Windsurf hooks into Devin hooks.",
     "source_file": "migrate-hooks.txt",
     "kind": "write",
     "topic": "maintenance"
@@ -1505,13 +1505,13 @@
     "id": "cmd-path-migrate-workflows",
     "category": "maintenance",
     "tier": 3,
-    "task": "A support engineer needs to move workflow files into skills and remove the originals.",
+    "task": "You need to move workflow files into skills and remove the originals.",
     "answers": [
       "devin migrate workflows"
     ],
     "blank": "workflows",
     "hint": "Review migrate.txt line 7 and identify the operation starting with 'w'.",
-    "explain": "workflows  Migrate workflow files into skills and remove the originals\nUse it when the support case needs to move workflow files into skills and remove the originals.",
+    "explain": "workflows  Migrate workflow files into skills and remove the originals\nUse it when you need to move workflow files into skills and remove the originals.",
     "source_file": "migrate-workflows.txt",
     "kind": "write",
     "topic": "maintenance"
@@ -1520,13 +1520,13 @@
     "id": "cmd-path-sandbox-setup",
     "category": "maintenance",
     "tier": 3,
-    "task": "A support engineer needs to check sandbox prerequisites for the current platform.",
+    "task": "You need to check sandbox prerequisites for the current platform.",
     "answers": [
       "devin sandbox setup"
     ],
     "blank": "setup",
     "hint": "Review sandbox.txt line 6 and identify the operation starting with 's'.",
-    "explain": "setup  [Research Preview] Print the sandbox prerequisites for the current platform\nUse it when the support case needs to check sandbox prerequisites for the current platform.",
+    "explain": "setup  [Research Preview] Print the sandbox prerequisites for the current platform\nUse it when you need to check sandbox prerequisites for the current platform.",
     "source_file": "sandbox-setup.txt",
     "kind": "write",
     "topic": "maintenance"
@@ -1535,13 +1535,13 @@
     "id": "cmd-path-setup",
     "category": "maintenance",
     "tier": 3,
-    "task": "A support engineer needs to walk the customer through interactive CLI setup.",
+    "task": "You need to go through interactive CLI setup.",
     "answers": [
       "devin setup"
     ],
     "blank": "setup",
     "hint": "Review root help line 23 and identify the operation starting with 's'.",
-    "explain": "setup      Interactive setup wizard\nUse it when the support case needs to walk the customer through interactive CLI setup.",
+    "explain": "setup      Interactive setup wizard\nUse it when you need to go through interactive CLI setup.",
     "source_file": "setup.txt",
     "kind": "write",
     "topic": "maintenance"
@@ -1550,13 +1550,13 @@
     "id": "cmd-path-uninstall",
     "category": "maintenance",
     "tier": 3,
-    "task": "A support engineer needs to remove the Devin CLI and its data.",
+    "task": "You need to remove the Devin CLI and its data.",
     "answers": [
       "devin uninstall"
     ],
     "blank": "uninstall",
     "hint": "Review root help line 24 and identify the operation starting with 'u'.",
-    "explain": "uninstall  Uninstall and remove data\nUse it when the support case needs to remove the Devin CLI and its data.",
+    "explain": "uninstall  Uninstall and remove data\nUse it when you need to remove the Devin CLI and its data.",
     "source_file": "uninstall.txt",
     "kind": "write",
     "topic": "maintenance"
@@ -1602,7 +1602,7 @@
     "blank": "--model",
     "kind": "write",
     "hint": "Review acp.txt line 13 and identify the option starting with 'm'.",
-    "explain": "--model <MODEL>\nUse it when the customer requests a particular model for the next session.",
+    "explain": "--model <MODEL>\nUse it when you want a particular model for the next session.",
     "source_file": "acp.txt",
     "topic": "integration"
   },
@@ -1617,7 +1617,7 @@
     "blank": "--refusal-fallback",
     "kind": "write",
     "hint": "Review acp.txt line 20 and identify the option starting with 'r'.",
-    "explain": "--refusal-fallback <MODEL>\nUse it when the customer needs a fallback when a provider refuses a request.",
+    "explain": "--refusal-fallback <MODEL>\nUse it when you need a fallback when a provider refuses a request.",
     "source_file": "acp.txt",
     "topic": "integration"
   },
@@ -1625,13 +1625,13 @@
     "id": "cmd-path-acp",
     "category": "integration",
     "tier": 3,
-    "task": "A support engineer needs to run Devin as an Agent Client Protocol server over standard input and output.",
+    "task": "You need to run Devin as an Agent Client Protocol server over standard input and output.",
     "answers": [
       "devin acp"
     ],
     "blank": "acp",
     "hint": "Review root help line 25 and identify the operation starting with 'a'.",
-    "explain": "acp        Run as an ACP (Agent Client Protocol) server over stdio\nUse it when the support case needs to run Devin as an Agent Client Protocol server over standard input and output.",
+    "explain": "acp        Run as an ACP (Agent Client Protocol) server over stdio\nUse it when you need to run Devin as an Agent Client Protocol server over standard input and output.",
     "source_file": "acp.txt",
     "kind": "write",
     "topic": "integration"
@@ -1640,13 +1640,13 @@
     "id": "cmd-path-desktop",
     "category": "integration",
     "tier": 3,
-    "task": "A support engineer needs to open Devin Desktop for the customer.",
+    "task": "You need to open Devin Desktop from the CLI.",
     "answers": [
       "devin desktop"
     ],
     "blank": "desktop",
     "hint": "Review root help line 14 and identify the operation starting with 'd'.",
-    "explain": "desktop    Open Devin Desktop\nUse it when the support case needs to open Devin Desktop for the customer.",
+    "explain": "desktop    Open Devin Desktop\nUse it when you need to open Devin Desktop from the CLI.",
     "source_file": "desktop.txt",
     "kind": "write",
     "topic": "integration"
@@ -1655,13 +1655,13 @@
     "id": "cmd-slash-ask",
     "category": "slash",
     "tier": 1,
-    "task": "A customer needs a one-off answer without making code changes.",
+    "task": "You need a one-off answer without making code changes.",
     "answers": [
       "/ask <question>"
     ],
     "blank": "/ask",
     "hint": "Review cli_reference_commands.md line 456 and identify the slash action starting with 'a'.",
-    "explain": "| `/ask <question>` | Ask a question without making code changes (oneshot) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/ask <question>` | Ask a question without making code changes (oneshot) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1671,13 +1671,13 @@
     "id": "cmd-slash-handoff",
     "category": "slash",
     "tier": 1,
-    "task": "A local support task should continue in a cloud session, or a cloud session should return locally.",
+    "task": "Local work should continue in a cloud session, or a cloud session should return locally.",
     "answers": [
       "/handoff"
     ],
     "blank": "/handoff",
     "hint": "Review cli_reference_commands.md line 540 and identify the slash action starting with 'h'.",
-    "explain": "| `/handoff [task]` | Local session: continue the task in a cloud session. Cloud session: check out the session's pull request branch and continue locally. See [Hand off to cloud Devins](/cli/handoff). |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/handoff [task]` | Local session: continue the task in a cloud session. Cloud session: check out the session's pull request branch and continue locally. See [Hand off to cloud Devins](/cli/handoff). |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1687,14 +1687,14 @@
     "id": "cmd-slash-model",
     "category": "slash",
     "tier": 1,
-    "task": "A customer wants to inspect or change the model for this session.",
+    "task": "You want to inspect or change the model for this session.",
     "answers": [
       "/model",
       "/models"
     ],
     "blank": "/model",
     "hint": "Review cli_reference_commands.md line 459 and identify the slash action starting with 'm'.",
-    "explain": "| `/model [name]` | Show or change the current model |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/model [name]` | Show or change the current model |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1704,13 +1704,13 @@
     "id": "cmd-slash-plan",
     "category": "slash",
     "tier": 1,
-    "task": "A customer wants Devin to produce a read-only plan before changing files.",
+    "task": "You want Devin to produce a read-only plan before changing files.",
     "answers": [
       "/plan"
     ],
     "blank": "/plan",
     "hint": "Review cli_reference_commands.md line 455 and identify the slash action starting with 'p'.",
-    "explain": "| `/plan` | Switch to Plan mode (read-only planning) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/plan` | Switch to Plan mode (read-only planning) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1720,13 +1720,13 @@
     "id": "cmd-slash-shortcuts",
     "category": "slash",
     "tier": 1,
-    "task": "A customer wants to browse keyboard bindings and find an action to rebind.",
+    "task": "You want to browse keyboard bindings and find an action to rebind.",
     "answers": [
       "/shortcuts"
     ],
     "blank": "/shortcuts",
     "hint": "Review cli_reference_commands.md line 512 and identify the slash action starting with 's'.",
-    "explain": "| `/shortcuts` | Browse keyboard shortcuts in an interactive, searchable list grouped by category. Press `Enter` on a row to [rebind it](/cli/reference/keyboard-shortcuts#customizing-keybindings), and see each action's `context.action` identifier |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/shortcuts` | Browse keyboard shortcuts in an interactive, searchable list grouped by category. Press `Enter` on a row to [rebind it](/cli/reference/keyboard-shortcuts#customizing-keybindings), and see each action's `context.action` identifier |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1736,13 +1736,13 @@
     "id": "cmd-slash-accept-edits",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants workspace edits approved automatically for the current session.",
+    "task": "You want workspace edits approved automatically for the current session.",
     "answers": [
       "/accept-edits"
     ],
     "blank": "/accept-edits",
     "hint": "Review cli_reference_commands.md line 453 and identify the slash action starting with 'a'.",
-    "explain": "| `/accept-edits` | Switch to Accept Edits mode (auto-approve file edits in workspace) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/accept-edits` | Switch to Accept Edits mode (auto-approve file edits in workspace) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1752,13 +1752,13 @@
     "id": "cmd-slash-add-dir",
     "category": "slash",
     "tier": 2,
-    "task": "A customer's second repository directory must be available in the active workspace.",
+    "task": "Your second repository directory must be available in the active workspace.",
     "answers": [
       "/add-dir <path>"
     ],
     "blank": "/add-dir",
     "hint": "Review cli_reference_commands.md line 489 and identify the slash action starting with 'a'.",
-    "explain": "| `/add-dir <path>` | Add an additional workspace directory |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/add-dir <path>` | Add an additional workspace directory |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1768,13 +1768,13 @@
     "id": "cmd-slash-archive",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants a completed cloud session moved into the archive.",
+    "task": "You want a completed cloud session moved into the archive.",
     "answers": [
       "/archive"
     ],
     "blank": "/archive",
     "hint": "Review cli_reference_commands.md line 547 and identify the slash action starting with 'a'.",
-    "explain": "| `/archive` | Archive this cloud session |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/archive` | Archive this cloud session |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1784,13 +1784,13 @@
     "id": "cmd-slash-autonomous",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants Devin to complete work independently inside the sandbox.",
+    "task": "You want Devin to complete work independently inside the sandbox.",
     "answers": [
       "/autonomous"
     ],
     "blank": "/autonomous",
     "hint": "Review cli_reference_commands.md line 458 and identify the slash action starting with 'a'.",
-    "explain": "| `/autonomous` | Switch to Autonomous mode (sandbox-enforced; requires `--sandbox`) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/autonomous` | Switch to Autonomous mode (sandbox-enforced; requires `--sandbox`) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1800,13 +1800,13 @@
     "id": "cmd-slash-btw",
     "category": "slash",
     "tier": 2,
-    "task": "A support engineer needs a side question answered without adding it to the main conversation.",
+    "task": "You need a side question answered without adding it to the main conversation.",
     "answers": [
       "/btw <prompt>"
     ],
     "blank": "/btw",
     "hint": "Review cli_reference_commands.md line 498 and identify the slash action starting with 'b'.",
-    "explain": "| `/btw <prompt>` | Ask a quick side question. Runs a sidechain using the current conversation context and prints the answer in a box, without adding the question to the main conversation. |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/btw <prompt>` | Ask a quick side question. Runs a sidechain using the current conversation context and prints the answer in a box, without adding the question to the main conversation. |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1816,13 +1816,13 @@
     "id": "cmd-slash-bug",
     "category": "slash",
     "tier": 2,
-    "task": "The support team has a CLI defect to report to the developers.",
+    "task": "You have a CLI defect to report to the developers.",
     "answers": [
       "/bug <description>"
     ],
     "blank": "/bug",
     "hint": "Review cli_reference_commands.md line 514 and identify the slash action starting with 'b'.",
-    "explain": "| `/bug [description]` | Report a bug to the Devin CLI developers |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/bug [description]` | Report a bug to the Devin CLI developers |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1832,13 +1832,13 @@
     "id": "cmd-slash-bypass",
     "category": "slash",
     "tier": 2,
-    "task": "A customer explicitly authorizes automatic approval of all actions.",
+    "task": "You explicitly authorize automatic approval of all actions.",
     "answers": [
       "/bypass"
     ],
     "blank": "/bypass",
     "hint": "Review cli_reference_commands.md line 457 and identify the slash action starting with 'b'.",
-    "explain": "| `/bypass` | Switch to Bypass mode (auto-approve all actions) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/bypass` | Switch to Bypass mode (auto-approve all actions) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1848,13 +1848,13 @@
     "id": "cmd-slash-clear",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants earlier conversation context removed before continuing.",
+    "task": "You want earlier conversation context removed before continuing.",
     "answers": [
       "/clear"
     ],
     "blank": "/clear",
     "hint": "Review cli_reference_commands.md line 471 and identify the slash action starting with 'c'.",
-    "explain": "| `/clear` | Clear conversation history and start a new session. Alias: `/new` |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/clear` | Clear conversation history and start a new session. Alias: `/new` |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1864,13 +1864,13 @@
     "id": "cmd-slash-cloud",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants a fresh local session to run in Devin Cloud before sending its first message.",
+    "task": "You want a fresh local session to run in Devin Cloud before sending its first message.",
     "answers": [
       "/cloud"
     ],
     "blank": "/cloud",
     "hint": "Review cli_reference_commands.md line 539 and identify the slash action starting with 'c'.",
-    "explain": "| `/cloud` | Switch a fresh local session to run in Devin Cloud (before the first message; run `/clear` first otherwise) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/cloud` | Switch a fresh local session to run in Devin Cloud (before the first message; run `/clear` first otherwise) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1886,7 +1886,7 @@
     ],
     "blank": "/compact",
     "hint": "Review cli_reference_commands.md line 527 and identify the slash action starting with 'c'.",
-    "explain": "| `/compact` | Force conversation compaction |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/compact` | Force conversation compaction |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1896,13 +1896,13 @@
     "id": "cmd-slash-config",
     "category": "slash",
     "tier": 2,
-    "task": "A support engineer needs to change an interactive CLI setting.",
+    "task": "You need to change an interactive CLI setting.",
     "answers": [
       "/config"
     ],
     "blank": "/config",
     "hint": "Review cli_reference_commands.md line 513 and identify the slash action starting with 'c'.",
-    "explain": "| `/config` | Open the interactive config editor |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/config` | Open the interactive config editor |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1912,13 +1912,13 @@
     "id": "cmd-slash-context",
     "category": "slash",
     "tier": 2,
-    "task": "A customer asks how much of the context window remains in use.",
+    "task": "You want to know how much of the context window remains in use.",
     "answers": [
       "/context"
     ],
     "blank": "/context",
     "hint": "Review cli_reference_commands.md line 524 and identify the slash action starting with 'c'.",
-    "explain": "| `/context` | Show context window usage |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/context` | Show context window usage |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1928,13 +1928,13 @@
     "id": "cmd-slash-continue",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs to reopen a previous session.",
+    "task": "You need to reopen a previous session.",
     "answers": [
       "/continue <session>"
     ],
     "blank": "/continue",
     "hint": "Review cli_reference_commands.md line 472 and identify the slash action starting with 'c'.",
-    "explain": "| `/continue [session-id]` | Resume a previous session |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/continue [session-id]` | Resume a previous session |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1944,13 +1944,13 @@
     "id": "cmd-slash-copy",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs the latest Devin response on the clipboard.",
+    "task": "You need the latest Devin response on the clipboard.",
     "answers": [
       "/copy"
     ],
     "blank": "/copy",
     "hint": "Review cli_reference_commands.md line 521 and identify the slash action starting with 'c'.",
-    "explain": "| `/copy` | Copy the last response to the clipboard |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/copy` | Copy the last response to the clipboard |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1960,13 +1960,13 @@
     "id": "cmd-slash-dangerous",
     "category": "slash",
     "tier": 2,
-    "task": "A customer explicitly approves automatic approval of all actions.",
+    "task": "You explicitly approve automatic approval of all actions.",
     "answers": [
       "/dangerous"
     ],
     "blank": "/dangerous",
     "hint": "Review cli_reference_commands.md line 464 and identify the slash action starting with 'd'.",
-    "explain": "`/bypass` has aliases `/yolo` and `/dangerous`. All three do the same thing.\nUse it when the customer needs the workflow described above.",
+    "explain": "`/bypass` has aliases `/yolo` and `/dangerous`. All three do the same thing.\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1976,13 +1976,13 @@
     "id": "cmd-slash-exit",
     "category": "slash",
     "tier": 2,
-    "task": "A customer has finished and wants to close the CLI application.",
+    "task": "You have finished and want to close the CLI application.",
     "answers": [
       "/exit"
     ],
     "blank": "/exit",
     "hint": "Review cli_reference_commands.md line 482 and identify the slash action starting with 'e'.",
-    "explain": "| `/exit` | Exit the application (alias: `/quit`). You can also type `exit` or `quit` without the `/` prefix. |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/exit` | Exit the application (alias: `/quit`). You can also type `exit` or `quit` without the `/` prefix. |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -1992,13 +1992,13 @@
     "id": "cmd-slash-export",
     "category": "slash",
     "tier": 2,
-    "task": "A customer asks how conversation export is configured.",
+    "task": "You want to know how conversation export is configured.",
     "answers": [
       "/export"
     ],
     "blank": "/export",
     "hint": "Review cli_reference_commands.md line 481 and identify the slash action starting with 'e'.",
-    "explain": "| `/export` | Show export info. Use the `--export` CLI flag to enable conversation export. |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/export` | Show export info. Use the `--export` CLI flag to enable conversation export. |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2008,13 +2008,13 @@
     "id": "cmd-slash-fast",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants the current session to use the SWE-1.6 Fast model.",
+    "task": "You want the current session to use the SWE-1.6 Fast model.",
     "answers": [
       "/fast"
     ],
     "blank": "/fast",
     "hint": "Review cli_reference_commands.md line 460 and identify the slash action starting with 'f'.",
-    "explain": "| `/fast` | Switch to SWE-1.6 Fast |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/fast` | Switch to SWE-1.6 Fast |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2024,13 +2024,13 @@
     "id": "cmd-slash-feedback",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants to rate Devin's most recent response.",
+    "task": "You want to rate Devin's most recent response.",
     "answers": [
       "/feedback <direction>"
     ],
     "blank": "/feedback",
     "hint": "Review cli_reference_commands.md line 522 and identify the slash action starting with 'f'.",
-    "explain": "| `/feedback <up\\|down>` | Rate the last response |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/feedback <up\\|down>` | Rate the last response |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2040,13 +2040,13 @@
     "id": "cmd-slash-fork",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants a separate session branching from a particular conversation step.",
+    "task": "You want a separate session branching from a particular conversation step.",
     "answers": [
       "/fork <step>"
     ],
     "blank": "/fork",
     "hint": "Review cli_reference_commands.md line 473 and identify the slash action starting with 'f'.",
-    "explain": "| `/fork [step]` | Fork the current session to a new session. Optionally fork from a specific step (see `/steps`). |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/fork [step]` | Fork the current session to a new session. Optionally fork from a specific step (see `/steps`). |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2062,7 +2062,7 @@
     ],
     "blank": "/help",
     "hint": "Review cli_reference_commands.md line 511 and identify the slash action starting with 'h'.",
-    "explain": "| `/help` | Show available slash commands |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/help` | Show available slash commands |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2072,13 +2072,13 @@
     "id": "cmd-slash-hooks",
     "category": "slash",
     "tier": 2,
-    "task": "A support engineer needs the loaded hook IDs, event types, and source paths.",
+    "task": "You need the loaded hook IDs, event types, and source paths.",
     "answers": [
       "/hooks"
     ],
     "blank": "/hooks",
     "hint": "Review cli_reference_commands.md line 504 and identify the slash action starting with 'h'.",
-    "explain": "| `/hooks` | List all loaded hooks with their IDs, event types, and source paths |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/hooks` | List all loaded hooks with their IDs, event types, and source paths |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2088,13 +2088,13 @@
     "id": "cmd-slash-list-sessions",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs recent sessions from directories beyond the current one.",
+    "task": "You need recent sessions from directories beyond the current one.",
     "answers": [
       "/list-sessions"
     ],
     "blank": "/list-sessions",
     "hint": "Review cli_reference_commands.md line 477 and identify the slash action starting with 'l'.",
-    "explain": "| `/ls [--all]` | List recent sessions (current directory only by default). Alias: `/list-sessions` |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/ls [--all]` | List recent sessions (current directory only by default). Alias: `/list-sessions` |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2104,14 +2104,14 @@
     "id": "cmd-slash-login",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs to authenticate the CLI with their account.",
+    "task": "You need to authenticate the CLI with your account.",
     "answers": [
       "/login",
       "/log-in"
     ],
     "blank": "/login",
     "hint": "Review cli_reference_commands.md line 517 and identify the slash action starting with 'l'.",
-    "explain": "| `/login` | Authenticate with your account |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/login` | Authenticate with your account |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2121,13 +2121,13 @@
     "id": "cmd-slash-login-status",
     "category": "slash",
     "tier": 2,
-    "task": "Support needs to confirm whether the customer's account is authenticated.",
+    "task": "You need to confirm whether your account is authenticated.",
     "answers": [
       "/login-status"
     ],
     "blank": "/login-status",
     "hint": "Review cli_reference_commands.md line 519 and identify the slash action starting with 'l'.",
-    "explain": "| `/login-status` | Show login and authentication status (advertised to ACP hosts as `/status`) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/login-status` | Show login and authentication status (advertised to ACP hosts as `/status`) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2137,13 +2137,13 @@
     "id": "cmd-slash-logout",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants the CLI's stored account credentials cleared.",
+    "task": "You want the CLI's stored account credentials cleared.",
     "answers": [
       "/logout"
     ],
     "blank": "/logout",
     "hint": "Review cli_reference_commands.md line 518 and identify the slash action starting with 'l'.",
-    "explain": "| `/logout` | Clear stored credentials and exit |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/logout` | Clear stored credentials and exit |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2153,13 +2153,13 @@
     "id": "cmd-slash-loop",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants a prompt run repeatedly with an automatic diff review.",
+    "task": "You want a prompt run repeatedly with an automatic diff review.",
     "answers": [
       "/loop <prompt>"
     ],
     "blank": "/loop",
     "hint": "Review cli_reference_commands.md line 497 and identify the slash action starting with 'l'.",
-    "explain": "| `/loop <prompt>` | Run a prompt then auto-review the diff in a loop |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/loop <prompt>` | Run a prompt then auto-review the diff in a loop |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2169,13 +2169,13 @@
     "id": "cmd-slash-ls",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants to browse recent conversations from this working folder.",
+    "task": "You want to browse recent conversations from this working folder.",
     "answers": [
       "/ls"
     ],
     "blank": "/ls",
     "hint": "Review cli_reference_commands.md line 477 and identify the slash action starting with 'l'.",
-    "explain": "| `/ls [--all]` | List recent sessions (current directory only by default). Alias: `/list-sessions` |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/ls [--all]` | List recent sessions (current directory only by default). Alias: `/list-sessions` |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2185,13 +2185,13 @@
     "id": "cmd-slash-ls-all",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs to review all recent sessions, including those outside the current directory.",
+    "task": "You need to review all recent sessions, including those outside the current directory.",
     "answers": [
       "/ls --all"
     ],
     "blank": "/ls",
     "hint": "Review cli_reference_commands.md line 477 and identify the slash action starting with 'l'.",
-    "explain": "| `/ls [--all]` | List recent sessions (current directory only by default). Alias: `/list-sessions` |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/ls [--all]` | List recent sessions (current directory only by default). Alias: `/list-sessions` |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2201,13 +2201,13 @@
     "id": "cmd-slash-mcp",
     "category": "slash",
     "tier": 2,
-    "task": "A support engineer needs to inspect configured MCP servers and their status.",
+    "task": "You need to inspect configured MCP servers and their status.",
     "answers": [
       "/mcp"
     ],
     "blank": "/mcp",
     "hint": "Review cli_reference_commands.md line 505 and identify the slash action starting with 'm'.",
-    "explain": "| `/mcp` | List configured MCP servers and their status |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/mcp` | List configured MCP servers and their status |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2217,13 +2217,13 @@
     "id": "cmd-slash-mode",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants to inspect or change the current interaction mode.",
+    "task": "You want to inspect or change the current interaction mode.",
     "answers": [
       "/mode <mode>"
     ],
     "blank": "/mode",
     "hint": "Review cli_reference_commands.md line 451 and identify the slash action starting with 'm'.",
-    "explain": "| `/mode [normal\\|accept-edits\\|smart\\|plan\\|bypass]` | Show or switch the current mode (`autonomous` is available in sandbox sessions) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/mode [normal\\|accept-edits\\|smart\\|plan\\|bypass]` | Show or switch the current mode (`autonomous` is available in sandbox sessions) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2233,13 +2233,13 @@
     "id": "cmd-slash-mouse",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants mouse clicks, hover, and scrolling enabled or disabled in menus.",
+    "task": "You want mouse clicks, hover, and scrolling enabled or disabled in menus.",
     "answers": [
       "/mouse"
     ],
     "blank": "/mouse",
     "hint": "Review cli_reference_commands.md line 523 and identify the slash action starting with 'm'.",
-    "explain": "| `/mouse` | Toggle mouse event capture (click/hover/scroll in menus) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/mouse` | Toggle mouse event capture (click/hover/scroll in menus) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2249,13 +2249,13 @@
     "id": "cmd-slash-new",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants a fresh conversation with no previous context.",
+    "task": "You want a fresh conversation with no previous context.",
     "answers": [
       "/new"
     ],
     "blank": "/new",
     "hint": "Review cli_reference_commands.md line 471 and identify the slash action starting with 'n'.",
-    "explain": "| `/clear` | Clear conversation history and start a new session. Alias: `/new` |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/clear` | Clear conversation history and start a new session. Alias: `/new` |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2265,13 +2265,13 @@
     "id": "cmd-slash-normal",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants the default interaction mode restored.",
+    "task": "You want the default interaction mode restored.",
     "answers": [
       "/normal"
     ],
     "blank": "/normal",
     "hint": "Review cli_reference_commands.md line 452 and identify the slash action starting with 'n'.",
-    "explain": "| `/normal` | Switch to Normal mode (default) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/normal` | Switch to Normal mode (default) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2281,13 +2281,13 @@
     "id": "cmd-slash-open",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs to choose whether the cloud session opens in the web app or Devin Desktop.",
+    "task": "You need to choose whether the cloud session opens in the web app or Devin Desktop.",
     "answers": [
       "/open <target>"
     ],
     "blank": "/open",
     "hint": "Review cli_reference_commands.md line 543 and identify the slash action starting with 'o'.",
-    "explain": "| `/open [web\\|desktop]` | Open this cloud session in the web app (default) or Devin Desktop |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/open [web\\|desktop]` | Open this cloud session in the web app (default) or Devin Desktop |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2297,13 +2297,13 @@
     "id": "cmd-slash-open-desktop",
     "category": "slash",
     "tier": 2,
-    "task": "A customer specifically needs the active cloud session opened in Devin Desktop.",
+    "task": "You specifically need the active cloud session opened in Devin Desktop.",
     "answers": [
       "/open desktop"
     ],
     "blank": "/open",
     "hint": "Review cli_reference_commands.md line 543 and identify the slash action starting with 'o'.",
-    "explain": "| `/open [web\\|desktop]` | Open this cloud session in the web app (default) or Devin Desktop |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/open [web\\|desktop]` | Open this cloud session in the web app (default) or Devin Desktop |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2313,13 +2313,13 @@
     "id": "cmd-slash-org",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs to select the Devin organization for this session.",
+    "task": "You need to select the Devin organization for this session.",
     "answers": [
       "/org"
     ],
     "blank": "/org",
     "hint": "Review cli_reference_commands.md line 520 and identify the slash action starting with 'o'.",
-    "explain": "| `/org` | Select your Devin organization |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/org` | Select your Devin organization |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2329,13 +2329,13 @@
     "id": "cmd-slash-pickup",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs to check out a cloud session's pull-request branch and continue locally.",
+    "task": "You need to check out a cloud session's pull-request branch and continue locally.",
     "answers": [
       "/pickup"
     ],
     "blank": "/pickup",
     "hint": "Review cli_reference_commands.md line 545 and identify the slash action starting with 'p'.",
-    "explain": "| `/pickup` | Check out this cloud session's pull request branch and continue locally (same as `/handoff` in a cloud session) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/pickup` | Check out this cloud session's pull request branch and continue locally (same as `/handoff` in a cloud session) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2345,13 +2345,13 @@
     "id": "cmd-slash-platform",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs to select the operating system for a cloud session.",
+    "task": "You need to select the operating system for a cloud session.",
     "answers": [
       "/platform"
     ],
     "blank": "/platform",
     "hint": "Review cli_reference_commands.md line 542 and identify the slash action starting with 'p'.",
-    "explain": "| `/platform` | Pick the platform (OS) for this cloud session |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/platform` | Pick the platform (OS) for this cloud session |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2361,13 +2361,13 @@
     "id": "cmd-slash-quit",
     "category": "slash",
     "tier": 2,
-    "task": "A support engineer has finished gathering evidence and wants to close the CLI.",
+    "task": "You are done investigating and want to close the CLI.",
     "answers": [
       "/quit"
     ],
     "blank": "/quit",
     "hint": "Review cli_reference_commands.md line 482 and identify the slash action starting with 'q'.",
-    "explain": "| `/exit` | Exit the application (alias: `/quit`). You can also type `exit` or `quit` without the `/` prefix. |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/exit` | Exit the application (alias: `/quit`). You can also type `exit` or `quit` without the `/` prefix. |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2377,13 +2377,13 @@
     "id": "cmd-slash-remove-dir",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants an extra workspace directory removed.",
+    "task": "You want an extra workspace directory removed.",
     "answers": [
       "/remove-dir <path>"
     ],
     "blank": "/remove-dir",
     "hint": "Review cli_reference_commands.md line 491 and identify the slash action starting with 'r'.",
-    "explain": "| `/remove-dir <path>` | Remove a workspace directory (second name for `/undo-add-dir`) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/remove-dir <path>` | Remove a workspace directory (second name for `/undo-add-dir`) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2393,13 +2393,13 @@
     "id": "cmd-slash-rename",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants to change the title of a cloud session.",
+    "task": "You want to change the title of a cloud session.",
     "answers": [
       "/rename <title>"
     ],
     "blank": "/rename",
     "hint": "Review cli_reference_commands.md line 546 and identify the slash action starting with 'r'.",
-    "explain": "| `/rename <new title>` | Rename this cloud session |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/rename <new title>` | Rename this cloud session |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2409,13 +2409,13 @@
     "id": "cmd-slash-rename-session",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants to rename the active conversation.",
+    "task": "You want to rename the active conversation.",
     "answers": [
       "/rename-session <title>"
     ],
     "blank": "/rename-session",
     "hint": "Review cli_reference_commands.md line 479 and identify the slash action starting with 'r'.",
-    "explain": "| `/rename-session <new title>` | Rename the current session |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/rename-session <new title>` | Rename the current session |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2425,13 +2425,13 @@
     "id": "cmd-slash-repo",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs to choose repositories for a cloud session.",
+    "task": "You need to choose repositories for a cloud session.",
     "answers": [
       "/repo"
     ],
     "blank": "/repo",
     "hint": "Review cli_reference_commands.md line 541 and identify the slash action starting with 'r'.",
-    "explain": "| `/repo` | Pick the repositories for this cloud session |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/repo` | Pick the repositories for this cloud session |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2441,13 +2441,13 @@
     "id": "cmd-slash-resume",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs to open the session picker or reopen a known session.",
+    "task": "You need to open the session picker or reopen a known session.",
     "answers": [
       "/resume <session>"
     ],
     "blank": "/resume",
     "hint": "Review cli_reference_commands.md line 476 and identify the slash action starting with 'r'.",
-    "explain": "| `/resume [session-id]` | Open the interactive session picker, or resume a specific session by ID |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/resume [session-id]` | Open the interactive session picker, or resume a specific session by ID |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2457,13 +2457,13 @@
     "id": "cmd-slash-revert",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs file changes rolled back to a chosen conversation step.",
+    "task": "You need file changes rolled back to a chosen conversation step.",
     "answers": [
       "/revert <step>"
     ],
     "blank": "/revert",
     "hint": "Review cli_reference_commands.md line 475 and identify the slash action starting with 'r'.",
-    "explain": "| `/revert <step>` | Revert file changes from a specific step onwards and rewind the conversation to before that step |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/revert <step>` | Revert file changes from a specific step onwards and rewind the conversation to before that step |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2473,13 +2473,13 @@
     "id": "cmd-slash-rm-session",
     "category": "slash",
     "tier": 2,
-    "task": "A customer has approved permanently deleting one session and all its data.",
+    "task": "You have approved permanently deleting one session and all its data.",
     "answers": [
       "/rm-session <session>"
     ],
     "blank": "/rm-session",
     "hint": "Review cli_reference_commands.md line 480 and identify the slash action starting with 'r'.",
-    "explain": "| `/rm-session <session-id>` | Irreversibly delete a session and all its data |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/rm-session <session-id>` | Irreversibly delete a session and all its data |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2489,13 +2489,13 @@
     "id": "cmd-slash-session-stats",
     "category": "slash",
     "tier": 2,
-    "task": "Support needs diagnostic statistics for the current session.",
+    "task": "You need diagnostic statistics for the current session.",
     "answers": [
       "/session-stats"
     ],
     "blank": "/session-stats",
     "hint": "Review cli_reference_commands.md line 526 and identify the slash action starting with 's'.",
-    "explain": "| `/session-stats` | Show session statistics (alias: `/stats`) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/session-stats` | Show session statistics (alias: `/stats`) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2505,13 +2505,13 @@
     "id": "cmd-slash-smart",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants a fast model to approve actions it judges safe.",
+    "task": "You want a fast model to approve actions it judges safe.",
     "answers": [
       "/smart"
     ],
     "blank": "/smart",
     "hint": "Review cli_reference_commands.md line 454 and identify the slash action starting with 's'.",
-    "explain": "| `/smart` | Switch to Smart mode (auto-approve actions a fast model judges safe). Rolling out gradually — it may not be available on your account yet. |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/smart` | Switch to Smart mode (auto-approve actions a fast model judges safe). Rolling out gradually — it may not be available on your account yet. |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2521,13 +2521,13 @@
     "id": "cmd-slash-ssh",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs an SSH connection to the cloud session's virtual machine.",
+    "task": "You need an SSH connection to the cloud session's virtual machine.",
     "answers": [
       "/ssh"
     ],
     "blank": "/ssh",
     "hint": "Review cli_reference_commands.md line 544 and identify the slash action starting with 's'.",
-    "explain": "| `/ssh` | SSH into this cloud session's VM. See [SSH](/cli/ssh). |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/ssh` | SSH into this cloud session's VM. See [SSH](/cli/ssh). |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2537,13 +2537,13 @@
     "id": "cmd-slash-stats",
     "category": "slash",
     "tier": 2,
-    "task": "A support engineer needs a quick summary of session statistics.",
+    "task": "You need a quick summary of session statistics.",
     "answers": [
       "/stats"
     ],
     "blank": "/stats",
     "hint": "Review cli_reference_commands.md line 526 and identify the slash action starting with 's'.",
-    "explain": "| `/session-stats` | Show session statistics (alias: `/stats`) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/session-stats` | Show session statistics (alias: `/stats`) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2559,7 +2559,7 @@
     ],
     "blank": "/status",
     "hint": "Review cli_reference_commands.md line 519 and identify the slash action starting with 's'.",
-    "explain": "| `/login-status` | Show login and authentication status (advertised to ACP hosts as `/status`) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/login-status` | Show login and authentication status (advertised to ACP hosts as `/status`) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2569,13 +2569,13 @@
     "id": "cmd-slash-steps",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs the conversation steps before forking or reverting work.",
+    "task": "You need the conversation steps before forking or reverting work.",
     "answers": [
       "/steps"
     ],
     "blank": "/steps",
     "hint": "Review cli_reference_commands.md line 474 and identify the slash action starting with 's'.",
-    "explain": "| `/steps` | List conversation steps (use with `/fork` and `/revert`) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/steps` | List conversation steps (use with `/fork` and `/revert`) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2585,13 +2585,13 @@
     "id": "cmd-slash-theme",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants to change the terminal presentation theme.",
+    "task": "You want to change the terminal presentation theme.",
     "answers": [
       "/theme"
     ],
     "blank": "/theme",
     "hint": "Review cli_reference_commands.md line 461 and identify the slash action starting with 't'.",
-    "explain": "| `/theme [dark\\|light\\|terminal-dark\\|terminal-light\\|no-color]` | Switch between themes (dark, light, terminal dark, terminal light, no color) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/theme [dark\\|light\\|terminal-dark\\|terminal-light\\|no-color]` | Switch between themes (dark, light, terminal dark, terminal light, no color) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2601,13 +2601,13 @@
     "id": "cmd-slash-title",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants to rename the active session.",
+    "task": "You want to rename the active session.",
     "answers": [
       "/title <title>"
     ],
     "blank": "/title",
     "hint": "Review cli_reference_commands.md line 478 and identify the slash action starting with 't'.",
-    "explain": "| `/title <new title>` | Rename the current session |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/title <new title>` | Rename the current session |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2617,13 +2617,13 @@
     "id": "cmd-slash-undo-add-dir",
     "category": "slash",
     "tier": 2,
-    "task": "A customer wants an added workspace directory removed.",
+    "task": "You want an added workspace directory removed.",
     "answers": [
       "/undo-add-dir <path>"
     ],
     "blank": "/undo-add-dir",
     "hint": "Review cli_reference_commands.md line 490 and identify the slash action starting with 'u'.",
-    "explain": "| `/undo-add-dir <path>` | Remove a workspace directory |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/undo-add-dir <path>` | Remove a workspace directory |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2633,13 +2633,13 @@
     "id": "cmd-slash-update",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs to check for and install an available CLI update.",
+    "task": "You need to check for and install an available CLI update.",
     "answers": [
       "/update"
     ],
     "blank": "/update",
     "hint": "Review cli_reference_commands.md line 515 and identify the slash action starting with 'u'.",
-    "explain": "| `/update [--force]` | Check for and install updates. Pass `--force` to re-install even when already on the latest version. |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/update [--force]` | Check for and install updates. Pass `--force` to re-install even when already on the latest version. |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2655,7 +2655,7 @@
     ],
     "blank": "/update",
     "hint": "Review cli_reference_commands.md line 515 and identify the slash action starting with 'u'.",
-    "explain": "| `/update [--force]` | Check for and install updates. Pass `--force` to re-install even when already on the latest version. |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/update [--force]` | Check for and install updates. Pass `--force` to re-install even when already on the latest version. |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2665,13 +2665,13 @@
     "id": "cmd-slash-upgrade",
     "category": "slash",
     "tier": 2,
-    "task": "A customer is ready to change their subscription plan.",
+    "task": "You are ready to change your subscription plan.",
     "answers": [
       "/upgrade"
     ],
     "blank": "/upgrade",
     "hint": "Review cli_reference_commands.md line 516 and identify the slash action starting with 'u'.",
-    "explain": "| `/upgrade` | Upgrade your subscription plan |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/upgrade` | Upgrade your subscription plan |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2681,13 +2681,13 @@
     "id": "cmd-slash-usage",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs estimated credit and ACU usage for the current and resumed session.",
+    "task": "You need estimated credit and ACU usage for the current and resumed session.",
     "answers": [
       "/usage"
     ],
     "blank": "/usage",
     "hint": "Review cli_reference_commands.md line 525 and identify the slash action starting with 'u'.",
-    "explain": "| `/usage` | Show estimated credit/ACU usage for the session, including usage from previous openings of a resumed session |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/usage` | Show estimated credit/ACU usage for the session, including usage from previous openings of a resumed session |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2697,13 +2697,13 @@
     "id": "cmd-slash-workspace",
     "category": "slash",
     "tier": 2,
-    "task": "A customer needs to review the workspace directories available to the session.",
+    "task": "You need to review the workspace directories available to the session.",
     "answers": [
       "/workspace"
     ],
     "blank": "/workspace",
     "hint": "Review cli_reference_commands.md line 488 and identify the slash action starting with 'w'.",
-    "explain": "| `/workspace` | List workspace directories (alias: `/workspaces`) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/workspace` | List workspace directories (alias: `/workspaces`) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2713,13 +2713,13 @@
     "id": "cmd-slash-workspaces",
     "category": "slash",
     "tier": 2,
-    "task": "A support engineer wants the workspace-directory listing through its alternate name.",
+    "task": "You want the workspace-directory listing through its alternate name.",
     "answers": [
       "/workspaces"
     ],
     "blank": "/workspaces",
     "hint": "Review cli_reference_commands.md line 488 and identify the slash action starting with 'w'.",
-    "explain": "| `/workspace` | List workspace directories (alias: `/workspaces`) |\nUse it when the customer needs the workflow described above.",
+    "explain": "| `/workspace` | List workspace directories (alias: `/workspaces`) |\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2735,7 +2735,7 @@
     ],
     "blank": "/yolo",
     "hint": "Review cli_reference_commands.md line 464 and identify the slash action starting with 'y'.",
-    "explain": "`/bypass` has aliases `/yolo` and `/dangerous`. All three do the same thing.\nUse it when the customer needs the workflow described above.",
+    "explain": "`/bypass` has aliases `/yolo` and `/dangerous`. All three do the same thing.\nUse it when you need the workflow described above.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -2745,13 +2745,13 @@
     "id": "shell-command-v-node",
     "category": "shell",
     "tier": 2,
-    "task": "A support shell cannot find node; identify the executable path this shell resolves.",
+    "task": "This shell cannot find node; identify the executable path it resolves.",
     "answers": [
       "command -v node"
     ],
     "blank": "command",
     "hint": "Review GUIDE.md near line 153 and identify the command starting with 'c'.",
-    "explain": "13. Is it PATH? `bash -lic 'command -v node'` vs `command -v node` (Devin snapshots the *login* shell env once at startup)\nUse it when the support investigation needs this evidence.",
+    "explain": "13. Is it PATH? `bash -lic 'command -v node'` vs `command -v node` (Devin snapshots the *login* shell env once at startup)\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:170",
     "kind": "write",
     "topic": "shell"
@@ -2760,13 +2760,13 @@
     "id": "shell-curl-tls",
     "category": "shell",
     "tier": 2,
-    "task": "A customer cannot reach https://cli.devin.ai; collect connection, TLS, and HTTP evidence.",
+    "task": "You cannot reach https://cli.devin.ai; collect connection, TLS, and HTTP evidence.",
     "answers": [
       "curl -sv https://cli.devin.ai -o /dev/null 2>&1 | rg -i 'connected|ssl|HTTP/'"
     ],
     "blank": "curl",
     "hint": "Review GUIDE.md near line 152 and identify the command starting with 'c'.",
-    "explain": "12. Is it the network? `curl -sv https://cli.devin.ai -o /dev/null 2>&1 | rg -i 'connected|ssl|HTTP/'`\nUse it when the support investigation needs this evidence.",
+    "explain": "12. Is it the network? `curl -sv https://cli.devin.ai -o /dev/null 2>&1 | rg -i 'connected|ssl|HTTP/'`\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:169",
     "kind": "write",
     "topic": "shell"
@@ -2775,13 +2775,13 @@
     "id": "shell-diff-json",
     "category": "shell",
     "tier": 2,
-    "task": "Support needs to compare a.json and b.json while ignoring JSON key order.",
+    "task": "You need to compare a.json and b.json while ignoring JSON key order.",
     "answers": [
       "diff <(jq -S . a.json) <(jq -S . b.json)"
     ],
     "blank": "diff",
     "hint": "Review GUIDE.md near line 147 and identify the command starting with 'd'.",
-    "explain": "7. Show the effective user config: `jq . ~/.config/devin/config.json`; diff two configs: `diff <(jq -S . a.json) <(jq -S . b.json)`\nUse it when the support investigation needs this evidence.",
+    "explain": "7. Show the effective user config: `jq . ~/.config/devin/config.json`; diff two configs: `diff <(jq -S . a.json) <(jq -S . b.json)`\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:164",
     "kind": "write",
     "topic": "shell"
@@ -2790,13 +2790,13 @@
     "id": "shell-doctor-jq",
     "category": "shell",
     "tier": 2,
-    "task": "A support script must print only failing checks from the CLI's JSON diagnostics.",
+    "task": "A script must print only failing checks from the CLI's JSON diagnostics.",
     "answers": [
       "devin doctor --json | jq -r '.checks[] | select(.status!=\"pass\") | \"\\(.check): \\(.detail)\"'"
     ],
     "blank": "devin",
     "hint": "Review GUIDE.md near line 145 and identify the command starting with 'd'.",
-    "explain": "5. Doctor failures only: `devin doctor --json | jq -r '.checks[] | select(.status!=\"pass\") | \"\\(.check): \\(.detail)\"'`\nUse it when the support investigation needs this evidence.",
+    "explain": "5. Doctor failures only: `devin doctor --json | jq -r '.checks[] | select(.status!=\"pass\") | \"\\(.check): \\(.detail)\"'`\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:162",
     "kind": "write",
     "topic": "shell"
@@ -2805,13 +2805,13 @@
     "id": "shell-jq-config",
     "category": "shell",
     "tier": 2,
-    "task": "A support engineer needs to inspect ~/.config/devin/config.json as formatted JSON.",
+    "task": "You need to inspect ~/.config/devin/config.json as formatted JSON.",
     "answers": [
       "jq . ~/.config/devin/config.json"
     ],
     "blank": "jq",
     "hint": "Review GUIDE.md near line 147 and identify the command starting with 'j'.",
-    "explain": "7. Show the effective user config: `jq . ~/.config/devin/config.json`; diff two configs: `diff <(jq -S . a.json) <(jq -S . b.json)`\nUse it when the support investigation needs this evidence.",
+    "explain": "7. Show the effective user config: `jq . ~/.config/devin/config.json`; diff two configs: `diff <(jq -S . a.json) <(jq -S . b.json)`\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:164",
     "kind": "write",
     "topic": "shell"
@@ -2820,13 +2820,13 @@
     "id": "shell-latest-log",
     "category": "shell",
     "tier": 2,
-    "task": "A customer reports a recent CLI failure; identify the newest file in the Devin log directory.",
+    "task": "The CLI failed recently; identify the newest file in the Devin log directory.",
     "answers": [
       "ls -t ~/.local/share/devin/cli/logs | head -1"
     ],
     "blank": "ls",
     "hint": "Review GUIDE.md near line 141 and identify the command starting with 'l'.",
-    "explain": "1. Find the newest Devin log: `ls -t ~/.local/share/devin/cli/logs | head -1`\nUse it when the support investigation needs this evidence.",
+    "explain": "1. Find the newest Devin log: `ls -t ~/.local/share/devin/cli/logs | head -1`\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:158",
     "kind": "write",
     "topic": "shell"
@@ -2841,7 +2841,7 @@
     ],
     "blank": "bash",
     "hint": "Review GUIDE.md near line 153 and identify the command starting with 'b'.",
-    "explain": "13. Is it PATH? `bash -lic 'command -v node'` vs `command -v node` (Devin snapshots the *login* shell env once at startup)\nUse it when the support investigation needs this evidence.",
+    "explain": "13. Is it PATH? `bash -lic 'command -v node'` vs `command -v node` (Devin snapshots the *login* shell env once at startup)\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:170",
     "kind": "write",
     "topic": "shell"
@@ -2856,7 +2856,7 @@
     ],
     "blank": "lsof",
     "hint": "Review GUIDE.md near line 149 and identify the command starting with 'l'.",
-    "explain": "9. Which sockets and files does it hold? `lsof -p <pid>`, `lsof -iTCP -P -n -a -p <pid>`\nUse it when the support investigation needs this evidence.",
+    "explain": "9. Which sockets and files does it hold? `lsof -p <pid>`, `lsof -iTCP -P -n -a -p <pid>`\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:166",
     "kind": "write",
     "topic": "shell"
@@ -2871,7 +2871,7 @@
     ],
     "blank": "ps",
     "hint": "Review GUIDE.md near line 151 and identify the command starting with 'p'.",
-    "explain": "11. Which env vars does it see? `ps eww <pid> | tr ' ' '\\n' | rg -i 'devin|proxy|path'`\nUse it when the support investigation needs this evidence.",
+    "explain": "11. Which env vars does it see? `ps eww <pid> | tr ' ' '\\n' | rg -i 'devin|proxy|path'`\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:168",
     "kind": "write",
     "topic": "shell"
@@ -2880,13 +2880,13 @@
     "id": "shell-process-tree",
     "category": "shell",
     "tier": 2,
-    "task": "A support engineer needs to see which parent process launched the running Devin processes.",
+    "task": "You need to see which parent process launched the running Devin processes.",
     "answers": [
       "ps -o pid,ppid,command -p $(pgrep -d, -f devin)"
     ],
     "blank": "ps",
     "hint": "Review GUIDE.md near line 148 and identify the command starting with 'p'.",
-    "explain": "8. What is Devin running right now? `pgrep -fl devin`; who launched it: `ps -o pid,ppid,command -p $(pgrep -d, -f devin)` (then `ps -p <ppid>` for the parent)\nUse it when the support investigation needs this evidence.",
+    "explain": "8. What is Devin running right now? `pgrep -fl devin`; who launched it: `ps -o pid,ppid,command -p $(pgrep -d, -f devin)` (then `ps -p <ppid>` for the parent)\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:165",
     "kind": "write",
     "topic": "shell"
@@ -2895,13 +2895,13 @@
     "id": "shell-rg-count",
     "category": "shell",
     "tier": 2,
-    "task": "Support needs per-file error counts from the compressed Devin logs, ordered from lowest to highest.",
+    "task": "You need per-file error counts from the compressed Devin logs, ordered from lowest to highest.",
     "answers": [
       "rg -z -c -i error ~/.local/share/devin/cli/logs/ | sort -t: -k2 -n"
     ],
     "blank": "rg",
     "hint": "Review GUIDE.md near line 144 and identify the command starting with 'r'.",
-    "explain": "4. Count errors per log file: `rg -z -c -i error ~/.local/share/devin/cli/logs/ | sort -t: -k2 -n`\nUse it when the support investigation needs this evidence.",
+    "explain": "4. Count errors per log file: `rg -z -c -i error ~/.local/share/devin/cli/logs/ | sort -t: -k2 -n`\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:161",
     "kind": "write",
     "topic": "shell"
@@ -2910,13 +2910,13 @@
     "id": "shell-rg-errors",
     "category": "shell",
     "tier": 2,
-    "task": "A customer reports a failure; search compressed CLI logs for errors, panics, and denials.",
+    "task": "Something just failed; search compressed CLI logs for errors, panics, and denials.",
     "answers": [
       "rg -z -i 'error|panic|denied' ~/.local/share/devin/cli/logs/"
     ],
     "blank": "rg",
     "hint": "Review GUIDE.md near line 143 and identify the command starting with 'r'.",
-    "explain": "3. Search every log, compressed or not: `rg -z -i 'error|panic|denied' ~/.local/share/devin/cli/logs/`\nUse it when the support investigation needs this evidence.",
+    "explain": "3. Search every log, compressed or not: `rg -z -i 'error|panic|denied' ~/.local/share/devin/cli/logs/`\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:160",
     "kind": "write",
     "topic": "shell"
@@ -2925,13 +2925,13 @@
     "id": "shell-running-devin",
     "category": "shell",
     "tier": 2,
-    "task": "A customer reports a stuck session; find running Devin processes and their arguments.",
+    "task": "A session is stuck; find running Devin processes and their arguments.",
     "answers": [
       "pgrep -fl devin"
     ],
     "blank": "pgrep",
     "hint": "Review GUIDE.md near line 148 and identify the command starting with 'p'.",
-    "explain": "8. What is Devin running right now? `pgrep -fl devin`; who launched it: `ps -o pid,ppid,command -p $(pgrep -d, -f devin)` (then `ps -p <ppid>` for the parent)\nUse it when the support investigation needs this evidence.",
+    "explain": "8. What is Devin running right now? `pgrep -fl devin`; who launched it: `ps -o pid,ppid,command -p $(pgrep -d, -f devin)` (then `ps -p <ppid>` for the parent)\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:165",
     "kind": "write",
     "topic": "shell"
@@ -2940,13 +2940,13 @@
     "id": "shell-sockets",
     "category": "shell",
     "tier": 2,
-    "task": "A support engineer suspects a network issue; find TCP sockets owned by Devin processes.",
+    "task": "You suspect a network issue; find TCP sockets owned by Devin processes.",
     "answers": [
       "lsof -iTCP -P -n -a -p <pid>"
     ],
     "blank": "lsof",
     "hint": "Review GUIDE.md near line 149 and identify the command starting with 'l'.",
-    "explain": "9. Which sockets and files does it hold? `lsof -p <pid>`, `lsof -iTCP -P -n -a -p <pid>`\nUse it when the support investigation needs this evidence.",
+    "explain": "9. Which sockets and files does it hold? `lsof -p <pid>`, `lsof -iTCP -P -n -a -p <pid>`\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:166",
     "kind": "write",
     "topic": "shell"
@@ -2955,13 +2955,13 @@
     "id": "shell-sqlite-tables",
     "category": "shell",
     "tier": 2,
-    "task": "Support needs to inspect the session database schema without modifying it.",
+    "task": "You need to inspect the session database schema without modifying it.",
     "answers": [
       "sqlite3 -readonly ~/.local/share/devin/cli/sessions.db '.tables'"
     ],
     "blank": "sqlite3",
     "hint": "Review GUIDE.md near line 146 and identify the command starting with 's'.",
-    "explain": "6. Explore the session DB read-only: `sqlite3 -readonly ~/.local/share/devin/cli/sessions.db '.tables'`, then `.schema <table>`\nUse it when the support investigation needs this evidence.",
+    "explain": "6. Explore the session DB read-only: `sqlite3 -readonly ~/.local/share/devin/cli/sessions.db '.tables'`, then `.schema <table>`\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:163",
     "kind": "write",
     "topic": "shell"
@@ -2970,13 +2970,13 @@
     "id": "shell-fs-usage-files",
     "category": "shell",
     "tier": 2,
-    "task": "A customer may have conflicting configuration files; trace file lookups and extract candidate paths.",
+    "task": "You may have conflicting configuration files; trace file lookups and extract candidate paths.",
     "answers": [
       "sudo fs_usage -w -f pathname devin | rg -i 'devin|claude|agents|windsurf|cursor|cognition'"
     ],
     "blank": "fs_usage",
     "hint": "Review GUIDE.md near line 150 and identify the command starting with 'f'.",
-    "explain": "10. Which files does it probe (how you find undocumented config paths): in one pane run `sudo fs_usage -w -f pathname devin | rg -i 'devin|claude|agents|windsurf|cursor|cognition'`, then run `devin rules list` in another. Use `-f pathname`, which includes stat and access calls: most config lookups never open the file. (Needs sudo.)\nUse it when the support investigation needs this evidence.",
+    "explain": "10. Which files does it probe (how you find undocumented config paths): in one pane run `sudo fs_usage -w -f pathname devin | rg -i 'devin|claude|agents|windsurf|cursor|cognition'`, then run `devin rules list` in another. Use `-f pathname`, which includes stat and access calls: most config lookups never open the file. (Needs sudo.)\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:167",
     "kind": "write",
     "topic": "shell"
@@ -2991,7 +2991,7 @@
     ],
     "blank": "tail",
     "hint": "Review GUIDE.md near line 142 and identify the command starting with 't'.",
-    "explain": "2. Follow it live in a second pane: `tail -F \"$(ls -t ~/.local/share/devin/cli/logs/*.log | head -1)\"`\nUse it when the support investigation needs this evidence.",
+    "explain": "2. Follow it live in a second pane: `tail -F \"$(ls -t ~/.local/share/devin/cli/logs/*.log | head -1)\"`\nUse it when your investigation needs this evidence.",
     "source": "../GUIDE.md:159",
     "kind": "write",
     "topic": "shell"
@@ -3001,7 +3001,7 @@
     "category": "shell",
     "tier": 1,
     "kind": "write",
-    "task": "A customer sees the Devin-created-terminal warning from one shell. Show every definition of devin before choosing the binary.",
+    "task": "You see the Devin-created-terminal warning from one shell. Show every definition of devin before choosing the binary.",
     "answers": [
       "type -a devin"
     ],
@@ -3019,7 +3019,7 @@
     "id": "sup-cmd-bypass-headless",
     "category": "launch",
     "tier": 1,
-    "task": "Customer wants the CLI equivalent of Desktop's Bypass Permissions, run headless with a prompt.",
+    "task": "You want the CLI equivalent of Desktop's Bypass Permissions, run headless with a prompt.",
     "answers": [
       "devin --permission-mode dangerous -p <prompt>"
     ],
@@ -3040,7 +3040,7 @@
     "category": "launch",
     "tier": 1,
     "kind": "fix",
-    "task": "A customer's CI job exits 2 before starting. Rewrite the command assuming the script already changed into the project directory.",
+    "task": "Your CI job exits 2 before starting. Rewrite the command assuming the script already changed into the project directory.",
     "broken": "devin --cwd ~/app --mode bypass-permissions --prompt \"hi\"",
     "error": "error: unexpected argument '--cwd' found\n\n  tip: to pass '--cwd' as a value, use '-- --cwd'\n\nUsage: devin [OPTIONS] [PATH]... [-- <PROMPT>...] [COMMAND]\n\nFor more information, try '--help'.",
     "answers": [
@@ -3061,7 +3061,7 @@
     "category": "models",
     "tier": 2,
     "kind": "write",
-    "task": "A customer's display name 'SWE-1.7 (medium)' returns 'Unknown model'; use the ID swe-1-7-medium instead.",
+    "task": "The display name 'SWE-1.7 (medium)' returns 'Unknown model'; use the ID swe-1-7-medium instead.",
     "answers": [
       "devin --model swe-1-7-medium -p <prompt>"
     ],
@@ -3105,7 +3105,7 @@
       "grep -iE 'resource_exhausted|rate limit' repro-*.log"
     ],
     "hint": "Look for the extended expression that ignores case.",
-    "explain": "- `grep -iE \"resource_exhausted|rate limit\" repro-*.log` — search repro logs for quota and rate-limit messages.\nUse it when support needs to find resource-exhausted or rate-limit messages in repro logs.",
+    "explain": "- `grep -iE \"resource_exhausted|rate limit\" repro-*.log` — search repro logs for quota and rate-limit messages.\nUse it when you need to find resource-exhausted or rate-limit messages in repro logs.",
     "topic": "shell",
     "tags": [
       "support"
@@ -3123,7 +3123,7 @@
       "where bash"
     ],
     "hint": "Use the Windows command that searches PATH for executables.",
-    "explain": "- `where bash` — show Windows bash executables resolved from PATH in search order.\nUse it when the Windows support case depends on which bash.exe resolves first.",
+    "explain": "- `where bash` — show Windows bash executables resolved from PATH in search order.\nUse it when a Windows problem depends on which bash.exe resolves first.",
     "topic": "shell",
     "tags": [
       "support",
@@ -3142,7 +3142,7 @@
       "pgrep -fl language_server"
     ],
     "hint": "Choose the process lookup that prints full commands.",
-    "explain": "- `pgrep -fl language_server` — list matching language-server processes with full command lines.\nUse it when support needs to compare per-window language-server processes.",
+    "explain": "- `pgrep -fl language_server` — list matching language-server processes with full command lines.\nUse it when you need to compare per-window language-server processes.",
     "topic": "shell",
     "tags": [
       "support"
@@ -3154,13 +3154,13 @@
     "id": "cmd-cloud-session",
     "category": "cloud",
     "tier": 2,
-    "task": "A customer wants the REPL to drive Devin Cloud sessions and prefers the subcommand to the flag.",
+    "task": "You want the REPL to drive Devin Cloud sessions and prefer the subcommand to the flag.",
     "answers": [
       "devin cloud"
     ],
     "blank": "cloud",
     "hint": "Look at the root help's cloud command description.",
-    "explain": "With no subcommand, opens the REPL on Devin cloud sessions instead of the local agent. Subcommands manage Devin Cloud resources (environment setup, sandbox sessions, builds).\nUse it when the customer wants to start a cloud session from the REPL without the flag.",
+    "explain": "With no subcommand, opens the REPL on Devin cloud sessions instead of the local agent. Subcommands manage Devin Cloud resources (environment setup, sandbox sessions, builds).\nUse it when you want to start a cloud session from the REPL without the flag.",
     "source_file": "cloud.txt",
     "kind": "write",
     "topic": "cloud"
@@ -3175,7 +3175,7 @@
     ],
     "blank": "/goal",
     "hint": "Review slash-help.txt line 31 and identify the slash action starting with 'g'.",
-    "explain": "/goal [<objective>|resume|clear]  Set a goal the agent keeps working on until it is done\nUse it when the customer wants Devin to keep going on a goal until it finishes or gets blocked.",
+    "explain": "/goal [<objective>|resume|clear]  Set a goal the agent keeps working on until it is done\nUse it when you want Devin to keep going on a goal until it finishes or gets blocked.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -3191,7 +3191,7 @@
     ],
     "blank": "resume",
     "hint": "Review slash-help.txt line 31 and identify the goal form that continues it.",
-    "explain": "/goal [<objective>|resume|clear]  Set a goal the agent keeps working on until it is done\nUse it when the customer interrupted Devin and wants the same goal continued.",
+    "explain": "/goal [<objective>|resume|clear]  Set a goal the agent keeps working on until it is done\nUse it when you interrupted Devin and want the same goal continued.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -3207,7 +3207,7 @@
     ],
     "blank": "clear",
     "hint": "Review slash-help.txt line 31 and identify the goal form that drops it.",
-    "explain": "/goal [<objective>|resume|clear]  Set a goal the agent keeps working on until it is done\nUse it when the customer wants to abandon the active goal entirely.",
+    "explain": "/goal [<objective>|resume|clear]  Set a goal the agent keeps working on until it is done\nUse it when you want to abandon the active goal entirely.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -3223,7 +3223,7 @@
     ],
     "blank": "/recap",
     "hint": "Review slash-help.txt line 44 and identify the slash action starting with 'r'.",
-    "explain": "/recap                            Recap the session so far with a short summary\nUse it when the customer wants a quick recap of where the session stands.",
+    "explain": "/recap                            Recap the session so far with a short summary\nUse it when you want a quick recap of where the session stands.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -3233,13 +3233,13 @@
     "id": "slash-share",
     "category": "slash",
     "tier": 2,
-    "task": "Share this conversation with the customer's team on Devin.",
+    "task": "Share this conversation with your team on Devin.",
     "answers": [
       "/share"
     ],
     "blank": "/share",
     "hint": "Review slash-help.txt line 52 and identify the slash action starting with 's'.",
-    "explain": "/share                            Share this conversation with your team on Devin\nUse it when the customer wants teammates to see the current conversation.",
+    "explain": "/share                            Share this conversation with your team on Devin\nUse it when you want teammates to see the current conversation.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -3255,7 +3255,7 @@
     ],
     "blank": "/fusion",
     "hint": "Review slash-help.txt line 30 and identify the slash action starting with 'f'.",
-    "explain": "/fusion                           Choose a Fusion model (same as /model fusion)\nUse it when the customer wants to pick a Fusion model without typing the model name.",
+    "explain": "/fusion                           Choose a Fusion model (same as /model fusion)\nUse it when you want to pick a Fusion model without typing the model name.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -3271,7 +3271,7 @@
     ],
     "blank": "/billing",
     "hint": "Review slash-help.txt line 15 and identify the slash action starting with 'b'.",
-    "explain": "/billing [on|off]                 Choose whether a provider plan (e.g. ChatGPT) pays for its models\nUse it when the customer wants a provider plan, not credits, to pay for the models.",
+    "explain": "/billing [on|off]                 Choose whether a provider plan (e.g. ChatGPT) pays for its models\nUse it when you want a provider plan, not credits, to pay for the models.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",
@@ -3287,7 +3287,7 @@
     ],
     "blank": "/code",
     "hint": "Review slash-help.txt line 20 and identify the slash action starting with 'c'.",
-    "explain": "/code [prompt]                    Switch to Code mode, or run a prompt in it\nUse it when the customer left Code mode and wants it back.",
+    "explain": "/code [prompt]                    Switch to Code mode, or run a prompt in it\nUse it when you left Code mode and want it back.",
     "source_file": "slash.txt",
     "kind": "write",
     "topic": "slash",

@@ -1,8 +1,8 @@
 # Professor Devin game spec
 
-I built this as one terminal game for a Cognition support engineer learning
-Devin CLI and general CLI work. It combines command writing, flashcards, live
-drills, and mystery tickets under one progress and XP system.
+Professor Devin is one terminal game for anyone learning the Devin CLI and
+general CLI work. It combines command writing, flashcards, live drills, and
+mystery tickets under one progress and XP system.
 
 The engine stays in one file, `dojo.py`. It uses Python 3.8 or newer and the
 standard library only. It runs on macOS and Linux; Windows support is
@@ -241,7 +241,7 @@ described behavior isn't true, fix or remove it and record why.
 
 ## Mystery tickets
 
-A ticket has an ID, topic, title, customer message, shell prompt, turn limit,
+A ticket has an ID, topic, title, problem report, shell prompt, turn limit,
 command patterns, unknown-command output, root-cause question, fix question,
 optimal command chain, and explanation. Each question has four choices and a
 zero-based answer index.
@@ -264,7 +264,7 @@ ticket's unknown output. Command lookup ignores case. The known set includes
 
 Consecutive new evidence commands build the in-ticket combo from x1 to x3.
 A non-evidence command resets it to x1. The best combo reached is used for
-scoring. `ticket` reprints the customer message. `hint` reveals the next
+scoring. `ticket` reprints the problem report. `hint` reveals the next
 optimal command and costs 10 XP. `solve` ends shell work; `quit` ends the
 session. Running out of turns forces the player to solve.
 
@@ -277,7 +277,7 @@ for spaced repetition. A correct fix adds its XP bonus.
 When a ticket command is marked `RECORD`, reproduce the fault for real in a
 throwaway home directory. Add the installed Devin binary to `PATH`. Paste the
 actual output, trim it to 15 lines or fewer, and replace a temporary home path
-with `/home/customer`.
+with `/home/dev`.
 
 If recording needs authentication, or the real behavior contradicts the
 scenario, report that instead of making up output. Mark output `SIM` only when
@@ -364,7 +364,7 @@ allow rule, `/bypass`, or deleting the cache.
 The ticket is: “I ran `devin update` twice and it says I'm on the latest, but
 `devin --version` still shows an old version.” Simulate an old version and
 `type -a devin` or `which -a devin` showing `/usr/local/bin/devin` before
-`/home/customer/.local/bin/devin`. Simulate PATH with `/usr/local/bin` first
+`/home/dev/.local/bin/devin`. Simulate PATH with `/usr/local/bin` first
 and the newer version from `~/.local/bin/devin --version`. Record
 `ls ~/.local/share/devin/cli/_versions` with the path scrubbed. Simulate
 `ls -la /usr/local/bin/devin` showing an old, root-owned file.
@@ -390,7 +390,7 @@ Windsurf rules.
 ### S8: the MCP package name is misspelled
 
 The fault is an stdio server called `fs` whose command is
-`npx -y @modelcontextprotocol/server-filesystm /home/customer/docs`. With a
+`npx -y @modelcontextprotocol/server-filesystm /home/dev/docs`. With a
 temporary home, record `devin mcp list`, `devin mcp get fs`, and the MCP
 config file actually written by `devin mcp add`; don't create that file by
 hand. Use command output as evidence only when it shows useful status.

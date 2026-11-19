@@ -1,9 +1,9 @@
-# Devin CLI study guide (for support work)
+# Devin CLI study guide
 
 Written against Devin CLI **v3000.11.92** (released 2026-10-14) and the docs
 snapshots in `docs/`. When the binary and the docs disagree, trust
 `devin <cmd> --help` for the installed version and write the difference down:
-those mismatches are exactly what customers run into.
+those mismatches are exactly what users run into.
 
 This guide is the course behind [Professor Devin](README.md). The commands in
 section 4 are the answers to the game's `shell` cards, and the break-it drills
@@ -18,13 +18,13 @@ in section 6 are its mystery tickets.
 | 1. **Model** | Draw the architecture (section 2) from memory, then check it against the real thing | With a mental model you can navigate a bug; without one, commands are trivia | 20 min, week 1 |
 | 2. **Retrieve** | Flashcards (`professor-devin` or `./drill.sh`) and predicting what a command will print | Recalling an answer makes it stick far better than rereading it | 10 min daily |
 | 3. **Practice** | The labs in section 5, each with a pass/fail check | Fluency comes from doing, and the checks show what you still don't know | 45 min, 4-5x/week |
-| 4. **Break** | Break something on purpose, then diagnose it cold (section 6) | That is support work: start from a symptom and find the cause | 1-2x/week |
+| 4. **Break** | Break something on purpose, then diagnose it cold (section 6) | Bugs become tractable when you can start from a symptom and find the cause | 1-2x/week |
 
 Rules that make the loops work:
 - **Predict before running.** Say what you expect a command to print. When you're wrong, write it in `journal.md`; that is the part worth remembering.
 - **Check the source.** `devin <cmd> --help` for the installed version first, then the docs and the changelog, and only then your memory.
 - **Space the reviews.** Missed cards come back sooner, known cards wait longer. The game and `drill.sh` both do this for you.
-- **Teach it back.** Once a week, write a one-page runbook for a new support engineer. The gaps are your next study topics.
+- **Teach it back.** Once a week, write a one-page runbook for another Devin user. The gaps are your next study topics.
 - **Keep a shell open.** Tie every idea to a file, a process, or a log line.
 
 ### A version mismatch to remember
@@ -32,7 +32,7 @@ Rules that make the loops work:
 - Docs, Commands & Flags page: `normal` (alias `auto`), `accept-edits`, `smart`, `dangerous` (aliases `yolo`, `bypass`), and `autonomous` (needs `--sandbox`).
 - Slash commands use a third set of names: `/normal /accept-edits /smart /plan /bypass /autonomous`, with `/dangerous` and `/yolo` as aliases, and `/code` to return to Code mode from Plan or Ask.
 
-Same feature, three vocabularies. Check `devin --version` before you dig into a ticket.
+Same feature, three vocabularies. Check `devin --version` before you dig into a problem.
 
 ---
 
@@ -43,7 +43,7 @@ Same feature, three vocabularies. Check `devin --version` before you dig into a 
 | 1 | Install, auth, file layout, sessions, `-p` scripting, general CLI basics (rg, jq, less, find, xargs) | You can redraw section 2 from memory; labs L1-L3 done; drill >= 80% |
 | 2 | Config layers, permissions, rules/AGENTS.md, skills, hooks | Labs L4-L7 done; you predict precedence outcomes correctly |
 | 3 | MCP, subagents, plugins, sandbox, logging/tracing, proxy/TLS; process-level CLI (ps, lsof, fs_usage) | Labs L8-L11 done; two break-it drills solved cold |
-| 4 | Cloud: `--cloud` / `devin cloud`, `/handoff`, `devin ssh/forward`, `devin cloud drs`, ACP (IDE integration) | Labs L12-L14 done; your personal support runbook written |
+| 4 | Cloud: `--cloud` / `devin cloud`, `/handoff`, `devin ssh/forward`, `devin cloud drs`, ACP (IDE integration) | Labs L12-L14 done; your personal troubleshooting runbook written |
 
 After week four, work one mystery ticket (section 6) a week and read each new changelog entry as it ships (`docs.devin.ai/cli/changelog/stable`).
 
@@ -152,7 +152,7 @@ Trace logs can contain Authorization headers. Scrub them before you share a log.
 
 ---
 
-## 4. General CLI commands for Devin support
+## 4. General CLI commands for investigating Devin
 
 Practice these until they are automatic; each one is a move in a real investigation (and an answer in the game's `shell` deck).
 1. Find the newest Devin log: `ls -t ~/.local/share/devin/cli/logs | head -1`
@@ -196,7 +196,7 @@ Keep lab work in `~/professor-devin/lab/<N>/` and notes in `journal.md`.
 | L11 | Sandbox: `devin sandbox setup`, then `devin --sandbox`; try writing outside the workspace; accept the "always run outside the sandbox" offer for one command | You can explain allowed vs. denied operations, what `Write(...)` / `Deny(Read(...))` scopes do, and where `sandbox.excluded.allow` ended up |
 | L12 | Cloud: `devin cloud` (or `--cloud`), `/repo`, `/open`, `/handoff` from local, `/pickup` back, `/share`, `/archive` | Round trip local -> cloud -> local with a PR branch checked out |
 | L13 | `devin ssh <session>`, `devin forward <session> 3000`, `scp` via the gateway | A dev server on the cloud VM opens at localhost |
-| L14 | ACP by hand: run `devin acp` and send a JSON-RPC `initialize` on stdin (spec: agentclientprotocol.com), then wire it into Zed | You can read raw ACP traffic, which is the key skill for IDE-integration tickets |
+| L14 | ACP by hand: run `devin acp` and send a JSON-RPC `initialize` on stdin (spec: agentclientprotocol.com), then wire it into Zed | You can read raw ACP traffic, which is the key skill for debugging IDE integrations |
 
 ---
 
@@ -212,11 +212,11 @@ For each one, set up the fault, reopen the shell, and diagnose it from the sympt
 7. A `.claude/settings.json` hook you forgot about keeps firing. Find its source with `/hooks`, then turn off `read_config_from.claude`.
 8. Two skills with the same name in user and project dirs. Which one wins? Prove it.
 9. A stale version after `devin update`: inspect `_versions/`, `type -a devin`, and PATH order.
-10. An org deny rule vs. `--permission-mode dangerous`. Explain to a "customer" why dangerous mode didn't bypass it.
+10. An org deny rule vs. `--permission-mode dangerous`. Explain why dangerous mode didn't bypass it.
 11. A proxy that rejects compressed requests: every API call fails after upgrading to 3000.11.92. Find the `proxy.gzip` switch.
 12. A home directory on NFS: `session/list failed` or `database is locked`. Move the store with `DEVIN_SESSIONS_DIR`.
 
-### Support triage checklist
+### Troubleshooting checklist
 ```
 devin --version; uname -a; echo $TERM $SHELL
 devin auth status
@@ -237,7 +237,7 @@ report: /bug inside the CLI, or support@cognition.ai
 - 40 min: one lab, one break-it drill, or one mystery ticket in the game
 - 5 min: note what you got wrong and which cards you added
 
-## Support one-liners from real repro sessions
+## Diagnostic one-liners from real repro sessions
 - In terminals Devin creates, `type -a devin` shows `devin is a function` before `devin is ~/.local/bin/devin`; call the binary by path or with `command devin`.
 - `where bash` — show Windows bash executables resolved from PATH in search order.
 - `nohup devin -p <prompt> </dev/null >devin.log 2>&1 &` — detach a prompted CLI job and capture output in devin.log.

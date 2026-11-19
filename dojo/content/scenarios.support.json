@@ -4,7 +4,7 @@
     "topic": "launch",
     "title": "8 CI jobs exit 2 instantly",
     "ticket": "My script fans out 8 devin jobs to load-test our account. Every one exits with code 2 in under a second. Nothing in the logs.",
-    "prompt": "customer@ci ~/app$ ",
+    "prompt": "dev@ci ~/app$ ",
     "turns": 7,
     "commands": [
       {
@@ -87,7 +87,7 @@
       "cat run.sh",
       "devin --help | grep permission"
     ],
-    "explain": "Real repro (resource_exhausted ticket): invented flags from other tools. Exit 2 = arg parse error. Also detach stdin or jobs suspend on tty output.",
+    "explain": "Real repro (resource_exhausted case): invented flags from other tools. Exit 2 = arg parse error. Also detach stdin or jobs suspend on tty output.",
     "source": "S-RE",
     "confidence": "confirmed"
   },
@@ -96,7 +96,7 @@
     "topic": "auth",
     "title": "Login on an SSH box fails",
     "ticket": "I'm on a remote dev box over SSH. I went to show-auth-code, copied the code, pasted it into devin auth login and it says 'Failed to exchange code'.",
-    "prompt": "customer@devbox ~$ ",
+    "prompt": "dev@devbox ~$ ",
     "turns": 6,
     "commands": [
       {
@@ -106,7 +106,7 @@
         ],
         "evidence": true,
         "source": "recorded",
-        "output": "Not logged in.\n  Credentials path: /home/customer/.local/share/devin/credentials.toml\nRun `devin auth login` to authenticate."
+        "output": "Not logged in.\n  Credentials path: /home/dev/.local/share/devin/credentials.toml\nRun `devin auth login` to authenticate."
       },
       {
         "id": "ssh-env",
@@ -252,7 +252,7 @@
       "where bash",
       "$env:PATH"
     ],
-    "explain": "Generalized from a real case. Did NOT reproduce with Git Bash; MKS is the leading suspect, unconfirmed. Label it that way to the customer.",
+    "explain": "Generalized from a real case. Did NOT reproduce with Git Bash; MKS is the leading suspect, unconfirmed. Say so when you report it.",
     "source": "R-WIN-BASH",
     "confidence": "hypothesis"
   },
@@ -261,7 +261,7 @@
     "topic": "debug",
     "title": "Workspace disappears, two windows next launch",
     "ticket": "I open my saved .code-workspace, start a Devin Local chat, and the title changes to 'Untitled (Workspace)'. Next time I open Devin I get two windows.",
-    "prompt": "PS C:\\Users\\cust> ",
+    "prompt": "PS C:\\Users\\dev> ",
     "turns": 6,
     "commands": [
       {
@@ -311,8 +311,8 @@
     "fix": {
       "q": "Best response today?",
       "choices": [
-        "Escalate with renderer.log 'Workspace transition' lines + repro steps; workaround: reopen the saved workspace",
-        "Tell the customer to delete %APPDATA%\\Devin",
+        "Report it with renderer.log 'Workspace transition' lines + repro steps; workaround: reopen the saved workspace",
+        "Delete %APPDATA%\\Devin",
         "Disable ACP",
         "Reinstall Windows"
       ],

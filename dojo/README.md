@@ -66,8 +66,8 @@ opens it anywhere. Each choice prints the CLI command it stands for under
 
 ![A mystery ticket](../assets/ticket.png)
 
-A customer's broken setup, one shell command at a time — simulated: nothing
-runs for real. Type shell commands at the `❭ customer@… $` prompt. New
+A broken setup, one shell command at a time — realistic, but simulated: nothing
+runs for real. Type shell commands at the `❭ dev@… $` prompt. New
 evidence commands fill the evidence dots (`●○○○`) and build the combo
 multiplier (up to x3). `ticket` reprints the message, `hint` shows the next
 optimal command and costs 10 XP, `solve` moves to the diagnosis questions,
