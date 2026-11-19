@@ -104,33 +104,13 @@ def parse_line(line):
 def wrap_cells(runs):
     """Break a parsed line into (start_column, [(char, style), ...]) rows.
 
-    Wraps at the last space inside the row width (hard break only when a token
-    exceeds the row), drops the break space, and indents continuation rows of
-    numbered-choice lines by 4 cells.
+    Plain terminal-style hard wrap at COLUMNS cells: dojo wraps prose itself,
+    so this only emulates the terminal for verbatim output (shell transcripts,
+    help text) that is never re-wrapped.
     """
-    plain = "".join(segment for segment, _ in runs)
     cells = [(ch, style) for segment, style in runs for ch in segment]
-    indent = 4 if re.match(r"^\s*\d+ ", plain) else 0
-    rows = []
-    index = 0
-    while True:
-        start = indent if rows else 0
-        capacity = COLUMNS - start
-        window = cells[index:index + capacity]
-        if index + capacity >= len(cells):
-            piece, index = window, len(cells)
-        else:
-            gap = max(
-                (j for j, (ch, _) in enumerate(window) if ch == " "),
-                default=-1,
-            )
-            if gap <= 0:
-                piece, index = window, index + capacity
-            else:
-                piece, index = window[:gap], index + gap + 1
-        rows.append((start, piece))
-        if index >= len(cells):
-            return rows
+    rows = [cells[i:i + COLUMNS] for i in range(0, len(cells), COLUMNS)] or [[]]
+    return [(0, piece) for piece in rows]
 
 
 def group_cells(cells):

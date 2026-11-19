@@ -1,6 +1,10 @@
 # transcripts/ — review captures
 
-Terminal captures kept for review and regression reference.
+Terminal captures kept for review and regression reference. The drill, combo,
+devin-state, session, `prof-train`, `prof-forms`, `prof-color` and render
+captures were recorded in September 2026 at 72 columns with earlier card
+wording and are kept as historical review references; `prof-categories.txt`,
+`unittest.txt` and `flake8.txt` are refreshed with each layout change.
 
 ## Pattern index
 

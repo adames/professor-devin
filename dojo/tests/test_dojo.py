@@ -19,16 +19,20 @@ import dojo
 ROOT = Path(__file__).resolve().parents[1]
 
 _columns_patch = None
+_margin_patch = None
 
 
 def setUpModule():
-    global _columns_patch
+    global _columns_patch, _margin_patch
     _columns_patch = patch.dict(os.environ, {"COLUMNS": "100"})
     _columns_patch.start()
+    _margin_patch = patch.object(dojo, "LEGACY_CONSOLE_MARGIN", 0)
+    _margin_patch.start()
 
 
 def tearDownModule():
     _columns_patch.stop()
+    _margin_patch.stop()
 
 
 class TerminalCapture(io.StringIO):
@@ -618,7 +622,7 @@ class PresentationTests(unittest.TestCase):
         output = TerminalCapture(encoding="ascii")
         names = (
             "prompt", "question", "found", "empty", "separator", "quit",
-            "strong_rule", "hairline",
+            "strong_rule", "hairline", "enter",
         )
         with patch.object(dojo, "use_color", return_value=False):
             with redirect_stdout(output):
@@ -627,7 +631,7 @@ class PresentationTests(unittest.TestCase):
                 print(dojo.score_bar(0.5))
                 print(dojo.rule(), dojo.rule(is_strong=True))
         text = output.getvalue()
-        for character in "❭✱●○·✕━─":
+        for character in "❭✱●○·✕━─↵":
             self.assertNotIn(character, text)
 
     def test_say_wraps_to_width_with_hanging_indent(self):
@@ -668,6 +672,72 @@ class PresentationTests(unittest.TestCase):
             self.assertTrue(line.startswith("\033[2m"), line)
             self.assertTrue(line.endswith("\033[0m"), line)
             self.assertLessEqual(dojo.visible_length(line), 12)
+
+    def test_footer_wraps_between_hints_only(self):
+        output = TerminalCapture()
+        with patch.object(dojo, "use_color", return_value=False):
+            with patch("dojo.terminal_width", return_value=30):
+                with redirect_stdout(output):
+                    dojo.footer(
+                        "1-7 to choose",
+                        "%s quick start" % dojo.glyph("enter"),
+                        "q quit",
+                    )
+        lines = output.getvalue().splitlines()
+        self.assertGreaterEqual(len(lines), 2)
+        for line in lines:
+            self.assertLessEqual(dojo.visible_length(line), 30)
+        for hint in ("1-7 to choose", "↵ quick start", "q quit"):
+            self.assertEqual(
+                sum(1 for line in lines if hint in line), 1, hint
+            )
+        self.assertFalse(any(line.rstrip().endswith("q") for line in lines))
+
+    def test_ascii_output_has_no_non_ascii(self):
+        item = {
+            "id": "ascii-card",
+            "topic": "debug",
+            "q": "Question",
+            "answers": ["the answer"],
+            "keywords": ["answer"],
+            "hint": "hint",
+            "explain": "The explanation.",
+        }
+        output = TerminalCapture(encoding="ascii")
+        with tempfile.TemporaryDirectory() as directory:
+            game = self.make_game(directory, item)
+            game.state["profile"] = "beginner"
+            with patch.object(dojo, "use_color", return_value=False):
+                with patch.object(dojo, "installed_cli_version", return_value="3000.11.92"):
+                    with redirect_stdout(output):
+                        dojo.print_banner(None)
+                        dojo.footer("%s continue" % dojo.glyph("enter"))
+                        dojo.print_how_to_play()
+                        game.coach_tip("flash")
+        text = output.getvalue()
+        text.encode("ascii")
+        self.assertIn("professor devin", text)
+        self.assertIn("enter continue", text)
+
+    def test_configure_output_replaces_undecodable_characters(self):
+        capture = TerminalCapture(encoding="ascii")
+        capture.reconfigure = unittest.mock.Mock()
+        with patch("sys.stdout", capture):
+            dojo.configure_output()
+        capture.reconfigure.assert_called_once_with(errors="replace")
+
+        capture = TerminalCapture(encoding="utf-8")
+        capture.reconfigure = unittest.mock.Mock()
+        with patch("sys.stdout", capture):
+            dojo.configure_output()
+        capture.reconfigure.assert_not_called()
+
+    def test_visible_length_counts_cells(self):
+        self.assertEqual(dojo.visible_length("ab"), 2)
+        self.assertEqual(dojo.visible_length("日本"), 4)
+        self.assertEqual(dojo.visible_length("e\u0301"), 1)
+        with patch.object(dojo, "use_color", return_value=True):
+            self.assertEqual(dojo.visible_length(dojo.muted("x")), 1)
 
     def test_source_has_no_non_accent_foreground_sgr_literals(self):
         source = Path(dojo.__file__).read_text(encoding="utf-8")

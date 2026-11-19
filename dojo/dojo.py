@@ -14,6 +14,7 @@ import shutil
 import subprocess
 import sys
 import time
+import unicodedata
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -78,6 +79,7 @@ GLYPHS = {
     "quit": ("✕", "x"),
     "strong_rule": ("━", "="),
     "hairline": ("─", "-"),
+    "enter": ("↵", "enter"),
 }
 
 
@@ -96,15 +98,26 @@ def interactive_terminal():
     return bool(stdin_tty() and stdout_tty())
 
 
-def glyph(name):
-    unicode_glyph, ascii_glyph = GLYPHS[name]
+def utf8_output():
     encoding = getattr(sys.stdout, "encoding", None)
-    if isinstance(encoding, str) and encoding.lower().replace("-", "").replace("_", "") in (
+    return isinstance(encoding, str) and encoding.lower().replace("-", "").replace("_", "") in (
         "utf8",
         "utf8sig",
-    ):
-        return unicode_glyph
-    return ascii_glyph
+    )
+
+
+def glyph(name):
+    unicode_glyph, ascii_glyph = GLYPHS[name]
+    return unicode_glyph if utf8_output() else ascii_glyph
+
+
+def with_glyphs(text):
+    return text.replace("↵", glyph("enter"))
+
+
+def configure_output():
+    if not utf8_output() and hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="replace")
 
 
 def chrome(text):
@@ -154,10 +167,11 @@ def accent_code():
 
 LAYOUT_MIN_WIDTH = 20
 LAYOUT_MAX_WIDTH = 120
+LEGACY_CONSOLE_MARGIN = 1 if os.name == "nt" and not os.environ.get("WT_SESSION") else 0
 
 
 def terminal_width():
-    columns = shutil.get_terminal_size((72, 24)).columns
+    columns = shutil.get_terminal_size((72, 24)).columns - LEGACY_CONSOLE_MARGIN
     return max(LAYOUT_MIN_WIDTH, min(columns, LAYOUT_MAX_WIDTH))
 
 
@@ -172,7 +186,13 @@ SGR_PATTERN = re.compile(r"\033\[[0-9;]*m")
 
 
 def visible_length(text):
-    return len(SGR_PATTERN.sub("", text))
+    plain = SGR_PATTERN.sub("", text)
+    return sum(
+        0
+        if unicodedata.combining(ch)
+        else 2 if unicodedata.east_asian_width(ch) in ("W", "F") else 1
+        for ch in plain
+    )
 
 
 def wrap_line(line, width, hang):
@@ -227,7 +247,17 @@ def dots(found, total):
     return glyph("found") * found + glyph("empty") * (total - found)
 
 
-def score_bar(fraction, cells=10):
+SCORE_BAR_CELLS = 10
+
+
+def bar_cells(fixed_width):
+    """Score-bar cells that fit beside `fixed_width` columns of row text (gap
+    included): the full bar when there is room, fewer down to 4, none below that."""
+    available = terminal_width() - fixed_width
+    return min(SCORE_BAR_CELLS, available) if available >= 4 else 0
+
+
+def score_bar(fraction, cells=SCORE_BAR_CELLS):
     cells = max(0, cells)
     filled = max(0, min(cells, int(round(float(fraction) * cells))))
     return glyph("strong_rule") * filled + muted(glyph("hairline") * (cells - filled))
@@ -251,7 +281,22 @@ def question(text):
 
 
 def footer(*hints):
-    say(muted(chrome((" %s " % glyph("separator")).join(str(hint) for hint in hints))))
+    separator = " %s " % glyph("separator")
+    width = terminal_width()
+    lines = []
+    current = ""
+    for hint in hints:
+        hint = with_glyphs(chrome(hint))
+        candidate = current + separator + hint if current else hint
+        if current and visible_length(candidate) > width:
+            lines.append(current)
+            current = hint
+        else:
+            current = candidate
+    if current:
+        lines.append(current)
+    for line in lines:
+        say(muted(line))
 
 
 def box_open():
@@ -1560,8 +1605,9 @@ class Dojo:
         ))
         width = terminal_width()
         print()
-        if len(left) + len(right) + 1 <= width:
-            print(left + " " * (width - len(left) - len(right)) + muted(right))
+        if visible_length(left) + visible_length(right) + 1 <= width:
+            gap = width - visible_length(left) - visible_length(right)
+            print(left + " " * gap + muted(right))
         else:
             print(left)
             print(muted(right.rjust(width)))
@@ -1595,8 +1641,9 @@ class Dojo:
         ))
         width = terminal_width()
         print()
-        if len(left) + len(right) + 1 <= width:
-            print(left + " " * (width - len(left) - len(right)) + muted(right))
+        if visible_length(left) + visible_length(right) + 1 <= width:
+            gap = width - visible_length(left) - visible_length(right)
+            print(left + " " * gap + muted(right))
         else:
             print(left)
             print(muted(right.rjust(width)))
@@ -1742,7 +1789,10 @@ class Dojo:
             for canonical in card["answers"]:
                 say("%s  %s" % (chrome("Answer"), canonical), hang=8)
         for line in command_help_lines(card):
-            say(muted(line))
+            line = line.expandtabs()
+            prefix = line[:line.index(": ") + 2] if ": " in line else ""
+            hang = len(prefix) if terminal_width() - len(prefix) >= 30 else 0
+            say(muted(line), hang=hang)
         revealed = card["answers"] + ([card["task"]] if form == "recognize" else [])
         if card.get("explain") and card["explain"] not in revealed:
             say(card["explain"])
@@ -1783,7 +1833,7 @@ class Dojo:
         tips = self.state.setdefault("tips_seen", {})
         if tips.get(key, 0) >= 2:
             return
-        say("%s  %s" % (muted(chrome("Tip")), self.COACH_TIPS[key]), hang=5)
+        say("%s  %s" % (muted(chrome("Tip")), with_glyphs(self.COACH_TIPS[key])), hang=5)
         tips[key] = tips.get(key, 0) + 1
 
     COMMAND_FOOTERS = {
@@ -2588,30 +2638,32 @@ class Dojo:
 
 def print_topic_table(title, topics):
     print(muted(chrome(title)))
-    headings = "%-14s %5s %5s %7s  " % ("Topic", "Right", "Seen", "Acc")
+    cells = bar_cells(36)
+    bar_title = ""
+    headings = "%-14s %5s %5s %7s" % ("Topic", "Right", "Seen", "Acc")
+    if cells:
+        headings += "  " + bar_title if cells >= len(bar_title) else "  "
     print(muted(chrome(headings)))
     print(rule(is_strong=True))
     for topic in sorted(topics):
         count, total = topics[topic]
         percent = 100 * count / total if total else 0
-        print("%-14s %5d %5d %6.1f%%  %s" % (
-            topic,
-            count,
-            total,
-            percent,
-            score_bar(percent / 100),
-        ))
+        row = "%-14s %5d %5d %6.1f%%" % (topic, count, total, percent)
+        print(row + ("  %s" % score_bar(percent / 100, cells) if cells else ""))
 
 
 def print_category_table(title, categories):
     print(muted(chrome(title)))
-    headings = "%-15s %7s %7s %7s  %s" % (
+    cells = bar_cells(41)
+    bar_title = "Progress"
+    headings = "%-15s %7s %7s %7s" % (
         "Category",
         "Correct",
         "Seen",
         "Acc",
-        "Progress",
     )
+    if cells:
+        headings += "  " + bar_title if cells >= len(bar_title) else "  "
     print(muted(chrome(headings)))
     print(rule(is_strong=True))
     for category in CATEGORIES:
@@ -2619,13 +2671,8 @@ def print_category_table(title, categories):
             continue
         correct, total = categories[category]
         percent = 100 * correct / total if total else 0
-        print("%-15s %7d %7d %6.1f%%  %s" % (
-            category,
-            correct,
-            total,
-            percent,
-            score_bar(percent / 100),
-        ))
+        row = "%-15s %7d %7d %6.1f%%" % (category, correct, total, percent)
+        print(row + ("  %s" % score_bar(percent / 100, cells) if cells else ""))
 
 
 def stats_accuracy(items):
@@ -2681,10 +2728,11 @@ def show_stats(state):
     now = dt.datetime.now().astimezone()
     boxes, due_today = stats_leitner_boxes(items, now)
     print(muted(chrome("Leitner boxes")))
-    box_headings = "  ".join(chrome("Box %d" % box).rjust(8) for box in range(1, 6))
+    cell = min(8, max(5, (terminal_width() - 8) // 5))
+    box_headings = "  ".join(chrome("Box %d" % box).rjust(cell) for box in range(1, 6))
     print(muted(box_headings))
     print(rule(is_strong=True))
-    print("  ".join(str(boxes[box]).rjust(8) for box in range(1, 6)))
+    print("  ".join(str(boxes[box]).rjust(cell) for box in range(1, 6)))
     print(kv("Due today", due_today))
     topics = stats_topic_totals(items)
     if topics:
@@ -2694,14 +2742,17 @@ def show_stats(state):
 def show_categories(content, state):
     print(strong(chrome("Categories")))
     print(rule(is_strong=True))
-    headings = "%-15s %5s %5s %8s %5s  %s" % (
+    cells = bar_cells(44)
+    bar_title = "Progress"
+    headings = "%-15s %5s %5s %8s %5s" % (
         "Category",
         "Cards",
         "Seen",
         "Mastered",
         "Due",
-        "Progress",
     )
+    if cells:
+        headings += "  " + bar_title if cells >= len(bar_title) else "  "
     print(muted(chrome(headings)))
     print(rule(is_strong=True))
     now = dt.datetime.now().astimezone()
@@ -2722,14 +2773,8 @@ def show_categories(content, state):
                 due += 1
         total = len(cards)
         fraction = mastered / total if total else 0
-        print("%-15s %5d %5d %8d %5d  %s" % (
-            category,
-            total,
-            seen,
-            mastered,
-            due,
-            score_bar(fraction),
-        ))
+        row = "%-15s %5d %5d %8d %5d" % (category, total, seen, mastered, due)
+        print(row + ("  %s" % score_bar(fraction, cells) if cells else ""))
 
 
 def list_items(content, state, item_type=None):
@@ -2746,9 +2791,11 @@ def list_items(content, state, item_type=None):
         for item in content[key]:
             progress = state.get("items", {}).get(item["id"], {})
             if category == "command":
-                description = "tier %d · %s · %s" % (
+                description = "tier %d %s %s %s %s" % (
                     item["tier"],
+                    glyph("separator"),
                     item["category"],
+                    glyph("separator"),
                     item["task"],
                 )
             else:
@@ -2852,7 +2899,7 @@ def say_help(lines):
     under the description column."""
     for line in lines:
         match = re.match(r"( +\S.*?  +)\S", line)
-        say(line, hang=len(match.group(1)) if match else None)
+        say(with_glyphs(line), hang=len(match.group(1)) if match else None)
 
 
 def print_how_to_play():
@@ -2906,7 +2953,7 @@ def print_home_menu(state):
             muted(chrome(description)),
         ), hang=4 + title_width + 2)
     print()
-    footer("1-7 to choose", "↵ quick start", "q quit")
+    footer("1-7 to choose", "%s quick start" % glyph("enter"), "q quit")
 
 
 def category_mastered_counts(content, state):
@@ -2934,7 +2981,11 @@ def choose_topic_menu(content, state):
             muted(chrome("%d cards %s %d mastered" % (total, glyph("separator"), mastered))),
         ), hang=19)
     print()
-    footer("1-%d to choose" % len(CATEGORIES), "name also works", "↵ back")
+    footer(
+        "1-%d to choose" % len(CATEGORIES),
+        "name also works",
+        "%s back" % glyph("enter"),
+    )
     response = read_answer().strip().lower()
     if not response:
         return None
@@ -2970,18 +3021,26 @@ def print_banner(lead):
         "you have %s" % installed if installed else "devin not installed"
     )
     lead_line = "%s %s " % (lead, glyph("separator")) if lead else ""
-    hang = len(MENU_LOGO[0]) + 2
-    print(MENU_LOGO[0])
-    say("%s  %s" % (MENU_LOGO[1], strong(chrome("Professor Devin"))), hang=hang)
-    say("%s  %s" % (MENU_LOGO[2], muted(chrome("Learn the Devin CLI by typing it"))), hang=hang)
-    say("%s  %s" % (MENU_LOGO[3], muted(chrome(
-        "%scards written for Devin CLI %s %s %s" % (
-            lead_line,
-            content_cli_version(),
-            glyph("separator"),
-            version_note,
-        )
-    ))), hang=hang)
+    lines = (
+        strong(chrome("Professor Devin")),
+        muted(chrome("Learn the Devin CLI by typing it")),
+        muted(chrome(
+            "%scards written for Devin CLI %s %s %s" % (
+                lead_line,
+                content_cli_version(),
+                glyph("separator"),
+                version_note,
+            )
+        )),
+    )
+    if utf8_output():
+        hang = len(MENU_LOGO[0]) + 2
+        print(MENU_LOGO[0])
+        for logo, text in zip(MENU_LOGO[1:], lines):
+            say("%s  %s" % (logo, text), hang=hang)
+    else:
+        for text in lines:
+            say(text)
 
 
 def setup_wizard(home, state, first_run):
@@ -3007,7 +3066,7 @@ def setup_wizard(home, state, first_run):
     print()
     footer(
         "1-2 to choose",
-        "↵ new to it",
+        "%s new to it" % glyph("enter"),
         "change later with professor-devin setup",
     )
     while True:
@@ -3036,7 +3095,7 @@ def setup_wizard(home, state, first_run):
     print(rule(is_strong=True))
     say_help(HOW_IT_WORKS)
     print()
-    footer("↵ continue")
+    footer("%s continue" % glyph("enter"))
     try:
         read_answer()
     except EOFError:
@@ -3091,7 +3150,7 @@ def home_menu(home, content):
             print()
             continue
         print()
-        footer("↵ menu", "q quit")
+        footer("%s menu" % glyph("enter"), "q quit")
         again = read_answer().strip().lower()
         if again in ("q", "quit"):
             return
@@ -3341,6 +3400,7 @@ def run_cli_command(args, parser, home, content, state):
 
 
 def main(argv=None):
+    configure_output()
     arguments = list(sys.argv[1:] if argv is None else argv)
     parser = build_parser()
     args = parse_cli_arguments(arguments, parser)

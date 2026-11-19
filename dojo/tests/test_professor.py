@@ -19,16 +19,20 @@ ROOT = Path(__file__).resolve().parents[1]
 COVERAGE_EXEMPT = ()
 
 _columns_patch = None
+_margin_patch = None
 
 
 def setUpModule():
-    global _columns_patch
+    global _columns_patch, _margin_patch
     _columns_patch = patch.dict(os.environ, {"COLUMNS": "100"})
     _columns_patch.start()
+    _margin_patch = patch.object(dojo, "LEGACY_CONSOLE_MARGIN", 0)
+    _margin_patch.start()
 
 
 def tearDownModule():
     _columns_patch.stop()
+    _margin_patch.stop()
 
 
 class DevinCommandParserTests(unittest.TestCase):
@@ -679,6 +683,137 @@ class ProfessorEngineTests(unittest.TestCase):
             line.startswith("    ") and not line[4:5].isspace()
             for line in lines
         ), lines)
+
+    def test_terminal_width_applies_legacy_console_margin(self):
+        with patch.object(dojo, "LEGACY_CONSOLE_MARGIN", 1):
+            with patch(
+                "dojo.shutil.get_terminal_size",
+                return_value=os.terminal_size((100, 24)),
+            ):
+                self.assertEqual(dojo.terminal_width(), 99)
+
+    def test_tables_shed_the_score_bar_on_narrow_terminals(self):
+        def capture(width, render):
+            output = io.StringIO()
+            with patch(
+                "dojo.shutil.get_terminal_size",
+                return_value=os.terminal_size((width, 24)),
+            ):
+                with redirect_stdout(output):
+                    render()
+            return output.getvalue().splitlines()
+
+        categories = {"launch": (1, 2), "sessions": (0, 1)}
+        bar = "━─=-"
+
+        def bar_len(row):
+            return len(re.search(r"[%s]+$" % bar, row).group(0))
+
+        lines = capture(100, lambda: dojo.print_category_table("x", categories))
+        rows = [line for line in lines if re.search(r"\d\s", line)]
+        self.assertEqual(len(rows), 2)
+        for row in rows:
+            self.assertEqual(bar_len(row), 10)
+
+        lines = capture(49, lambda: dojo.print_category_table("x", categories))
+        for line in lines:
+            self.assertLessEqual(dojo.visible_length(line), 49)
+        self.assertTrue(any("progress" in line for line in lines))
+        rows = [line for line in lines if re.search(r"\d\s", line)]
+        for row in rows:
+            self.assertEqual(bar_len(row), 8)
+
+        lines = capture(48, lambda: dojo.print_category_table("x", categories))
+        rows = [line for line in lines if re.search(r"\d\s", line)]
+        for row in rows:
+            self.assertEqual(bar_len(row), 7)
+        self.assertFalse(any("progress" in line for line in lines))
+
+        lines = capture(44, lambda: dojo.print_category_table("x", categories))
+        rows = [line for line in lines if re.search(r"\d\s", line)]
+        self.assertEqual(len(rows), 2)
+        for row in rows:
+            self.assertEqual(dojo.visible_length(row), 39)
+        self.assertFalse(any("progress" in line for line in lines))
+
+        lines = capture(
+            50, lambda: dojo.show_categories(self.content, dojo.default_state())
+        )
+        for line in lines:
+            self.assertLessEqual(dojo.visible_length(line), 50, line)
+        rows = [line for line in lines if re.search(r"\d\s", line)]
+        for row in rows:
+            self.assertEqual(bar_len(row), 6)
+
+        lines = capture(
+            54, lambda: dojo.show_categories(self.content, dojo.default_state())
+        )
+        rows = [line for line in lines if re.search(r"\d\s", line)]
+        self.assertTrue(rows)
+        for row in rows:
+            self.assertEqual(bar_len(row), 10)
+
+        lines = capture(
+            47, lambda: dojo.show_categories(self.content, dojo.default_state())
+        )
+        rows = [line for line in lines if re.search(r"\d\s", line)]
+        self.assertTrue(rows)
+        for row in rows:
+            self.assertEqual(dojo.visible_length(row), 42)
+
+        lines = capture(40, lambda: dojo.print_topic_table("x", {"hooks": (1, 2)}))
+        rows = [line for line in lines if re.search(r"\d\s", line)]
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(bar_len(rows[0]), 4)
+        self.assertLessEqual(dojo.visible_length(rows[0]), 40)
+
+        lines = capture(39, lambda: dojo.print_topic_table("x", {"hooks": (1, 2)}))
+        rows = [line for line in lines if re.search(r"\d\s", line)]
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(dojo.visible_length(rows[0]), 34)
+
+        lines = capture(40, lambda: dojo.show_stats(dojo.default_state()))
+        box_rows = [line for line in lines if "box" in line]
+        self.assertEqual(len(box_rows), 2)
+        for row in box_rows:
+            self.assertLessEqual(dojo.visible_length(row), 40)
+
+    def test_help_excerpt_hangs_under_source_prefix(self):
+        card = next(
+            card for card in self.content["commands"]
+            if card["id"] == "cmd-launch-print"
+        )
+
+        def reveal(width, target):
+            output = io.StringIO()
+            with patch(
+                "dojo.shutil.get_terminal_size",
+                return_value=os.terminal_size((width, 24)),
+            ):
+                with redirect_stdout(output):
+                    self.game.show_command_reveal(target, "skip", "recall")
+            return output.getvalue().splitlines()
+
+        lines = reveal(60, card)
+        usage = next(
+            index for index, line in enumerate(lines) if "Usage:" in line
+        )
+        continuation = lines[usage + 1]
+        self.assertTrue(continuation.startswith(" " * 24), continuation)
+        self.assertFalse(continuation[24:25].isspace())
+
+        lines = reveal(40, card)
+        usage = next(
+            index for index, line in enumerate(lines) if "Usage:" in line
+        )
+        continuation = lines[usage + 1]
+        self.assertFalse(continuation[:1].isspace())
+
+        slash = next(
+            card for card in self.content["commands"]
+            if card["category"] == "slash" and dojo.command_help_lines(card)
+        )
+        self.assertFalse(any("\t" in line for line in reveal(100, slash)))
 
     def test_new_cards_follow_tier_order_and_category_round_robin(self):
         cards = [

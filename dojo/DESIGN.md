@@ -25,19 +25,24 @@ Both themes: because only default fg, dim, bold, inverse and one accent are used
 `✕` give-up/quit notice.
 Rules: strong rule `━`, hairline `─`. ScoreBar cells: filled `━` (ink), empty `─` (muted).
 ASCII fallback when `sys.stdout.encoding` is not UTF-8: `❭`->`>`, `✱`->`*`, `●`->`*`, `○`->`o`, `·`->`-`, `✕`->`x`,
-`━`->`=`, `─`->`-`.
+`━`->`=`, `─`->`-`, `↵`->`enter`; the MENU_LOGO column is omitted entirely on non-UTF-8 output.
 
 ## Layout
-Width `W = clamp(shutil.get_terminal_size((72, 24)).columns, 20, 120)`: the layout follows the live terminal
-width up to 120 columns (readability cap) and down to 20; 72 is only the fallback when the size is unknown
-(piped output).
+Width `W = clamp(shutil.get_terminal_size((72, 24)).columns - margin, 20, 120)`: the layout follows the live
+terminal width up to 120 columns (readability cap) and down to 20; 72 is only the fallback when the size is
+unknown (piped output). `margin` is 1 on the legacy Windows console (`os.name == "nt"` without `WT_SESSION`,
+which wraps eagerly on the last column) and 0 elsewhere. Widths are measured with `visible_length`, which
+counts East Asian wide/fullwidth characters as 2 cells and combining marks as 0.
 
 Wrapping: all prose (questions, choices, answers, explains, hints, tips, footers, ticket text, menu rows,
 banner lines, summary items) is word-wrapped to W by `say()` with a hanging indent under the content column
 (marker lines indent 2, numbered choices 4, labelled lines the label width, help-screen key rows wrap
 under their description column via `say_help`); styles are closed and reopened
-across the break; words are never split. Rules, KVList/DataTable rows, simulated/recorded shell output,
-fix-card error blocks and CLI help are never re-wrapped.
+across the break; words are never split. Rules and KVList rows are never wrapped; DataTable rows never wrap
+but their ScoreBar shrinks from 10 cells to 4 as the width tightens and disappears when fewer than 4 fit
+(tables fit from 42 columns up; full bars from 54); footers break only between hints; help excerpts hang under their `path: `
+prefix when ≥ 30 columns remain; simulated/recorded shell output, fix-card error blocks and CLI help stay
+verbatim.
 
 Session header (once, at start of `train` and `play`):
 ```
